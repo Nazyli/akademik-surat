@@ -16,9 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
+Route::view('/forbidden', '400');
+
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+
+Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 'is_admin']], function () {
+    Route::get('home', [HomeController::class, 'adminHome'])->name('admin.home');
+});
+
+Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
+    Route::get('home', [HomeController::class, 'userHome'])->name('user.home');
+});
