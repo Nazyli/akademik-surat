@@ -34,6 +34,7 @@ class CreateUsersSeeder extends Seeder
 
             $user = [
                 [
+                    'id' => 'nazyliadmin',
                     'first_name' => 'Admin',
                     'last_name' => 'Dummy',
                     'phone' => '085735906222',
@@ -42,6 +43,7 @@ class CreateUsersSeeder extends Seeder
                     'password' => bcrypt('123456'),
                 ],
                 [
+                    'id' => 'nazyliuser',
                     'first_name' => 'User',
                     'last_name' => 'Dummy',
                     'phone' => '085735906222',
