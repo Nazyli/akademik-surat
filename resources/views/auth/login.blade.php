@@ -8,39 +8,23 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Login | Sistem Informasi Persuratan Akademik FMIPA UI - SIPA</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon"
-        href="{{ asset('/img/favicon/favicon.ico"') }} />
+    <link rel="icon" type="image/x-icon" href="{{ asset('/img/favicon/favicon.ico') }}" />
 
-    <!-- Fonts -->
-    <link rel="preconnect"
-        href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css') }}" />
-
-    <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('/css/demo.css') }}" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-
-    <!-- Page CSS -->
-    <!-- Page -->
+    <link rel="stylesheet" href="{{ asset('/vendor/libs/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/vendor/css/pages/page-auth.css') }}" />
-
-    <!-- Helpers -->
-    {{-- <script src="{{ asset('/vendor/js/helpers.js') }}"></script> --}}
-    {{-- <script src="{{ asset('/js/config.js') }}"></script> --}}
     <style>
         .bg {
             background-image: url("{{ asset('img/backgrounds/login.png') }}");
@@ -138,9 +122,37 @@
     <script src="{{ asset('/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('/vendor/js/menu.js') }}"></script>
-    {{-- <script src="{{ asset('/js/main.js') }}"></script> --}}
+    <script src="{{ asset('/vendor/libs/toastr/toastr.min.js') }}"></script>
+    <script>
+        function showNotif(status, message) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr[status](message);
+        };
+
+        @if (session('success'))
+            $(document).ready(showNotif('success', '{{ session('success') }}'));
+        @endif
+        @if (session('error'))
+            $(document).ready(showNotif('error', '{{ session('error') }}'));
+        @endif
+    </script>
+
 </body>
 
 </html>
