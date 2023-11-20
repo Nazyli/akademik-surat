@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleMembershipsTable extends Migration
+class CreateFormTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateRoleMembershipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_memberships', function (Blueprint $table) {
-            $table->id();
+        Schema::create('form_types', function (Blueprint $table) {
+            $table->string("id")->primary();
             $table->string("name");
+            $table->string('status')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateRoleMembershipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_memberships');
+        Schema::dropIfExists('form_types');
     }
 }
