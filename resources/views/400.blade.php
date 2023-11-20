@@ -40,7 +40,7 @@
     <div class="container">
         <div class="error-message">
             <h1>403 Forbidden</h1>
-            <p>Maaf, Anda tidak memiliki izin untuk mengakses halaman ini.</p>
+            <p>Maaf, Anda tidak memiliki izin untuk mengakses halaman ini. {{ session('error') }} </p>
         </div>
     </div>
 </body>

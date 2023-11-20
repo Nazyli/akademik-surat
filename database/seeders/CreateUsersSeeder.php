@@ -6,6 +6,7 @@ use App\Models\RoleMembership;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CreateUsersSeeder extends Seeder
 {
@@ -34,7 +35,7 @@ class CreateUsersSeeder extends Seeder
 
             $user = [
                 [
-                    'id' => 'nazyliadmin',
+                    'id' => Str::uuid(),
                     'first_name' => 'Admin',
                     'last_name' => 'Dummy',
                     'phone' => '085735906222',
@@ -43,7 +44,7 @@ class CreateUsersSeeder extends Seeder
                     'password' => bcrypt('123456'),
                 ],
                 [
-                    'id' => 'nazyliuser',
+                    'id' => Str::uuid(),
                     'first_name' => 'User',
                     'last_name' => 'Dummy',
                     'phone' => '085735906222',

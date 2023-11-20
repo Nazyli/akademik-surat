@@ -1,16 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Dashboard</div>
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms /</span> Basic Inputs</h4>
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-12" style="height: 600px;">
+                    <h5 class="card-header">Database</h5>
                     <div class="card-body">
-                        You are Admin.
+                        <div class="table-responsive text-nowrap">
+                            Selamat Datang Admin
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
