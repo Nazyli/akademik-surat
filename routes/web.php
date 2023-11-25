@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\DepartmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,8 @@ Auth::routes();
 
 Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 'is_admin']], function () {
     Route::get('home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::resource('master/department', DepartmentController::class);
+
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {

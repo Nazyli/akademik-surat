@@ -1,3 +1,14 @@
+@php
+    function isActiveLink($text)
+    {
+        if (\Request::is($text) or \Request::is($text . '/*')) {
+            return 'active';
+        } else {
+            return null;
+        }
+    }
+@endphp
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default"
@@ -23,6 +34,11 @@
         rel="stylesheet" />
 
     <link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css') }}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css"
+        class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('vendor/libs/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+
+
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('/vendor/css/core.css') }}" class="template-customizer-core-css" />
@@ -108,68 +124,70 @@
                 <div class="menu-inner-shadow"></div>
 
                 <ul class="menu-inner py-1">
-                    <!-- Dashboards -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <li class="menu-item {{ isActiveLink('admin/home') }}">
+                        <a href="{{ url('admin/home') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Dashboards">Dashboards</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item {{ isActiveLink('admin/pengajuan-surat') }}">
+                        <a href="{{ url('admin/pengajuan-surat') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="pengajuan-surat">Pengajuan Surat</div>
                             <div class="badge bg-danger rounded-pill ms-auto">5</div>
                         </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="#" target="_blank" class="menu-link">
-                                    <div data-i18n="CRM">CRM</div>
-                                    <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="index.html" class="menu-link">
-                                    <div data-i18n="Analytics">Analytics</div>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-
-                    <!-- Layouts -->
-                    <li class="menu-item active open">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-layout"></i>
-                            <div data-i18n="Layouts">Layouts</div>
-                        </a>
-
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="layouts-without-menu.html" class="menu-link">
-                                    <div data-i18n="Without menu">Without menu</div>
-                                </a>
-                            </li>
-                            <li class="menu-item active">
-                                <a href="layouts-container.html" class="menu-link">
-                                    <div data-i18n="Container">Container</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
 
                     <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Apps &amp; Pages</span>
+                        <span class="menu-header-text">Master Data</span>
                     </li>
                     <!-- Apps -->
                     <!-- Tables -->
-                    <li class="menu-item">
-                        <a href="tables-basic.html" class="menu-link">
+                    <li class="menu-item {{ isActiveLink('admin/master/department') }}">
+                        <a href="{{ url('admin/master/department') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="Tables">Tables</div>
-                            <div class="badge bg-label-warning fs-tiny rounded-pill ms-auto">Pro</div>
+                            <div data-i18n="Department">Department</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ isActiveLink('admin/master/program-studi') }}">
+                        <a href="{{ url('admin/master/program-studi') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div data-i18n="program-studi">Program Studi</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
+                        <a href="{{ url('admin/master/jenis-borang') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div data-i18n="jenis-borang">Jenis Borang</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ isActiveLink('admin/master/tipe-borang') }}">
+                        <a href="{{ url('admin/master/tipe-borang') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div data-i18n="tipe-borang">Tipe Borang</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ isActiveLink('admin/master/berita-dashboard') }}">
+                        <a href="{{ url('admin/master/berita-dashboard') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div data-i18n="berita-dashboard">Berita Dashboard</div>
+                        </a>
+                    </li>
+                    </li>
                     <!-- Misc -->
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Administrator</span>
+                    </li>
                     <li class="menu-item">
                         <a href="#" target="_blank" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-support"></i>
-                            <div data-i18n="Support">Support</div>
+                            <div data-i18n="Support">Master User</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-support"></i>
+                            <div data-i18n="Support">Setujui Password</div>
                         </a>
                     </li>
                 </ul>
@@ -318,10 +336,13 @@
     <!-- build:js assets/vendor/js/core.js -->
 
     <script src="{{ asset('/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{ asset('/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('/vendor/js/menu.js') }}"></script>
+    <script src="{{ asset('/vendor/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <!-- endbuild -->
 
@@ -360,6 +381,61 @@
         @if (session('error'))
             $(document).ready(showNotif('error', '{{ session('error') }}'));
         @endif
+
+
+        $(function() {
+            $('#datatable').DataTable({
+                "order": [],
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "bJQueryUI": true,
+                "sPaginationType": "full_numbers",
+                // "sDom": '<"clear">lfrtip',
+                "oLanguage": {
+                    "sEmptyTable": "Tidak ada data yang tersedia pada tabel ini",
+                    "sProcessing": "Sedang memproses...",
+                    "sLengthMenu": "Tampilkan _MENU_ entri",
+                    "sZeroRecords": "Tidak ditemukan data yang sesuai",
+                    "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    "sInfoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
+                    "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Cari:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "<i class='tf-icon bx bx-chevrons-left'></i>",
+                        "sPrevious": "<i class='tf-icon bx bx-chevron-left'></i>",
+                        "sNext": "<i class='tf-icon bx bx-chevron-right'></i>",
+                        "sLast": "<i class='tf-icon bx bx-chevrons-right'></i>"
+                    }
+                },
+                // dom: '<"small"lfrtip>',
+            });
+            // $('.pagination').addClass('pagination-sm');
+        });
+
+        $('.swalSuccesInActive').click(function(event) {
+            var form = $(this).closest("form");
+            event.preventDefault();
+            Swal.fire({
+                title: ' Nonaktifkan Data!',
+                text: "Apakah anda yakin ingin menonaktifkan data ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Nonaktifkan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        });
     </script>
 </body>
 
