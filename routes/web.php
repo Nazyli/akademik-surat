@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\FormTypeController;
 use App\Http\Controllers\Admin\ProgramStudiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::get('home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::resource('master/department', DepartmentController::class);
     Route::resource('master/program-studi', ProgramStudiController::class);
+    Route::resource('master/tipe-borang', FormTypeController::class);
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {

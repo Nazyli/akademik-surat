@@ -156,16 +156,16 @@
                             <div data-i18n="program-studi">Program Studi</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
-                        <a href="{{ url('admin/master/jenis-borang') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="jenis-borang">Jenis Borang</div>
-                        </a>
-                    </li>
                     <li class="menu-item {{ isActiveLink('admin/master/tipe-borang') }}">
                         <a href="{{ url('admin/master/tipe-borang') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-table"></i>
                             <div data-i18n="tipe-borang">Tipe Borang</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
+                        <a href="{{ url('admin/master/jenis-borang') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div data-i18n="jenis-borang">Jenis Borang</div>
                         </a>
                     </li>
                     <li class="menu-item {{ isActiveLink('admin/master/berita-dashboard') }}">
