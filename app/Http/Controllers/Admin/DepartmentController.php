@@ -43,7 +43,10 @@ class DepartmentController extends Controller
     {
         //
         $request->validate([
-            'id' => ['required', Rule::unique('departments')],
+            'department_code' => [
+                'required',
+                Rule::unique('departments', 'department_code')->ignore($request->department_code),
+            ],
             'department_name' => 'required',
         ]);
 
@@ -90,7 +93,10 @@ class DepartmentController extends Controller
     {
         //
         $request->validate([
-            'id' => 'required',
+            'department_code' => [
+                'required',
+                Rule::unique('departments', 'department_code')->ignore($id),
+            ],
             'department_name' => 'required',
         ]);
 

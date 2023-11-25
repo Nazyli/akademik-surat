@@ -15,6 +15,7 @@ class CreateStudyProgramsTable extends Migration
     {
         Schema::create('study_programs', function (Blueprint $table) {
             $table->string('id')->primary();
+            $table->string('study_program_code');
             $table->string('study_program_name');
             $table->string('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');

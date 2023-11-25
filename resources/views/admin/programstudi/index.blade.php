@@ -4,27 +4,40 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
             <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Department
+            Program Studi
         </h4>
 
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">{{ isset($department) ? 'Edit Data' : 'Tambah Data' }}</h5>
+                        <h5 class="mb-0">{{ isset($studyProgram) ? 'Edit Data' : 'Tambah Data' }}</h5>
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ isset($department) ? route('department.update', $department->id) : route('department.store') }}"
+                            action="{{ isset($studyProgram) ? route('program-studi.update', $studyProgram->id) : route('program-studi.store') }}"
                             method="POST">
                             @csrf
-                            @method(isset($department) ? 'PUT' : 'POST')
+                            @method(isset($studyProgram) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-department">Kode Department</label>
-                                <input type="text" class="form-control @error('department_code') is-invalid @enderror"
-                                    id="basic-default-department" name="department_code"
-                                    value="{{ isset($department) ? $department->department_code : old('department_code') }}" />
-                                @error('department_code')
+                                <label class="form-label" for="basic-default-department">Kode Program Studi</label>
+                                <input type="text" class="form-control @error('study_program_code') is-invalid @enderror"
+                                    id="basic-default-department" name="study_program_code"
+                                    value="{{ isset($studyProgram) ? $studyProgram->study_program_code : old('study_program_code') }}" />
+                                @error('study_program_code')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-department">Program Studi Name</label>
+                                <input type="text" class="form-control @error('study_program_name') is-invalid @enderror"
+                                    id="basic-default-department" name="study_program_name"
+                                    value="{{ isset($studyProgram) ? $studyProgram->study_program_name : old('study_program_name') }}" />
+                                @error('study_program_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -32,20 +45,26 @@
 
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-department">Nama Department</label>
-                                <input type="text" class="form-control @error('department_name') is-invalid @enderror"
-                                    id="basic-default-department" name="department_name"
-                                    value="{{ isset($department) ? $department->department_name : old('department_name') }}" />
-                                @error('department_name')
+                                <label for="departmentName" class="form-label">Nama Department</label>
+                                <select class="form-select @error('department_id') is-invalid @enderror""
+                                    id="departmentName" aria-label="Default select example" name="department_id">
+                                    <option></option>
+                                    @foreach ($departments as $key => $value)
+                                        <option value="{{ $value->id }}"
+                                            {{ old('department_id') == $value->id ? 'selected' : '' }}
+                                            {{ isset($studyProgram) ? ($studyProgram->department_id == $value->id ? 'selected' : '') : '' }}>
+                                            {{ $value->department_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('department_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-
                             </div>
                             <button class="btn btn-primary btn-block"><b>Save</b></button>
-                            @isset($department)
-                                <a href="{{ url('admin/master/department') }}"
+                            @isset($studyProgram)
+                                <a href="{{ url('admin/master/program-studi') }}"
                                     class="btn btn-secondary btn-block"><b>Cancel</b></a>
                             @endisset
                         </form>
@@ -57,7 +76,7 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Department</h5>
+                        <h5 class="mb-0">Data Program Studi</h5>
                     </div>
                     <div class="card-body">
                         <table id="datatable" class="table table-bordered table-hover table-sm">
@@ -65,15 +84,17 @@
                                 <tr>
                                     <th>Kode</th>
                                     <th>Nama Department</th>
+                                    <th>Program Studi</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($departments as $key => $value)
+                                @foreach ($studyPrograms as $key => $value)
                                     <tr>
-                                        <td>{{ $value->department_code }}</td>
-                                        <td>{{ $value->department_name }}</td>
+                                        <td>{{ $value->study_program_code }}</td>
+                                        <td>{{ $value->department()->department_name }}</td>
+                                        <td>{{ $value->study_program_name }}</td>
                                         @php
                                             $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
                                         @endphp
@@ -83,11 +104,11 @@
                                         <td class="text-center">
                                             <div class="btn-group">
 
-                                                <form action="{{ route('department.destroy', $value->id) }}"
+                                                <form action="{{ route('program-studi.destroy', $value->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a href="{{ route('department.edit', $value->id) }}"
+                                                    <a href="{{ route('program-studi.edit', $value->id) }}"
                                                         class="btn btn-icon btn-outline-primary btn-sm">
                                                         <span class="tf-icons bx bx-edit-alt"></span>
                                                     </a>
