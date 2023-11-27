@@ -167,10 +167,10 @@
                                 <div data-i18n="jenis-borang">Jenis Borang</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/master/beritadashboard') }}">
-                            <a href="{{ url('admin/master/beritadashboard') }}" class="menu-link">
+                        <li class="menu-item {{ isActiveLink('admin/master/berita-dashboard') }}">
+                            <a href="{{ url('admin/master/berita-dashboard') }}" class="menu-link">
                                 <i class="menu-icon bx bx-news"></i>
-                                <div data-i18n="beritadashboard">Berita Dashboard</div>
+                                <div data-i18n="berita-dashboard">Berita Dashboard</div>
                             </a>
                         </li>
 
@@ -207,9 +207,9 @@
                         </li>
 
                         <li class="menu-item {{ isActiveLink('user/riwayat') }}">
-                            <a href="{{ url('user/Riwayat') }}" class="menu-link">
+                            <a href="{{ url('user/riwayat') }}" class="menu-link">
                                 <i class="menu-icon bx bx-history"></i>
-                                <div data-i18n="Riwayat">Riwayat Pengajuan</div>
+                                <div data-i18n="riwayat">Riwayat Pengajuan</div>
                             </a>
                         </li>
 

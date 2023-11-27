@@ -17,7 +17,7 @@ class CreateFormSubmissionsTable extends Migration
             $table->string('id')->primary();
             $table->string('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('status')->nullable();
+            $table->string('form_status')->nullable();
             $table->string('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
             $table->string('study_program_id')->nullable();
@@ -26,6 +26,8 @@ class CreateFormSubmissionsTable extends Migration
             $table->foreign('form_template_id')->references('id')->on('form_templates');
             $table->string('size_file')->nullable();
             $table->string('url_file')->nullable();
+            $table->longText('keterangan')->nullable();
+            $table->longText('komentar')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

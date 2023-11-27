@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\FormTemplatesController;
 use App\Http\Controllers\Admin\FormTypeController;
 use App\Http\Controllers\Admin\ProgramStudiController;
 use App\Http\Controllers\User\AkunController;
+use App\Http\Controllers\User\PengajuanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,4 +46,10 @@ Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', '
     Route::get('pengaturan-akun', [AkunController::class, 'index'])->name('pengaturan-akun.index');
     Route::put('pengaturan-akun/{id}', [AkunController::class, 'update'])->name('pengaturan-akun.update');
     Route::put('pengaturan-akun-updateImg/{id}', [AkunController::class, 'updateImg'])->name('pengaturan-akun-updateImg');
+
+    Route::get('pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');
+    Route::get('getProgramStudi/{departmentId}', [PengajuanController::class, 'getProgramStudi']);
+    Route::post('pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store');
+
+    Route::get('riwayat', [PengajuanController::class, 'riwayat'])->name('pengajuan.riwayat');
 });

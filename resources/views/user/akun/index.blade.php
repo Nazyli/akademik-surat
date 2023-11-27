@@ -87,6 +87,19 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <div class="mb-3 col-md-6">
+                                    <small class="fw-medium d-block form-label mb-1 mt-1">Jenis Kelamin</small>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1"
+                                            value="L" {{ $user->gender == 'L' ? 'Checked' : '' }} />
+                                        <label class="form-check-label" for="inlineRadio1">Laki Laki</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2"
+                                            value="P" {{ $user->gender == 'P' ? 'Checked' : '' }} />
+                                        <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary me-2">Save changes</button>

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'npm',
+        'gender',
         'phone',
         'img_url',
         'role_id',
@@ -62,8 +63,19 @@ class User extends Authenticatable
         return RoleMembership::where('id', $this->role_id)->first();
     }
 
+    public function getGender()
+    {
+        if ($this->gender == 'L') {
+            return 'Laki - Laki';
+        } else if ($this->gender == 'P') {
+            return 'Perempuan';
+        } else {
+            return null;
+        }
+    }
+
     public function imgUrl()
     {
-        return isset($this->img_url) ? asset($this->img_url) : null;
+        return isset($this->img_url) ? asset($this->img_url) : asset("img/avatars/blank-profile.png");
     }
 }

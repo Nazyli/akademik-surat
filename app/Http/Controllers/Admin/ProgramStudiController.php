@@ -47,7 +47,7 @@ class ProgramStudiController extends Controller
         $request->validate([
             'study_program_code' => [
                 'required',
-                Rule::unique('study_programs', 'study_program_code')->ignore($id),
+                Rule::unique('study_programs', 'study_program_code')->ignore($request->study_program_code),
             ],
             'study_program_name' => 'required',
             'department_id' => 'required',

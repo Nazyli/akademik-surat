@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\FormType;
 use App\Models\RoleMembership;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -38,24 +39,54 @@ class CreateUsersSeeder extends Seeder
                     'id' => Str::uuid(),
                     'first_name' => 'Admin',
                     'last_name' => 'Dummy',
-                    'phone' => '085735906222',
+                    'phone' => '087657890377',
                     'email' => 'admin@gmail.com',
                     'role_id' => '1',
+                    'img_url' => 'img/avatars/admin.png',
+                    'status' => 'Active',
                     'password' => bcrypt('123456'),
                 ],
                 [
                     'id' => Str::uuid(),
                     'first_name' => 'User',
                     'last_name' => 'Dummy',
-                    'phone' => '085735906222',
+                    'phone' => '087657890377',
                     'email' => 'user@gmail.com',
                     'role_id' => '2',
+                    'img_url' => 'img/avatars/user.jpg',
+                    'npm' => '011022',
+                    'status' => 'Active',
                     'password' => bcrypt('123456'),
                 ],
             ];
 
             foreach ($user as $key => $value) {
                 User::create($value);
+            }
+
+            $formType = [
+                [
+                    'id' => "T01",
+                    'name' => 'Akademik',
+                    'status' => 'Active',
+                ],
+                [
+                    'id' => "T02",
+                    'name' => 'Skripsi',
+                    'status' => 'Active',
+                ], [
+                    'id' => "T03",
+                    'name' => 'Tesis',
+                    'status' => 'Active',
+                ], [
+                    'id' => "T04",
+                    'name' => 'Promosi',
+                    'status' => 'Active',
+                ],
+            ];
+
+            foreach ($formType as $key => $value) {
+                FormType::create($value);
             }
         });
     }
