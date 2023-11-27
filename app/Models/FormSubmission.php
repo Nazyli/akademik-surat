@@ -20,6 +20,7 @@ class FormSubmission extends Model
         'form_template_id',
         'size_file',
         'url_file',
+        'submission_date',
         'keterangan',
         'komentar',
         'created_by',
@@ -33,5 +34,50 @@ class FormSubmission extends Model
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function pathUrl()
+    {
+        return isset($this->url_file) ? asset($this->url_file) : null;
+    }
+
+    public function user()
+    {
+        return User::find($this->user_id);
+    }
+
+    public function department()
+    {
+        return Department::find($this->department_id);
+    }
+
+    public function studyProgram()
+    {
+        return StudyProgram::find($this->study_program_id);
+    }
+    public function formTemplate()
+    {
+        return FormTemplates::find($this->form_template_id);
+    }
+    public function getLabelStatus()
+    {
+        switch ($this->form_status) {
+            case 'Sent':
+                return 'bg-label-primary';
+            case 'Cancel':
+                return 'bg-label-secondary';
+            case 'Draft':
+                return 'bg-label-dark';
+            case 'Reviewed':
+                return 'bg-label-warning';
+            case 'Revisi':
+                return 'bg-label-info';
+            case 'Reject':
+                return 'bg-label-danger';
+            case 'Finished':
+                return 'bg-label-success';
+            default:
+                return '';
+        }
     }
 }
