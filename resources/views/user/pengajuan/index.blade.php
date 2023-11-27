@@ -119,7 +119,10 @@
                                     <select
                                         class="form-select program-studi-select @error('study_program_id') is-invalid @enderror"
                                         id="programStudi" aria-label="Default select example" name="study_program_id">
-                                        <option></option>
+                                        @isset($formSubmission)
+                                            <option value="{{ $formSubmission->study_program_id }}">
+                                                {{ $formSubmission->studyProgram()->study_program_name }}</option>
+                                        @endisset
                                     </select>
                                     @error('study_program_id')
                                         <span class="invalid-feedback" role="alert">
@@ -190,7 +193,9 @@
             programStudiSelect.innerHTML = '<option></option>';
 
             if (departmentId) {
-                fetch('getProgramStudi/' + departmentId)
+                var link = "{{ route('getProgramStudi', ':departmentId') }}";
+                link = link.replace(':departmentId', departmentId);
+                fetch(link)
                     .then(response => response.json())
                     .then(data => {
                         data.forEach(program => {

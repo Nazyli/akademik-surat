@@ -48,10 +48,11 @@ Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', '
     Route::put('pengaturan-akun-updateImg/{id}', [AkunController::class, 'updateImg'])->name('pengaturan-akun-updateImg');
 
     Route::get('pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');
-    Route::get('getProgramStudi/{departmentId}', [PengajuanController::class, 'getProgramStudi']);
+    Route::get('getProgramStudi/{departmentId}', [PengajuanController::class, 'getProgramStudi'])->name('getProgramStudi');
     Route::post('pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store');
 
     Route::get('riwayat', [PengajuanController::class, 'riwayat'])->name('pengajuan.riwayat');
     Route::get('riwayat/preview/{id}', [PengajuanController::class, 'preview'])->name('pengajuan.preview');
     Route::get('riwayat/edit/{id}', [PengajuanController::class, 'edit'])->name('pengajuan.edit');
+    Route::put('riwayat/update/{id}', [PengajuanController::class, 'update'])->name('pengajuan.update');
 });

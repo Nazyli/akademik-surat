@@ -74,7 +74,7 @@
                                                     @endif
                                                     @if ($value->form_status == 'Draft' || $value->form_status == 'Revisi')
                                                         <a class="dropdown-item"
-                                                            href="{{ route('jenis-borang.destroy', $value->id) }}">
+                                                            href="{{ route('pengajuan.edit', $value->id) }}">
                                                             <i class='bx bx-edit me-1'></i> Edit
                                                         </a>
                                                     @endif

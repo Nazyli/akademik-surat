@@ -11,6 +11,7 @@ use App\Models\User;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 
 class PengajuanController extends Controller
@@ -117,5 +118,51 @@ class PengajuanController extends Controller
             ->with(compact('programStudi'))
             ->with(compact('formTemplates'))
             ->with(compact('formSubmission'));
+    }
+    public function update(Request $request, $id)
+    {
+        $formSubmission = FormSubmission::find($id);
+        if ($formSubmission->form_status != 'Draft' &&  $formSubmission->form_status != 'Revisi') {
+            return redirect()->route('pengajuan.riwayat')->with('error', 'Pengajuan ' . $formSubmission->form_status . ' tidak dapat diedit!');
+        }
+        $user = User::find(auth()->user()->id);
+        $publicPath = "pengajuan-surat" . "/" . $user->id;
+        $request->validate([
+            'upload_file' => 'mimes:pdf,xlsx,xls,docx',
+            'department_id' => 'required',
+            'study_program_id' => 'required',
+            'form_template_id' => 'required',
+        ]);
+        $formTemplate = FormTemplates::find($request->form_template_id);
+        try {
+            $data = $request->all();
+            if ($file = $request->file('upload_file')) {
+                $concatName = ($user->first_name . '-' . $user->last_name . '-' . $formTemplate->template_name);
+                $template_name = str_replace(' ', '-', $concatName);
+                $fileName = $template_name . '-' . time() . '.' . $file->extension();
+                $data['url_file'] = $publicPath . "/" . $fileName;
+                // file dalam byte
+                $data['size_file'] = $file->getSize();
+                $file->move($publicPath, $fileName);
+
+                // tambahkan proses delete file
+                if ($formSubmission->url_file) {
+                    File::delete($formSubmission->url_file);
+                }
+            }
+            if ($request->action == 'Sent') {
+                $data['submission_date'] = new DateTime();
+            } else if ($request->action == 'Draft') {
+                $data['submission_date'] = null;
+            }
+            $data['user_id'] = $user->id;
+            $data['form_status'] = $request->action;
+            $data['updated_by'] = auth()->user()->id;
+            $formSubmission->update($data);
+
+            return redirect()->route('pengajuan.riwayat')->with('success', 'Pengajuan updated successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('pengajuan.riwayat')->with('error', $e->errorInfo[2]);
+        }
     }
 }
