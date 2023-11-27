@@ -67,8 +67,8 @@
                                                         <i class='bx bxs-show me-1'></i> Preview
                                                     </a>
                                                     @if ($value->form_status == 'Draft')
-                                                        <a class="dropdown-item text-danger"
-                                                            href="{{ route('jenis-borang.destroy', $value->id) }}">
+                                                        <a class="dropdown-item text-danger swalCancelPengajuan"
+                                                            href="{{ route('pengajuan.cancel', $value->id) }}">
                                                             <i class='bx bx-x-circle me-1'></i> Cancel
                                                         </a>
                                                     @endif
@@ -79,8 +79,8 @@
                                                         </a>
                                                     @endif
                                                     @if ($value->form_status == 'Draft')
-                                                        <a class="dropdown-item text-primary"
-                                                            href="{{ route('jenis-borang.destroy', $value->id) }}">
+                                                        <a class="dropdown-item text-primary swalSentPengajuan"
+                                                            href="{{ route('pengajuan.sent', $value->id) }}">
                                                             <i class='bx bx-send me-1'></i> Sent
                                                         </a>
                                                     @endif
@@ -96,4 +96,47 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('js')
+    <script>
+        $('.swalSentPengajuan').click(function(event) {
+            event.preventDefault();
+            var cancelUrl = $(this).attr('href'); // Mendapatkan URL pembatalan dari link
+
+            Swal.fire({
+                title: 'Kirim Pengajuan!',
+                text: "Apakah Anda yakin ingin mengirim surat ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, kirim!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = cancelUrl; // Arahkan ke URL pembatalan
+                }
+            });
+        });
+
+        $('.swalCancelPengajuan').click(function(event) {
+            event.preventDefault();
+            var cancelUrl = $(this).attr('href'); // Mendapatkan URL pembatalan dari link
+
+            Swal.fire({
+                title: 'Batalkan Pengajuan!',
+                text: "Apakah Anda yakin ingin membatalkan surat ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, batal!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = cancelUrl; // Arahkan ke URL pembatalan
+                }
+            });
+        });
+    </script>
 @endsection

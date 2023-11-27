@@ -165,4 +165,27 @@ class PengajuanController extends Controller
             return redirect()->route('pengajuan.riwayat')->with('error', $e->errorInfo[2]);
         }
     }
+    public function sent($id)
+    {
+        $formSubmission = FormSubmission::find($id);
+        if ($formSubmission->form_status != 'Draft') {
+            return redirect()->route('pengajuan.riwayat')->with('error', 'Pengajuan ' . $formSubmission->form_status . ' tidak dapat diedit!');
+        }
+        $data['submission_date'] = new DateTime();
+        $data['form_status'] = "Sent";
+        $data['updated_by'] = auth()->user()->id;
+        $formSubmission->update($data);
+        return redirect()->route('pengajuan.riwayat')->with('success', 'Kirim pengajuan successfully.');
+    }
+    public function cancel($id)
+    {
+        $formSubmission = FormSubmission::find($id);
+        if ($formSubmission->form_status != 'Draft') {
+            return redirect()->route('pengajuan.riwayat')->with('error', 'Pengajuan ' . $formSubmission->form_status . ' tidak dapat diedit!');
+        }
+        $data['form_status'] = "Cancel";
+        $data['updated_by'] = auth()->user()->id;
+        $formSubmission->update($data);
+        return redirect()->route('pengajuan.riwayat')->with('success', 'Cancel pengajuan successfully.');
+    }
 }

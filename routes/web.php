@@ -55,4 +55,6 @@ Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', '
     Route::get('riwayat/preview/{id}', [PengajuanController::class, 'preview'])->name('pengajuan.preview');
     Route::get('riwayat/edit/{id}', [PengajuanController::class, 'edit'])->name('pengajuan.edit');
     Route::put('riwayat/update/{id}', [PengajuanController::class, 'update'])->name('pengajuan.update');
+    Route::get('riwayat/sent/{id}', [PengajuanController::class, 'sent'])->name('pengajuan.sent');
+    Route::get('riwayat/cancel/{id}', [PengajuanController::class, 'cancel'])->name('pengajuan.cancel');
 });
