@@ -89,4 +89,33 @@ class PengajuanController extends Controller
         return view('user.pengajuan.riwayat')
             ->with(compact('formSubmission'));
     }
+
+    public function preview($id)
+    {
+        $user = User::find(auth()->user()->id);
+        $formSubmission = FormSubmission::find($id);
+        return view('user.pengajuan.preview')
+            ->with(compact('formSubmission'));
+    }
+
+    public function edit($id)
+    {
+        $user = User::find(auth()->user()->id);
+        $departments = Department::where('status', 'Active')
+            ->orderBy('department_name')
+            ->get();
+        $programStudi = StudyProgram::where('status', 'Active')
+            ->orderBy('study_program_name')
+            ->get();
+        $formTemplates = FormTemplates::where('status', 'Active')
+            ->orderBy('template_name')
+            ->get();
+        $formSubmission = FormSubmission::find($id);
+        return view('user.pengajuan.index')
+            ->with(compact('user'))
+            ->with(compact('departments'))
+            ->with(compact('programStudi'))
+            ->with(compact('formTemplates'))
+            ->with(compact('formSubmission'));
+    }
 }

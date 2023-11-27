@@ -52,4 +52,6 @@ Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', '
     Route::post('pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store');
 
     Route::get('riwayat', [PengajuanController::class, 'riwayat'])->name('pengajuan.riwayat');
+    Route::get('riwayat/preview/{id}', [PengajuanController::class, 'preview'])->name('pengajuan.preview');
+    Route::get('riwayat/edit/{id}', [PengajuanController::class, 'edit'])->name('pengajuan.edit');
 });

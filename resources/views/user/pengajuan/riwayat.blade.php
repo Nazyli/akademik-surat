@@ -56,20 +56,35 @@
                                         @endphp
 
                                         <td class="text-center">
-                                            <div class="btn-group">
-
-                                                <form action="{{ route('jenis-borang.destroy', $value->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ route('jenis-borang.edit', $value->id) }}"
-                                                        class="btn btn-icon btn-outline-primary btn-sm">
-                                                        <span class="tf-icons bx bx-edit-alt"></span>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item text-primary"
+                                                        href="{{ route('pengajuan.preview', $value->id) }}">
+                                                        <i class='bx bxs-show me-1'></i> Preview
                                                     </a>
-                                                    <button type="submit"
-                                                        class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
-                                                            class="tf-icons bx bx-trash"></i></button>
-                                                </form>
+                                                    @if ($value->form_status == 'Draft')
+                                                        <a class="dropdown-item text-danger"
+                                                            href="{{ route('jenis-borang.destroy', $value->id) }}">
+                                                            <i class='bx bx-x-circle me-1'></i> Cancel
+                                                        </a>
+                                                    @endif
+                                                    @if ($value->form_status == 'Draft' || $value->form_status == 'Revisi')
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('jenis-borang.destroy', $value->id) }}">
+                                                            <i class='bx bx-edit me-1'></i> Edit
+                                                        </a>
+                                                    @endif
+                                                    @if ($value->form_status == 'Draft')
+                                                        <a class="dropdown-item text-primary"
+                                                            href="{{ route('jenis-borang.destroy', $value->id) }}">
+                                                            <i class='bx bx-send me-1'></i> Sent
+                                                        </a>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
