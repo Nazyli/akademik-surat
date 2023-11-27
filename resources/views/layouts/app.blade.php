@@ -123,74 +123,124 @@
 
                 <div class="menu-inner-shadow"></div>
 
-                <ul class="menu-inner py-1">
-                    <li class="menu-item {{ isActiveLink('admin/home') }}">
-                        <a href="{{ url('admin/home') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Dashboards">Dashboards</div>
-                        </a>
-                    </li>
+                @if (auth()->user()->role_id == 1)
+                    <ul class="menu-inner py-1">
+                        <li class="menu-item {{ isActiveLink('admin/home') }}">
+                            <a href="{{ url('admin/home') }}" class="menu-link">
+                                <i class="menu-icon bx bx-home-circle"></i>
+                                <div data-i18n="Dashboards">Dashboards</div>
+                            </a>
+                        </li>
 
-                    <li class="menu-item {{ isActiveLink('admin/pengajuan-surat') }}">
-                        <a href="{{ url('admin/pengajuan-surat') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="pengajuan-surat">Pengajuan Surat</div>
-                            <div class="badge bg-danger rounded-pill ms-auto">5</div>
-                        </a>
-                    </li>
+                        <li class="menu-item {{ isActiveLink('admin/pengajuan-surat') }}">
+                            <a href="{{ url('admin/pengajuan-surat') }}" class="menu-link">
+                                <i class="menu-icon bx bx-file"></i>
+                                <div data-i18n="pengajuan-surat">Pengajuan Surat</div>
+                                <div class="badge bg-danger rounded-pill ms-auto">5</div>
+                            </a>
+                        </li>
 
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Master Data</span>
-                    </li>
-                    <!-- Apps -->
-                    <!-- Tables -->
-                    <li class="menu-item {{ isActiveLink('admin/master/department') }}">
-                        <a href="{{ url('admin/master/department') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="Department">Department</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ isActiveLink('admin/master/program-studi') }}">
-                        <a href="{{ url('admin/master/program-studi') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="program-studi">Program Studi</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ isActiveLink('admin/master/tipe-borang') }}">
-                        <a href="{{ url('admin/master/tipe-borang') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="tipe-borang">Tipe Borang</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
-                        <a href="{{ url('admin/master/jenis-borang') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="jenis-borang">Jenis Borang</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ isActiveLink('admin/master/berita-dashboard') }}">
-                        <a href="{{ url('admin/master/berita-dashboard') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="berita-dashboard">Berita Dashboard</div>
-                        </a>
-                    </li>
-                    </li>
-                    <!-- Misc -->
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Administrator</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" target="_blank" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-support"></i>
-                            <div data-i18n="Support">Master User</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" target="_blank" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-support"></i>
-                            <div data-i18n="Support">Setujui Password</div>
-                        </a>
-                    </li>
-                </ul>
+                        <li class="menu-header small text-uppercase">
+                            <span class="menu-header-text">Master Data</span>
+                        </li>
+                        <li class="menu-item {{ isActiveLink('admin/master/department') }}">
+                            <a href="{{ url('admin/master/department') }}" class="menu-link">
+                                <i class="menu-icon bx bx-building"></i>
+                                <div data-i18n="Department">Department</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ isActiveLink('admin/master/program-studi') }}">
+                            <a href="{{ url('admin/master/program-studi') }}" class="menu-link">
+                                <i class="menu-icon bx bx-book-alt"></i>
+                                <div data-i18n="program-studi">Program Studi</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ isActiveLink('admin/master/tipe-borang') }}">
+                            <a href="{{ url('admin/master/tipe-borang') }}" class="menu-link">
+                                <i class="menu-icon bx bx-list-ul"></i>
+                                <div data-i18n="tipe-borang">Tipe Borang</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
+                            <a href="{{ url('admin/master/jenis-borang') }}" class="menu-link">
+                                <i class="menu-icon bx bx-list-check"></i>
+                                <div data-i18n="jenis-borang">Jenis Borang</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ isActiveLink('admin/master/beritadashboard') }}">
+                            <a href="{{ url('admin/master/beritadashboard') }}" class="menu-link">
+                                <i class="menu-icon bx bx-news"></i>
+                                <div data-i18n="beritadashboard">Berita Dashboard</div>
+                            </a>
+                        </li>
+
+                        <!-- Misc -->
+                        <li class="menu-header small text-uppercase">
+                            <span class="menu-header-text">Administrator</span>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" target="_blank" class="menu-link">
+                                <i class="menu-icon bx bx-user"></i>
+                                <div data-i18n="Support">Master User</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" target="_blank" class="menu-link">
+                                <i class="menu-icon bx bx-lock"></i>
+                                <div data-i18n="Support">Setujui Password</div>
+                            </a>
+                        </li>
+                    </ul>
+                @else
+                    <ul class="menu-inner py-1">
+                        <li class="menu-item {{ isActiveLink('user/home') }}">
+                            <a href="{{ url('user/home') }}" class="menu-link">
+                                <i class="menu-icon bx bx-home-circle"></i>
+                                <div data-i18n="Dashboards">Dashboards</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ isActiveLink('user/pengajuan') }}">
+                            <a href="{{ url('user/pengajuan') }}" class="menu-link">
+                                <i class="menu-icon bx bx-file"></i>
+                                <div data-i18n="pengajuan">Pengajuan Surat</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item {{ isActiveLink('user/riwayat') }}">
+                            <a href="{{ url('user/Riwayat') }}" class="menu-link">
+                                <i class="menu-icon bx bx-history"></i>
+                                <div data-i18n="Riwayat">Riwayat Pengajuan</div>
+                            </a>
+                        </li>
+
+
+                        <li class="menu-header small text-uppercase">
+                            <span class="menu-header-text">Download Format Borang</span>
+                        </li>
+                        <li class="menu-item {{ isActiveLink('user/skripsi') }}">
+                            <a href="{{ url('user/surat-skripsi') }}" class="menu-link">
+                                <i class="menu-icon bx bx-book-content"></i>
+                                <div data-i18n="skripsi">Skripsi/Tesis/Promosi</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ isActiveLink('user/surat-akademik') }}">
+                            <a href="{{ url('user/surat-akademik') }}" class="menu-link">
+                                <i class="menu-icon bx bx-book-open"></i>
+                                <div data-i18n="program-studi">Akademik</div>
+                            </a>
+                        </li>
+                        <li class="menu-header small text-uppercase">
+                            <span class="menu-header-text">Profil</span>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" target="_blank" class="menu-link">
+                                <i class="menu-icon bx bx-user"></i>
+                                <div data-i18n="Support">Show Profil</div>
+                            </a>
+                        </li>
+                    </ul>
+                @endif
+
             </aside>
             <!-- / Menu -->
 
