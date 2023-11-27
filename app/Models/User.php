@@ -22,10 +22,15 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
+        'npm',
         'phone',
+        'img_url',
         'role_id',
+        'status',
         'email',
         'password',
+        'created_by',
+        'updated_by',
     ];
 
     /**
@@ -55,5 +60,10 @@ class User extends Authenticatable
     public function getRole()
     {
         return RoleMembership::where('id', $this->role_id)->first();
+    }
+
+    public function imgUrl()
+    {
+        return isset($this->img_url) ? asset($this->img_url) : null;
     }
 }

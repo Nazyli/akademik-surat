@@ -230,12 +230,12 @@
                             </a>
                         </li>
                         <li class="menu-header small text-uppercase">
-                            <span class="menu-header-text">Profil</span>
+                            <span class="menu-header-text">Pengaturan Akun</span>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" target="_blank" class="menu-link">
+                        <li class="menu-item {{ isActiveLink('user/pengaturan-akun') }}">
+                            <a href="{{ url('user/pengaturan-akun') }}" class="menu-link">
                                 <i class="menu-icon bx bx-user"></i>
-                                <div data-i18n="Support">Show Profil</div>
+                                <div data-i18n="Support">Akun</div>
                             </a>
                         </li>
                     </ul>
@@ -279,7 +279,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('/img/avatars/blank-profile.png') }}" alt
+                                        <img src="{{ auth()->user()->imgUrl() }}" alt
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
@@ -289,7 +289,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ asset('/img/avatars/blank-profile.png') }}" alt
+                                                        <img src="{{ auth()->user()->imgUrl() }}" alt
                                                             class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
@@ -403,6 +403,7 @@
     <script src="{{ asset('/js/main.js') }}"></script>
 
     <!-- Page JS -->
+    @yield('js')
     <script>
         function showNotif(status, message) {
             toastr.options = {

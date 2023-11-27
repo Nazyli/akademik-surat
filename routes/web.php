@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FormTemplatesController;
 use App\Http\Controllers\Admin\FormTypeController;
 use App\Http\Controllers\Admin\ProgramStudiController;
+use App\Http\Controllers\User\AkunController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
     Route::get('home', [HomeController::class, 'userHome'])->name('user.home');
+    Route::get('pengaturan-akun', [AkunController::class, 'index'])->name('pengaturan-akun.index');
+    Route::put('pengaturan-akun/{id}', [AkunController::class, 'update'])->name('pengaturan-akun.update');
+    Route::put('pengaturan-akun-updateImg/{id}', [AkunController::class, 'updateImg'])->name('pengaturan-akun-updateImg');
 });
