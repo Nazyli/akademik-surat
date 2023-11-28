@@ -50,6 +50,18 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
+                                <label class="form-label">Sort Order</label>
+                                <input type="number" class="form-control @error('sort_order') is-invalid @enderror"
+                                    name="sort_order"
+                                    value="{{ isset($formTemplate) ? $formTemplate->sort_order : old('sort_order') }}" />
+                                @error('body')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
+                            <div class="mb-3">
                                 <label for="upload_file" class="form-label">Upload Template</label>
                                 <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
                                     id="upload_file" name="upload_file"
@@ -82,6 +94,7 @@
                                 <tr>
                                     <th>Jenis Borang</th>
                                     <th>Tipe Borang</th>
+                                    <th>Sort</th>
                                     <th>File</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -92,6 +105,7 @@
                                     <tr>
                                         <td>{{ $value->template_name }}</td>
                                         <td>{{ $value->formType()->name }}</td>
+                                        <td>{{ $value->sort_order }}</td>
                                         <td align="center">
                                             @if ($value->pathUrl())
                                                 <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"

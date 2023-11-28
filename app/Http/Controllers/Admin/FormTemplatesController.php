@@ -20,7 +20,10 @@ class FormTemplatesController extends Controller
     public function index()
     {
         //
-        $formTemplates = FormTemplates::orderBy('status')->orderBy('template_name')->get();
+        $formTemplates = FormTemplates::orderBy('status')
+            ->orderBy('type_id')
+            ->orderBy('sort_order')
+            ->orderBy('template_name')->get();
         $formType = FormType::where('status', 'Active')
             ->orderBy('name')
             ->get();
@@ -96,7 +99,10 @@ class FormTemplatesController extends Controller
     {
         //
         $formTemplate = FormTemplates::find($id);
-        $formTemplates = FormTemplates::orderBy('status')->orderBy('template_name')->get();
+        $formTemplates = FormTemplates::orderBy('status')
+            ->orderBy('type_id')
+            ->orderBy('sort_order')
+            ->orderBy('template_name')->get();
         $formType = FormType::where('status', 'Active')
             ->orderBy('name')
             ->get();

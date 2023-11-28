@@ -21,6 +21,7 @@ class CreateFormTemplatesTable extends Migration
             $table->string('type_id')->nullable();
             $table->foreign('type_id')->references('id')->on('form_types');
             $table->string('status')->nullable();
+            $table->integer("sort_order")->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

@@ -18,6 +18,7 @@ class FormTemplates extends Model
         'url_file',
         'type_id',
         'status',
+        'sort_order',
         'created_by',
         'updated_by',
     ];
