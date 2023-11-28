@@ -188,4 +188,31 @@ class PengajuanController extends Controller
         $formSubmission->update($data);
         return redirect()->route('pengajuan.riwayat')->with('success', 'Cancel pengajuan successfully.');
     }
+
+    public function templateSurat($id)
+    {
+        if ($id == 'akademik') {
+            $titleBorang = "Borang Akademik";
+            $formTemplates = FormTemplates::where('status', 'Active')
+                ->where('type_id', "=", 'FT01')
+                ->orderBy('type_id')
+                ->orderBy('sort_order')
+                ->orderBy('template_name')
+                ->get();
+            return view('user.pengajuan.template-akademik')
+                ->with(compact('titleBorang'))
+                ->with(compact('formTemplates'));
+        } else {
+            $titleBorang = "Borang Pendaftaran Skripsi/Tesis dan Promosi";
+            $formTemplates = FormTemplates::where('status', 'Active')
+                ->where('type_id', "!=", 'FT01')
+                ->orderBy('type_id')
+                ->orderBy('sort_order')
+                ->orderBy('template_name')
+                ->get();
+            return view('user.pengajuan.template-akademik')
+                ->with(compact('titleBorang'))
+                ->with(compact('formTemplates'));
+        }
+    }
 }

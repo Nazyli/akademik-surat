@@ -217,16 +217,16 @@
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">Download Format Borang</span>
                         </li>
-                        <li class="menu-item {{ isActiveLink('user/skripsi') }}">
-                            <a href="{{ url('user/surat-skripsi') }}" class="menu-link">
+                        <li class="menu-item {{ isActiveLink('user/template-surat/skripsi') }}">
+                            <a href="{{ url('user/template-surat/skripsi') }}" class="menu-link">
                                 <i class="menu-icon bx bx-book-content"></i>
                                 <div data-i18n="skripsi">Skripsi/Tesis/Promosi</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('user/surat-akademik') }}">
-                            <a href="{{ url('user/surat-akademik') }}" class="menu-link">
+                        <li class="menu-item {{ isActiveLink('user/template-surat/akademik') }}">
+                            <a href="{{ url('user/template-surat/akademik') }}" class="menu-link">
                                 <i class="menu-icon bx bx-book-open"></i>
-                                <div data-i18n="program-studi">Akademik</div>
+                                <div data-i18n="template-surat">Akademik</div>
                             </a>
                         </li>
                         <li class="menu-header small text-uppercase">
