@@ -33,7 +33,7 @@
                                 @foreach ($formSubmission as $key => $value)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $value->user()->first_name }} {{ $value->user()->last_name }}</td>
+                                        <td>{{ $value->user()->fullName() }}</td>
                                         <td>{{ $value->department()->department_name }}</td>
                                         <td>{{ $value->studyProgram()->study_program_name }}</td>
                                         <td>{{ $value->formTemplate()->template_name }}</td>

@@ -84,7 +84,7 @@
                                     value="{{ $formSubmission->formTemplate()->template_name }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">File Template</label> <br>
+                                <label class="form-label">File Pengajuan</label> <br>
                                 <a href="{{ $formSubmission->pathUrl() }}" class="badge bg-label-primary" target="_blank">
                                     Download
                                 </a>

@@ -74,6 +74,11 @@ class User extends Authenticatable
         }
     }
 
+    public function fullName()
+    {
+        return $this->first_name  . ' ' . $this->last_name;
+    }
+
     public function imgUrl()
     {
         return isset($this->img_url) ? asset($this->img_url) : asset("img/avatars/blank-profile.png");

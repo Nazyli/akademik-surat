@@ -149,7 +149,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="upload_file" class="form-label">Upload Template</label>
+                                    <label for="upload_file" class="form-label">Upload Pengajuan</label>
                                     <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
                                         id="upload_file" name="upload_file"
                                         value="{{ isset($formSubmission) ? $formSubmission->url_file : old('url_file') }}" />

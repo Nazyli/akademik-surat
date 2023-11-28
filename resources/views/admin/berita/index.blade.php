@@ -55,7 +55,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label for="upload_file" class="form-label">Upload Template</label>
+                                <label for="upload_file" class="form-label">Upload Template (1320*583 pixel)</label>
                                 <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
                                     id="upload_file" name="upload_file"
                                     value="{{ isset($dashboardNew) ? $dashboardNew->url_file : old('url_file') }}" />
