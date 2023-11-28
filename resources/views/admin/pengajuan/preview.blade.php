@@ -3,7 +3,9 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/user/riwayat') }}"><span class="text-muted fw-light">Riwayat Pengajuan /</span></a> Preview
+            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
+            <a href="{{ url('/admin/pengajuan-surat') }}"><span class="text-muted fw-light">Pengajuan Surat /</span></a>
+            Preview
         </h4>
         <div class="row">
             <div class="col-md-12">
@@ -99,23 +101,63 @@
                     <div class="card">
                         <h5 class="card-header">Komentar</h5>
                         <div class="card-body">
-                            <div class="mb-3 col-12 mb-0">
-                                <div class="alert alert-warning">
-                                    <p class="mb-0">{{ $formSubmission->komentar ? $formSubmission->komentar : '-' }}
-                                    </p>
-                                </div>
-                            </div>
-                            @if ($formSubmission->form_status == 'Finished')
+                            @if ($formSubmission->form_status != 'Reviewed')
                                 <div class="mb-3 col-12 mb-0">
-                                    <div class="alert alert-info">
-                                        <strong> DOWNLOAD SURAT : </strong> <a
-                                            href="{{ $formSubmission->pathSignedFile() }}"
-                                            target="_blank">{{ $formSubmission->signedFileName() }}</a>
+                                    <div class="alert alert-warning">
+                                        <p class="mb-0">
+                                            {{ $formSubmission->komentar ? $formSubmission->komentar : '-' }}
+                                        </p>
                                     </div>
                                 </div>
+                                @if ($formSubmission->form_status == 'Finished')
+                                    <div class="mb-3 col-12 mb-0">
+                                        <div class="alert alert-info">
+                                            <strong> DOWNLOAD SURAT : </strong> <a
+                                                href="{{ $formSubmission->pathSignedFile() }}"
+                                                target="_blank">{{ $formSubmission->signedFileName() }}</a>
+                                        </div>
+                                    </div>
+                                @endif
+                            @else
+                                <form method="POST" enctype="multipart/form-data"
+                                    action="{{ route('pengajuanadmin.update', $formSubmission->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label for="upload_file" class="form-label">Upload File Persetujuan</label>
+                                            <input class="form-control @error('upload_file') is-invalid @enderror"
+                                                type="file" id="upload_file" name="upload_file"
+                                                value="{{ isset($formSubmission) ? $formSubmission->signed_file : old('signed_file') }}" />
+                                            @error('upload_file')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">Beri Komentar</label>
+                                            <textarea class="form-control  @error('komentar') is-invalid @enderror" rows="3" name="komentar">{{ isset($formSubmission) ? $formSubmission->komentar : old('komentar') }}</textarea>
+                                            @error('komentar')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <button type="submit" value="Finished" name="action"
+                                                class="btn btn-primary me-5">Approve</button>
+                                            <button type="submit" value="Reject" name="action"
+                                                class="btn btn-danger me-5">Reject</button>
+                                            <button type="submit" value="Revisi" name="action"
+                                                class="btn btn-info me-5">Revisi</button>
+                                        </div>
+                                    </div>
+                                </form>
                             @endif
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -124,24 +166,4 @@
 @endsection
 
 @section('js')
-    <script>
-        document.getElementById('departmentName').addEventListener('change', function() {
-            var departmentId = this.value;
-            var programStudiSelect = document.querySelector('.program-studi-select');
-            programStudiSelect.innerHTML = '<option></option>';
-
-            if (departmentId) {
-                fetch('getProgramStudi/' + departmentId)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(program => {
-                            var option = document.createElement('option');
-                            option.value = program.id;
-                            option.text = program.study_program_name;
-                            programStudiSelect.appendChild(option);
-                        });
-                    });
-            }
-        });
-    </script>
 @endsection

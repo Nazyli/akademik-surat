@@ -1,0 +1,124 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 mb-4">
+            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
+            Riwayat Pengajuan
+        </h4>
+
+        <div class="row">
+            <!-- Table-->
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Data Status Pengajuan</h5>
+                    </div>
+                    <div class="card-body">
+                        <table id="datatable" class="table table-bordered table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama</th>
+                                    <th>Department</th>
+                                    <th>Program Studi</th>
+                                    <th>Tipe Borang</th>
+                                    <th>Tanggal Pengajuan</th>
+                                    <th>Status</th>
+                                    <th>Download File</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($formSubmission as $key => $value)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $value->user()->fullName() }}</td>
+                                        <td>{{ $value->department()->department_name }}</td>
+                                        <td>{{ $value->studyProgram()->study_program_name }}</td>
+                                        <td>{{ $value->formTemplate()->template_name }}</td>
+                                        <td>{{ $value->submission_date }}</td>
+                                        <td>
+                                            <span class="badge {{ $value->getLabelStatusAdmin() }}">
+                                                {{ $value->getFormStatusAdmin() }}
+                                            </span>
+                                        </td>
+                                        <td align="center">
+                                            @if ($value->pathUrl())
+                                                <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
+                                                    target="_blank">
+                                                    Download
+                                                </a>
+                                            @endif
+                                        </td>
+                                        @php
+                                            $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                        @endphp
+
+                                        <td class="text-center">
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item text-primary"
+                                                        href="{{ route('pengajuanadmin.preview', $value->id) }}">
+                                                        <i class='bx bxs-show me-1'></i> Preview
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+@section('js')
+    <script>
+        $('.swalSentPengajuan').click(function(event) {
+            event.preventDefault();
+            var cancelUrl = $(this).attr('href'); // Mendapatkan URL pembatalan dari link
+
+            Swal.fire({
+                title: 'Kirim Pengajuan!',
+                text: "Apakah Anda yakin ingin mengirim surat ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, kirim!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = cancelUrl; // Arahkan ke URL pembatalan
+                }
+            });
+        });
+
+        $('.swalCancelPengajuan').click(function(event) {
+            event.preventDefault();
+            var cancelUrl = $(this).attr('href'); // Mendapatkan URL pembatalan dari link
+
+            Swal.fire({
+                title: 'Batalkan Pengajuan!',
+                text: "Apakah Anda yakin ingin membatalkan surat ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, batal!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = cancelUrl; // Arahkan ke URL pembatalan
+                }
+            });
+        });
+    </script>
+@endsection

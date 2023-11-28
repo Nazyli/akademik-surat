@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FormTemplatesController;
 use App\Http\Controllers\Admin\FormTypeController;
+use App\Http\Controllers\Admin\PengajuanAdminController;
 use App\Http\Controllers\Admin\ProgramStudiController;
 use App\Http\Controllers\User\AkunController;
 use App\Http\Controllers\User\PengajuanController;
@@ -40,6 +41,10 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::resource('master/tipe-borang', FormTypeController::class);
     Route::resource('master/jenis-borang', FormTemplatesController::class);
     Route::resource('master/berita-dashboard', DashboardNewsController::class);
+
+    Route::get('pengajuan-surat', [PengajuanAdminController::class, 'index'])->name('pengajuanadmin.index');
+    Route::get('pengajuan-surat/{id}', [PengajuanAdminController::class, 'edit'])->name('pengajuanadmin.preview');
+    Route::put('pengajuan-surat/{id}', [PengajuanAdminController::class, 'update'])->name('pengajuanadmin.update');
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
