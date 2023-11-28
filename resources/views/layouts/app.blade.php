@@ -95,7 +95,6 @@
                             <a href="{{ url('admin/pengajuan-surat') }}" class="menu-link">
                                 <i class="menu-icon bx bx-file"></i>
                                 <div data-i18n="pengajuan-surat">Pengajuan Surat</div>
-                                <div class="badge bg-danger rounded-pill ms-auto">5</div>
                             </a>
                         </li>
 

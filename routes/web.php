@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardNewsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DepartmentController;
@@ -35,7 +36,7 @@ Auth::routes();
 // Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 'is_admin']], function () {
-    Route::get('home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('home', [AdminController::class, 'adminHome'])->name('admin.home');
     Route::resource('master/department', DepartmentController::class);
     Route::resource('master/program-studi', ProgramStudiController::class);
     Route::resource('master/tipe-borang', FormTypeController::class);
@@ -45,6 +46,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::get('pengajuan-surat', [PengajuanAdminController::class, 'index'])->name('pengajuanadmin.index');
     Route::get('pengajuan-surat/{id}', [PengajuanAdminController::class, 'edit'])->name('pengajuanadmin.preview');
     Route::put('pengajuan-surat/{id}', [PengajuanAdminController::class, 'update'])->name('pengajuanadmin.update');
+    Route::get('/get-data-by-department/{departmentId}', [PengajuanAdminController::class, 'getByDepartmentId'])->name('getPengajuanByDepartmentId');
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {

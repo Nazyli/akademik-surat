@@ -8,14 +8,25 @@
         </h4>
 
         <div class="row">
-            <!-- Table-->
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Data Status Pengajuan</h5>
                     </div>
                     <div class="card-body">
-                        <table id="datatable" class="table table-bordered table-hover table-sm">
+                        <div class="text-center">
+                            <select id="departmentSelect" class="form-select">
+                                <option value="">Pilih Department</option>
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}">
+                                        {{ $department->department_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <input type="text" id="searchInput" class="form-control mt-3" placeholder="Search">
+
+                        <table class="table table-bordered table-hover table-sm">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -29,50 +40,11 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($formSubmission as $key => $value)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $value->user()->fullName() }}</td>
-                                        <td>{{ $value->department()->department_name }}</td>
-                                        <td>{{ $value->studyProgram()->study_program_name }}</td>
-                                        <td>{{ $value->formTemplate()->template_name }}</td>
-                                        <td>{{ $value->submission_date }}</td>
-                                        <td>
-                                            <span class="badge {{ $value->getLabelStatusAdmin() }}">
-                                                {{ $value->getFormStatusAdmin() }}
-                                            </span>
-                                        </td>
-                                        <td align="center">
-                                            @if ($value->pathUrl())
-                                                <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
-                                                    target="_blank">
-                                                    Download
-                                                </a>
-                                            @endif
-                                        </td>
-                                        @php
-                                            $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
-                                        @endphp
-
-                                        <td class="text-center">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item text-primary"
-                                                        href="{{ route('pengajuanadmin.preview', $value->id) }}">
-                                                        <i class='bx bxs-show me-1'></i> Preview
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            <tbody id="departmentData">
                             </tbody>
                         </table>
+                        <div class="pagination">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,42 +55,53 @@
 
 @section('js')
     <script>
-        $('.swalSentPengajuan').click(function(event) {
-            event.preventDefault();
-            var cancelUrl = $(this).attr('href'); // Mendapatkan URL pembatalan dari link
+        document.addEventListener('DOMContentLoaded', function() {
+            const departmentSelect = document.getElementById('departmentSelect');
+            const departmentData = document.getElementById('departmentData');
+            const pagination = document.querySelector('.pagination');
+            const searchInput = document.getElementById('searchInput');
 
-            Swal.fire({
-                title: 'Kirim Pengajuan!',
-                text: "Apakah Anda yakin ingin mengirim surat ini?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, kirim!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = cancelUrl; // Arahkan ke URL pembatalan
-                }
+            function fetchData(departmentId, search = '') {
+                const link = `{{ route('getPengajuanByDepartmentId', ':departmentId') }}`;
+                const departmentLink = link.replace(':departmentId', departmentId);
+
+                fetch(`${departmentLink}?search=${search}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        departmentData.innerHTML = '';
+
+                        data.data.forEach(function(submission, index) {
+                            const row = `
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td>${submission.keterangan}</td>
+                                    <td>${submission.keterangan}</td>
+                                    <td>${submission.keterangan}</td>
+                                    <td>${submission.keterangan}</td>
+                                    <td>${submission.submission_date}</td>
+                                </tr>
+                            `;
+                            departmentData.innerHTML += row;
+                        });
+
+                        pagination.innerHTML = data.links;
+                    })
+                    .catch(error => {
+                        console.error('Terjadi kesalahan:', error);
+                    });
+            }
+
+            departmentSelect.addEventListener('change', function() {
+                const departmentId = this.value;
+                const search = searchInput.value.trim();
+                fetchData(departmentId, search);
             });
-        });
 
-        $('.swalCancelPengajuan').click(function(event) {
-            event.preventDefault();
-            var cancelUrl = $(this).attr('href'); // Mendapatkan URL pembatalan dari link
-
-            Swal.fire({
-                title: 'Batalkan Pengajuan!',
-                text: "Apakah Anda yakin ingin membatalkan surat ini?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, batal!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = cancelUrl; // Arahkan ke URL pembatalan
-                }
-            });
+            // searchInput.addEventListener('input', function() {
+            //     const departmentId = departmentSelect.value;
+            //     const search = this.value.trim();
+            //     fetchData(departmentId, search);
+            // });
         });
     </script>
 @endsection

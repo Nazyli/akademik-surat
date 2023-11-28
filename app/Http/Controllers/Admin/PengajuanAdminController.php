@@ -17,13 +17,37 @@ class PengajuanAdminController extends Controller
     public function index()
     {
         //
+
+        $departments = Department::orderBy('department_name')->get();
         $formSubmission = FormSubmission::where('form_status', "!=", "Draft")
             ->where('form_status', "!=", "Cancel")
             ->orderBy('created_at', 'desc')
             ->get();
 
         return view('admin.pengajuan.index')
+            ->with(compact('departments'))
             ->with(compact('formSubmission'));
+    }
+
+    public function getByDepartmentId(Request $request, $departmentId)
+    {
+        $perPage = $request->input('per_page', 10);
+        $search = $request->input('search');
+
+        $query = FormSubmission::where('department_id', $departmentId)
+            ->whereNotIn('form_status', ['Draft', 'Cancel'])
+            ->orderBy('created_at', 'desc');
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('keterangan', 'LIKE', '%' . $search . '%')
+                    ->orWhere('komentar', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        $formSubmissions = $query->paginate($perPage);
+
+        return response()->json($formSubmissions);
     }
 
     public function create()
