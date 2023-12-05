@@ -32,32 +32,24 @@ class PengajuanAdminController extends Controller
     public function getByDepartmentId(Request $request, $departmentId)
     {
         if ($request->ajax()) {
-            if ($departmentId == 0) {
-                $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
-                    ->join('study_programs', 'form_submissions.study_program_id', '=', 'study_programs.id')
-                    ->join('form_templates', 'form_submissions.form_template_id', '=', 'form_templates.id')
-                    ->orderBy('form_submissions.department_id')
-                    ->select(
-                        'form_submissions.*',
-                        'departments.department_name as department_name',
-                        'study_programs.study_program_name as study_program_name',
-                        'form_templates.template_name'
-                    )
-                    ->get();
-            } else {
-                $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
-                    ->join('study_programs', 'form_submissions.study_program_id', '=', 'study_programs.id')
-                    ->join('form_templates', 'form_submissions.form_template_id', '=', 'form_templates.id')
-                    ->where('form_submissions.department_id', $departmentId)
-                    ->orderBy('form_submissions.department_id')
-                    ->select(
-                        'form_submissions.*',
-                        'departments.department_name as department_name',
-                        'study_programs.study_program_name as study_program_name',
-                        'form_templates.template_name'
-                    )
-                    ->get();
+            $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
+                ->join('study_programs', 'form_submissions.study_program_id', '=', 'study_programs.id')
+                ->join('form_templates', 'form_submissions.form_template_id', '=', 'form_templates.id')
+                ->whereNotIn('form_status', ['Draft', 'Cancel'])
+                ->orderBy('form_submissions.department_id')
+                ->select(
+                    'form_submissions.*',
+                    'departments.department_name as department_name',
+                    'study_programs.study_program_name as study_program_name',
+                    'form_templates.template_name'
+                );
+
+            if ($departmentId != 0) {
+                $data->where('form_submissions.department_id', $departmentId);
             }
+
+            $data = $data->get();
+
 
 
             return FacadesDataTables::of($data)->addIndexColumn()
