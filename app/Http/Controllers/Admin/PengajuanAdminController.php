@@ -9,6 +9,7 @@ use App\Models\FormType;
 use Exception;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class PengajuanAdminController extends Controller
@@ -33,12 +34,15 @@ class PengajuanAdminController extends Controller
     {
         if ($request->ajax()) {
             $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
+                ->join('users', 'form_submissions.user_id', '=', 'users.id')
                 ->join('study_programs', 'form_submissions.study_program_id', '=', 'study_programs.id')
                 ->join('form_templates', 'form_submissions.form_template_id', '=', 'form_templates.id')
                 ->whereNotIn('form_status', ['Draft', 'Cancel'])
                 ->orderBy('form_submissions.department_id')
                 ->select(
-                    'form_submissions.*',
+                    'form_submissions.id as id',
+                    DB::raw("CONCAT(first_name, ' ', last_name) as full_name"),
+                    'submission_date',
                     'departments.department_name as department_name',
                     'study_programs.study_program_name as study_program_name',
                     'form_templates.template_name'
@@ -49,8 +53,6 @@ class PengajuanAdminController extends Controller
             }
 
             $data = $data->get();
-
-
 
             return FacadesDataTables::of($data)->addIndexColumn()
                 ->addColumn('status', function ($row) {

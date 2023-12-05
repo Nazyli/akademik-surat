@@ -106,8 +106,8 @@
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'form_status',
-                            name: 'form_status'
+                            data: 'full_name',
+                            name: 'full_name'
                         },
                         {
                             data: 'department_name',
