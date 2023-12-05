@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\FormSubmission;
-use App\Models\FormTemplates;
 use App\Models\FormType;
-use App\Models\StudyProgram;
 use Exception;
 use Illuminate\Http\Request;
+use DataTables;
+use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class PengajuanAdminController extends Controller
 {
@@ -31,24 +31,73 @@ class PengajuanAdminController extends Controller
 
     public function getByDepartmentId(Request $request, $departmentId)
     {
-        $perPage = $request->input('per_page', 10);
-        $search = $request->input('search');
+        if ($request->ajax()) {
+            if ($departmentId == 0) {
+                $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
+                    ->join('study_programs', 'form_submissions.study_program_id', '=', 'study_programs.id')
+                    ->join('form_templates', 'form_submissions.form_template_id', '=', 'form_templates.id')
+                    ->orderBy('form_submissions.department_id')
+                    ->select(
+                        'form_submissions.*',
+                        'departments.department_name as department_name',
+                        'study_programs.study_program_name as study_program_name',
+                        'form_templates.template_name'
+                    )
+                    ->get();
+            } else {
+                $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
+                    ->join('study_programs', 'form_submissions.study_program_id', '=', 'study_programs.id')
+                    ->join('form_templates', 'form_submissions.form_template_id', '=', 'form_templates.id')
+                    ->where('form_submissions.department_id', $departmentId)
+                    ->orderBy('form_submissions.department_id')
+                    ->select(
+                        'form_submissions.*',
+                        'departments.department_name as department_name',
+                        'study_programs.study_program_name as study_program_name',
+                        'form_templates.template_name'
+                    )
+                    ->get();
+            }
 
-        $query = FormSubmission::where('department_id', $departmentId)
-            ->whereNotIn('form_status', ['Draft', 'Cancel'])
-            ->orderBy('created_at', 'desc');
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('keterangan', 'LIKE', '%' . $search . '%')
-                    ->orWhere('komentar', 'LIKE', '%' . $search . '%');
-            });
+            return FacadesDataTables::of($data)->addIndexColumn()
+                ->addColumn('status', function ($row) {
+                    $badge = '<span class="badge ' . $row->getLabelStatusAdmin() . '">'
+                        . $row->getFormStatusAdmin() . '</span>';
+                    return $badge;
+                })
+                ->addColumn('action', function ($row) {
+                    $url = route('pengajuanadmin.preview', $row->id);
+                    $btn = '<a href="' . $url . '" class="badge bg-label-primary">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['status', 'action'])
+                ->make(true);
         }
 
-        $formSubmissions = $query->paginate($perPage);
-
-        return response()->json($formSubmissions);
+        return view('admin.pengajuan.index');
     }
+
+    // public function getByDepartmentId(Request $request, $departmentId)
+    // {
+    //     $perPage = $request->input('per_page', 10);
+    //     $search = $request->input('search');
+
+    //     $query = FormSubmission::where('department_id', $departmentId)
+    //         ->whereNotIn('form_status', ['Draft', 'Cancel'])
+    //         ->orderBy('created_at', 'desc');
+
+    //     if ($search) {
+    //         $query->where(function ($q) use ($search) {
+    //             $q->where('keterangan', 'LIKE', '%' . $search . '%')
+    //                 ->orWhere('komentar', 'LIKE', '%' . $search . '%');
+    //         });
+    //     }
+
+    //     $formSubmissions = $query->paginate($perPage);
+
+    //     return response()->json($formSubmissions);
+    // }
 
     public function create()
     {
