@@ -15,7 +15,8 @@
                     </div>
                     <div class="card-body">
                         <div class="row mb-3 alert alert-info">
-                            <label class="col-sm-2 col-form-label" for="basic-default-department">Pilih Department</label>
+                            <label class="col-sm-2 col-form-label text-info" for="basic-default-department"
+                                style="font-weight: bold;">Pilih Department</label>
                             <div class="col-sm-10">
                                 <select id="departmentSelect" class="form-select">
                                     <option value="">Semua Department</option>
@@ -66,11 +67,11 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getPengajuanByDepartmentId', ':departmentId') }}".replace(
-                            ':departmentId', departmentId),
+                        url: "{{ route('getPengajuanByDepartmentId', ['departmentId' => ':departmentId', 'status' => ':status']) }}"
+                            .replace(':departmentId', departmentId)
+                            .replace(':status', 'all'),
                         data: function(d) {
-                            d.searchInput = $('#searchInput')
-                                .val();
+                            d.searchInput = $('#searchInput').val();
                         }
                     },
                     "order": [],

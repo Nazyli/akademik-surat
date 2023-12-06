@@ -8,7 +8,6 @@ use App\Models\FormSubmission;
 use App\Models\FormType;
 use Exception;
 use Illuminate\Http\Request;
-use DataTables;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
@@ -19,7 +18,7 @@ class PengajuanAdminController extends Controller
     {
         //
 
-        $departments = Department::orderBy('department_name')->get();
+        $departments = Department::where('status', 'Active')->orderBy('department_name')->get();
         $formSubmission = FormSubmission::where('form_status', "!=", "Draft")
             ->where('form_status', "!=", "Cancel")
             ->orderBy('created_at', 'desc')
@@ -30,7 +29,7 @@ class PengajuanAdminController extends Controller
             ->with(compact('formSubmission'));
     }
 
-    public function getByDepartmentId(Request $request, $departmentId)
+    public function getByDepartmentId(Request $request, $departmentId, $status)
     {
         if ($request->ajax()) {
             $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
@@ -41,6 +40,7 @@ class PengajuanAdminController extends Controller
                 ->orderBy('form_submissions.department_id')
                 ->select(
                     'form_submissions.id as id',
+                    'form_status',
                     DB::raw("CONCAT(first_name, ' ', last_name) as full_name"),
                     'submission_date',
                     'departments.department_name as department_name',
@@ -51,7 +51,9 @@ class PengajuanAdminController extends Controller
             if ($departmentId != 0) {
                 $data->where('form_submissions.department_id', $departmentId);
             }
-
+            if ($status != 'all') {
+                $data->where('form_status', 'Sent');
+            }
             $data = $data->get();
 
             return FacadesDataTables::of($data)->addIndexColumn()
