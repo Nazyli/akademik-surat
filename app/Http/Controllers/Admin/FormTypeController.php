@@ -48,7 +48,7 @@ class FormTypeController extends Controller
         $data['created_by'] = auth()->user()->id;
         FormType::create($data);
 
-        return redirect()->route('tipe-borang.index')->with('success', 'Tipe Borang created successfully.');
+        return redirect()->route('tipe-borang.index')->with('success', 'Tipe form created successfully.');
     }
 
     /**
@@ -96,7 +96,7 @@ class FormTypeController extends Controller
         $data['updated_by'] = auth()->user()->id;
         FormType::find($id)->update($data);
 
-        return redirect()->route('tipe-borang.index')->with('success', 'Tipe Borang updated successfully.');
+        return redirect()->route('tipe-borang.index')->with('success', 'Tipe form updated successfully.');
     }
 
     /**
@@ -112,6 +112,6 @@ class FormTypeController extends Controller
             'status' => 'InActive',
             'updated_by' => auth()->user()->id,
         ]);
-        return redirect()->route('tipe-borang.index')->with('success', 'Tipe Borang InActive successfully.');
+        return redirect()->route('tipe-borang.index')->with('success', 'Tipe form InActive successfully.');
     }
 }

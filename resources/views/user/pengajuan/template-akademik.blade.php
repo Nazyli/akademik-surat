@@ -4,14 +4,14 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
             <a href="{{ url('/user/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Download Format Borang
+            Download Format Form
         </h4>
 
 
 
         <figure class="text-center mt-2">
             <blockquote class="blockquote">
-                <h5 class="mb-0">Download {{ $titleBorang }}</h5>
+                <h5 class="mb-0">Download {{ $titleForm }}</h5>
             </blockquote>
         </figure>
 

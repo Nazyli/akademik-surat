@@ -131,7 +131,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="jenisBorang" class="form-label">Jenis Borang</label>
+                                    <label for="jenisBorang" class="form-label">Jenis Form</label>
                                     <select class="form-select @error('form_template_id') is-invalid @enderror"
                                         id="jenisBorang" aria-label="Default select example" name="form_template_id">
                                         <option></option>

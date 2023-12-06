@@ -128,7 +128,7 @@ class DashboardNewsController extends Controller
             $data['updated_by'] = auth()->user()->id;
             $formTemplate->update($data);
 
-            return redirect()->route('berita-dashboard.index')->with('success', 'Jenis Borang updated successfully.');
+            return redirect()->route('berita-dashboard.index')->with('success', 'Jenis Form updated successfully.');
         } catch (Exception $e) {
             return redirect()->route('berita-dashboard.index')->with('error', $e->errorInfo[2]);
         }
@@ -147,6 +147,6 @@ class DashboardNewsController extends Controller
             'status' => 'InActive',
             'updated_by' => auth()->user()->id,
         ]);
-        return redirect()->route('berita-dashboard.index')->with('success', 'Jenis Borang InActive successfully.');
+        return redirect()->route('berita-dashboard.index')->with('success', 'Jenis Form InActive successfully.');
     }
 }

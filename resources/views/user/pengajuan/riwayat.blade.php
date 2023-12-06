@@ -22,7 +22,7 @@
                                     <th>Nama</th>
                                     <th>Department</th>
                                     <th>Program Studi</th>
-                                    <th>Tipe Borang</th>
+                                    <th>Tipe Form</th>
                                     <th>Tanggal Pengajuan</th>
                                     <th>Status</th>
                                     <th>Action</th>

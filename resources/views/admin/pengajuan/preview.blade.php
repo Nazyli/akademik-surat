@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0 badge {{ $formSubmission->getLabelStatus() }}">Preview Borang</h5>
+                        <h5 class="mb-0 badge {{ $formSubmission->getLabelStatus() }}">Preview Form</h5>
                         <span class="float-end badge {{ $formSubmission->getLabelStatus() }}">
                             {{ $formSubmission->form_status }}
                         </span>
@@ -81,7 +81,7 @@
                                     value="{{ $formSubmission->studyProgram()->study_program_name }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="jenisBorang" class="form-label">Jenis Borang</label>
+                                <label for="jenisBorang" class="form-label">Jenis Form</label>
                                 <input type="text" class="form-control" name="gender"
                                     value="{{ $formSubmission->formTemplate()->template_name }}" disabled />
                             </div>
@@ -99,7 +99,11 @@
                     </div>
                     <hr class="my-0" />
                     <div class="card">
-                        <h5 class="card-header">Komentar</h5>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">Komentar</h5>
+                            <div class="card-subtitle text-muted mb-3">Di Proses : {{ $formSubmission->processed_date }}
+                            </div>
+                        </div>
                         <div class="card-body">
                             @if ($formSubmission->form_status != 'Reviewed')
                                 <div class="mb-3 col-12 mb-0">

@@ -10,9 +10,16 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0 badge {{ $formSubmission->getLabelStatus() }}">Preview Borang</h5>
-                        <span class="float-end badge {{ $formSubmission->getLabelStatus() }}">
-                            {{ $formSubmission->form_status }}
-                        </span>
+                        @if ($formSubmission->form_status == 'Draft' || $formSubmission->form_status == 'Revisi')
+                            <span class="float-end">
+                                <a class="btn btn-primary me-2"
+                                    href="{{ route('pengajuan.edit', $formSubmission->id) }}">Edit</a>
+                            </span>
+                        @else
+                            <span class="float-end badge {{ $formSubmission->getLabelStatus() }}">
+                                {{ $formSubmission->form_status }}
+                            </span>
+                        @endif
                     </div>
 
                     <div class="card-body">
@@ -79,7 +86,7 @@
                                     value="{{ $formSubmission->studyProgram()->study_program_name }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="jenisBorang" class="form-label">Jenis Borang</label>
+                                <label for="jenisBorang" class="form-label">Jenis Form</label>
                                 <input type="text" class="form-control" name="gender"
                                     value="{{ $formSubmission->formTemplate()->template_name }}" disabled />
                             </div>
@@ -97,7 +104,14 @@
                     </div>
                     <hr class="my-0" />
                     <div class="card">
-                        <h5 class="card-header">Komentar</h5>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">Komentar</h5>
+                            @if ($formSubmission->processed_date != null)
+                                <div class="card-subtitle text-muted mb-3">Di Proses :
+                                    {{ $formSubmission->processed_date }}
+                                </div>
+                            @endif
+                        </div>
                         <div class="card-body">
                             <div class="mb-3 col-12 mb-0">
                                 <div class="alert alert-warning">

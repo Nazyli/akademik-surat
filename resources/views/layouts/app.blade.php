@@ -116,7 +116,7 @@
                         <li class="menu-item {{ isActiveLink('admin/master/tipe-borang') }}">
                             <a href="{{ url('admin/master/tipe-borang') }}" class="menu-link">
                                 <i class="menu-icon bx bx-list-ul"></i>
-                                <div data-i18n="tipe-borang">Tipe Borang</div>
+                                <div data-i18n="tipe-borang">Tipe Form</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
@@ -173,7 +173,7 @@
 
 
                         <li class="menu-header small text-uppercase">
-                            <span class="menu-header-text">Download Format Borang</span>
+                            <span class="menu-header-text">Download Format Form</span>
                         </li>
                         <li class="menu-item {{ isActiveLink('user/template-surat/skripsi') }}">
                             <a href="{{ url('user/template-surat/skripsi') }}" class="menu-link">

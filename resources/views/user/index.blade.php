@@ -25,7 +25,7 @@
                                      Pengajuan Surat</a>
                                  <a href="{{ url('user/template-surat/akademik') }}"
                                      class="btn btn-sm btn-outline-info">Download
-                                     Format Borang
+                                     Format Form
                                      Akademik</a>
                              </div>
                          </div>
@@ -80,7 +80,7 @@
                                  <tr>
                                      <th>Department</th>
                                      <th>Program Studi</th>
-                                     <th>Tipe Borang</th>
+                                     <th>Tipe Form</th>
                                      <th>Tanggal Pengajuan</th>
                                      <th>Status</th>
                                      <th>#</th>

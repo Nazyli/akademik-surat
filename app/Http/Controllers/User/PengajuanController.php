@@ -192,7 +192,7 @@ class PengajuanController extends Controller
     public function templateSurat($id)
     {
         if ($id == 'akademik') {
-            $titleBorang = "Borang Akademik";
+            $titleForm = "Form Akademik";
             $formTemplates = FormTemplates::where('status', 'Active')
                 ->where('type_id', "=", 'FT01')
                 ->orderBy('type_id')
@@ -200,10 +200,10 @@ class PengajuanController extends Controller
                 ->orderBy('template_name')
                 ->get();
             return view('user.pengajuan.template-akademik')
-                ->with(compact('titleBorang'))
+                ->with(compact('titleForm'))
                 ->with(compact('formTemplates'));
         } else {
-            $titleBorang = "Borang Pendaftaran Skripsi/Tesis dan Promosi";
+            $titleForm = "Form Pendaftaran Skripsi/Tesis dan Promosi";
             $formTemplates = FormTemplates::where('status', 'Active')
                 ->where('type_id', "!=", 'FT01')
                 ->orderBy('type_id')
@@ -211,7 +211,7 @@ class PengajuanController extends Controller
                 ->orderBy('template_name')
                 ->get();
             return view('user.pengajuan.template-akademik')
-                ->with(compact('titleBorang'))
+                ->with(compact('titleForm'))
                 ->with(compact('formTemplates'));
         }
     }
