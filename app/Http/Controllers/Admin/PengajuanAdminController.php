@@ -37,7 +37,7 @@ class PengajuanAdminController extends Controller
                 ->join('study_programs', 'form_submissions.study_program_id', '=', 'study_programs.id')
                 ->join('form_templates', 'form_submissions.form_template_id', '=', 'form_templates.id')
                 ->whereNotIn('form_status', ['Draft', 'Cancel'])
-                ->orderBy('form_submissions.department_id')
+                ->orderBy('form_submissions.created_at', 'DESC')
                 ->select(
                     'form_submissions.id as id',
                     'form_status',
@@ -52,7 +52,7 @@ class PengajuanAdminController extends Controller
                 $data->where('form_submissions.department_id', $departmentId);
             }
             if ($status != 'all') {
-                $data->where('form_status', 'Sent');
+                $data->whereIn('form_status', ['Sent', 'Reviewed']);
             }
             $data = $data->get();
 
