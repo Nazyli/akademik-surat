@@ -29,6 +29,7 @@ class CreateFormSubmissionsTable extends Migration
             $table->string('signed_file')->nullable();
             $table->string('signed_size_file')->nullable();
             $table->timestamp('submission_date')->nullable();
+            $table->timestamp('processed_date')->nullable();
             $table->longText('keterangan')->nullable();
             $table->longText('komentar')->nullable();
             $table->string('created_by')->nullable();

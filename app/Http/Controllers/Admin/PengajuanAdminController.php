@@ -167,6 +167,7 @@ class PengajuanAdminController extends Controller
                 }
             }
             $data['form_status'] = $request->action;
+            $data['processed_date'] = new DateTime();
             $data['updated_by'] = auth()->user()->id;
             $formSubmission->update($data);
 
