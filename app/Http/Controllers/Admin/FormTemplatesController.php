@@ -72,7 +72,7 @@ class FormTemplatesController extends Controller
             $data['created_by'] = auth()->user()->id;
             FormTemplates::create($data);
 
-            return redirect()->route('jenis-borang.index')->with('success', 'Jenis Borang created successfully.');
+            return redirect()->route('jenis-borang.index')->with('success', 'Jenis Form created successfully.');
         } catch (Exception $e) {
             return redirect()->route('jenis-borang.index')->with('error', $e->errorInfo[2]);
         }
@@ -148,7 +148,7 @@ class FormTemplatesController extends Controller
             $data['updated_by'] = auth()->user()->id;
             $formTemplate->update($data);
 
-            return redirect()->route('jenis-borang.index')->with('success', 'Jenis Borang updated successfully.');
+            return redirect()->route('jenis-borang.index')->with('success', 'Jenis From updated successfully.');
         } catch (Exception $e) {
             return redirect()->route('jenis-borang.index')->with('error', $e->errorInfo[2]);
         }
@@ -167,6 +167,6 @@ class FormTemplatesController extends Controller
             'status' => 'InActive',
             'updated_by' => auth()->user()->id,
         ]);
-        return redirect()->route('jenis-borang.index')->with('success', 'Jenis Borang InActive successfully.');
+        return redirect()->route('jenis-borang.index')->with('success', 'Jenis form InActive successfully.');
     }
 }

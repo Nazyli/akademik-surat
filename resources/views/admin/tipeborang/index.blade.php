@@ -4,7 +4,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
             <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Tipe Borang
+            Tipe Form
         </h4>
 
         <div class="row">
@@ -20,7 +20,7 @@
                             @csrf
                             @method(isset($formType) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label">Tipe Borang</label>
+                                <label class="form-label">Tipe Form</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                                     name="name" value="{{ isset($formType) ? $formType->name : old('name') }}" />
                                 @error('name')
@@ -44,7 +44,7 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Tipe Borang</h5>
+                        <h5 class="mb-0">Data Tipe Form</h5>
                     </div>
                     <div class="card-body">
                         <table id="datatable" class="table table-bordered table-hover table-sm">

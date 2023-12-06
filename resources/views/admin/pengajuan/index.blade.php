@@ -8,71 +8,47 @@
         </h4>
 
         <div class="row">
-            <!-- Table-->
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Data Status Pengajuan</h5>
                     </div>
                     <div class="card-body">
-                        <table id="datatable" class="table table-bordered table-hover table-sm">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nama</th>
-                                    <th>Department</th>
-                                    <th>Program Studi</th>
-                                    <th>Tipe Borang</th>
-                                    <th>Tanggal Pengajuan</th>
-                                    <th>Status</th>
-                                    <th>Download File</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($formSubmission as $key => $value)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $value->user()->fullName() }}</td>
-                                        <td>{{ $value->department()->department_name }}</td>
-                                        <td>{{ $value->studyProgram()->study_program_name }}</td>
-                                        <td>{{ $value->formTemplate()->template_name }}</td>
-                                        <td>{{ $value->submission_date }}</td>
-                                        <td>
-                                            <span class="badge {{ $value->getLabelStatusAdmin() }}">
-                                                {{ $value->getFormStatusAdmin() }}
-                                            </span>
-                                        </td>
-                                        <td align="center">
-                                            @if ($value->pathUrl())
-                                                <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
-                                                    target="_blank">
-                                                    Download
-                                                </a>
-                                            @endif
-                                        </td>
-                                        @php
-                                            $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
-                                        @endphp
-
-                                        <td class="text-center">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item text-primary"
-                                                        href="{{ route('pengajuanadmin.preview', $value->id) }}">
-                                                        <i class='bx bxs-show me-1'></i> Preview
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="row mb-3 alert alert-info">
+                            <label class="col-sm-2 col-form-label text-info" for="basic-default-department"
+                                style="font-weight: bold;">Pilih Department</label>
+                            <div class="col-sm-10">
+                                <select id="departmentSelect" class="form-select">
+                                    <option value="">Semua Department</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}">
+                                            {{ $department->department_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table class="table table-bordered user_datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nama</th>
+                                            <th>Department</th>
+                                            <th>Program Studi</th>
+                                            <th>Tipe Form</th>
+                                            <th>Tanggal Pengajuan</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="pagination">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,41 +59,96 @@
 
 @section('js')
     <script>
-        $('.swalSentPengajuan').click(function(event) {
-            event.preventDefault();
-            var cancelUrl = $(this).attr('href'); // Mendapatkan URL pembatalan dari link
+        $(function() {
+            var table;
 
-            Swal.fire({
-                title: 'Kirim Pengajuan!',
-                text: "Apakah Anda yakin ingin mengirim surat ini?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, kirim!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = cancelUrl; // Arahkan ke URL pembatalan
-                }
-            });
-        });
+            function initDataTable(departmentId) {
+                table = $('.user_datatable').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: "{{ route('getPengajuanByDepartmentId', ['departmentId' => ':departmentId', 'status' => ':status']) }}"
+                            .replace(':departmentId', departmentId)
+                            .replace(':status', 'all'),
+                        data: function(d) {
+                            d.searchInput = $('#searchInput').val();
+                        }
+                    },
+                    "order": [],
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers",
+                    oLanguage: {
+                        "sEmptyTable": "Tidak ada data yang tersedia pada tabel ini",
+                        "sProcessing": "Sedang memproses...",
+                        "sLengthMenu": "Tampilkan _MENU_ entri",
+                        "sZeroRecords": "Tidak ditemukan data yang sesuai",
+                        "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                        "sInfoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
+                        "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Cari:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "<i class='tf-icon bx bx-chevrons-left'></i>",
+                            "sPrevious": "<i class='tf-icon bx bx-chevron-left'></i>",
+                            "sNext": "<i class='tf-icon bx bx-chevron-right'></i>",
+                            "sLast": "<i class='tf-icon bx bx-chevrons-right'></i>"
+                        }
+                    },
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'full_name',
+                            name: 'full_name'
+                        },
+                        {
+                            data: 'department_name',
+                            name: 'department_name'
+                        },
+                        {
+                            data: 'study_program_name',
+                            name: 'study_program_name'
+                        },
+                        {
+                            data: 'template_name',
+                            name: 'template_name'
+                        },
+                        {
+                            data: 'submission_date',
+                            name: 'submission_date'
+                        },
 
-        $('.swalCancelPengajuan').click(function(event) {
-            event.preventDefault();
-            var cancelUrl = $(this).attr('href'); // Mendapatkan URL pembatalan dari link
+                        {
+                            data: 'status',
+                            name: 'status',
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        },
+                    ]
+                });
+            }
 
-            Swal.fire({
-                title: 'Batalkan Pengajuan!',
-                text: "Apakah Anda yakin ingin membatalkan surat ini?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, batal!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = cancelUrl; // Arahkan ke URL pembatalan
-                }
+            // Initial load with departmentId = 0
+            initDataTable(0);
+
+            // Handle change event on departmentSelect dropdown
+            $('#departmentSelect').on('change', function() {
+                var departmentId = $(this).val() || 0; // If no value selected, default to 0
+                table.destroy(); // Destroy existing DataTable
+                initDataTable(departmentId); // Initialize DataTable with new departmentId
             });
         });
     </script>

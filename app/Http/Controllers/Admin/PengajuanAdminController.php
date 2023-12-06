@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\FormSubmission;
-use App\Models\FormTemplates;
 use App\Models\FormType;
-use App\Models\StudyProgram;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class PengajuanAdminController extends Controller
 {
@@ -17,14 +17,83 @@ class PengajuanAdminController extends Controller
     public function index()
     {
         //
+
+        $departments = Department::where('status', 'Active')->orderBy('department_name')->get();
         $formSubmission = FormSubmission::where('form_status', "!=", "Draft")
             ->where('form_status', "!=", "Cancel")
             ->orderBy('created_at', 'desc')
             ->get();
 
         return view('admin.pengajuan.index')
+            ->with(compact('departments'))
             ->with(compact('formSubmission'));
     }
+
+    public function getByDepartmentId(Request $request, $departmentId, $status)
+    {
+        if ($request->ajax()) {
+            $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
+                ->join('users', 'form_submissions.user_id', '=', 'users.id')
+                ->join('study_programs', 'form_submissions.study_program_id', '=', 'study_programs.id')
+                ->join('form_templates', 'form_submissions.form_template_id', '=', 'form_templates.id')
+                ->whereNotIn('form_status', ['Draft', 'Cancel'])
+                ->orderBy('form_submissions.created_at', 'DESC')
+                ->select(
+                    'form_submissions.id as id',
+                    'form_status',
+                    DB::raw("CONCAT(first_name, ' ', last_name) as full_name"),
+                    'submission_date',
+                    'departments.department_name as department_name',
+                    'study_programs.study_program_name as study_program_name',
+                    'form_templates.template_name'
+                );
+
+            if ($departmentId != 0) {
+                $data->where('form_submissions.department_id', $departmentId);
+            }
+            if ($status != 'all') {
+                $data->whereIn('form_status', ['Sent', 'Reviewed']);
+            }
+            $data = $data->get();
+
+            return FacadesDataTables::of($data)->addIndexColumn()
+                ->addColumn('status', function ($row) {
+                    $badge = '<span class="badge ' . $row->getLabelStatusAdmin() . '">'
+                        . $row->getFormStatusAdmin() . '</span>';
+                    return $badge;
+                })
+                ->addColumn('action', function ($row) {
+                    $url = route('pengajuanadmin.preview', $row->id);
+                    $btn = '<a href="' . $url . '" class="badge bg-label-primary">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['status', 'action'])
+                ->make(true);
+        }
+
+        return view('admin.pengajuan.index');
+    }
+
+    // public function getByDepartmentId(Request $request, $departmentId)
+    // {
+    //     $perPage = $request->input('per_page', 10);
+    //     $search = $request->input('search');
+
+    //     $query = FormSubmission::where('department_id', $departmentId)
+    //         ->whereNotIn('form_status', ['Draft', 'Cancel'])
+    //         ->orderBy('created_at', 'desc');
+
+    //     if ($search) {
+    //         $query->where(function ($q) use ($search) {
+    //             $q->where('keterangan', 'LIKE', '%' . $search . '%')
+    //                 ->orWhere('komentar', 'LIKE', '%' . $search . '%');
+    //         });
+    //     }
+
+    //     $formSubmissions = $query->paginate($perPage);
+
+    //     return response()->json($formSubmissions);
+    // }
 
     public function create()
     {
@@ -98,6 +167,7 @@ class PengajuanAdminController extends Controller
                 }
             }
             $data['form_status'] = $request->action;
+            $data['processed_date'] = new DateTime();
             $data['updated_by'] = auth()->user()->id;
             $formSubmission->update($data);
 

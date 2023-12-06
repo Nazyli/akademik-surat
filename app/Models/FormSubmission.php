@@ -23,6 +23,7 @@ class FormSubmission extends Model
         'signed_file',
         'signed_size_file',
         'submission_date',
+        'processed_date',
         'keterangan',
         'komentar',
         'created_by',

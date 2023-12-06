@@ -22,10 +22,9 @@
                                     <th>Nama</th>
                                     <th>Department</th>
                                     <th>Program Studi</th>
-                                    <th>Tipe Borang</th>
+                                    <th>Tipe Form</th>
                                     <th>Tanggal Pengajuan</th>
                                     <th>Status</th>
-                                    <th>Download File</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -43,18 +42,6 @@
                                                 {{ $value->form_status }}
                                             </span>
                                         </td>
-                                        <td align="center">
-                                            @if ($value->pathUrl())
-                                                <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
-                                                    target="_blank">
-                                                    Download
-                                                </a>
-                                            @endif
-                                        </td>
-                                        @php
-                                            $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
-                                        @endphp
-
                                         <td class="text-center">
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
