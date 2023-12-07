@@ -56,7 +56,6 @@ class AdminController extends Controller
         }
 
         $dataHome->totalUser = User::count();
-        $dataHome->departments = Department::where('status', 'Active')->orderBy('department_name')->get();
         return response()->json($dataHome);
     }
 

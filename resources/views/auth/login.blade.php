@@ -43,7 +43,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="app-brand justify-content-center mb-1">
-                            <a href="index.html" class="app-brand-link gap-2">
+                            <a href="#" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
                                     <img src="{{ asset('img/logo/Logo-FMIPA-UI.png') }}"
                                         style="width: 150px;height: auto;">
@@ -60,9 +60,9 @@
                         <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label">Username</label>
-                                <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" placeholder="Enter your username" autocomplete="email"
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    id="email" name="email" placeholder="Enter your email" autocomplete="email"
                                     autofocus />
 
                                 @error('email')
@@ -97,20 +97,21 @@
                                     @enderror
                                 </div>
                             </div>
-                            <!-- <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me"> Remember Me </label>
-                  </div>
-                </div> -->
+                            <!--
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                                </div>
+                            </div>
+                        -->
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
                             </div>
                         </form>
-
-                        <p class="text-center">
+                        <p class="text-center mt-2">
                             <span>Pengguna Baru?</span>
-                            <a href="auth-register-basic.html">
+                            <a href="{{ url('/register') }}">
                                 <span>Daftar Disini</span>
                             </a>
                         </p>

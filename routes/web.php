@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\FormTemplatesController;
 use App\Http\Controllers\Admin\FormTypeController;
 use App\Http\Controllers\Admin\PengajuanAdminController;
 use App\Http\Controllers\Admin\ProgramStudiController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\AkunController;
 use App\Http\Controllers\User\PengajuanController;
 use App\Http\Controllers\User\UserController;
@@ -25,9 +26,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('auth.login');
+// })->name('login-page');
+Route::get('/', [LoginController::class, 'showLoginForm']);
+
 
 Route::view('/forbidden', '400');
 
