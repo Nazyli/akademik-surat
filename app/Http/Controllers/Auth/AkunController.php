@@ -101,7 +101,8 @@ class AkunController extends Controller
         #Update the new Password
         $user = User::find(auth()->user()->id);
         $user->update([
-            'password' => Hash::make($request->new_password)
+            'password' => Hash::make($request->new_password),
+            'updated_by' => auth()->user()->id
         ]);
         if ($user->role_id == 1) {
             return redirect()->route('change-password.admin')->with('success', 'Password updated successfully.');

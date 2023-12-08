@@ -33,7 +33,7 @@
                                 <table class="table table-bordered user_datatable">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>Nama</th>
                                             <th>NPM</th>
                                             <th>Email</th>
@@ -41,6 +41,7 @@
                                             <th>Department</th>
                                             <th>Program Studi</th>
                                             <th>Role</th>
+                                            <th>#</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -133,6 +134,10 @@
                         {
                             data: 'status',
                             name: 'status'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action'
                         },
                     ]
                 });
