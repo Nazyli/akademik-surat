@@ -66,7 +66,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="index.html" class="app-brand-link">
+                    <a href="{{ url('/') }}" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <img src="{{ asset('/img/logo/logo-app.svg') }}" width="25" alt="Logo" />
                         </span>
@@ -272,18 +272,18 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item"
+                                            href="{{ auth()->user()->role_id == 1 ? url('admin/pengaturan-akun') : url('user/pengaturan-akun') }}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item"
+                                            href="{{ auth()->user()->role_id == 1 ? url('admin/change-password') : url('user/change-password') }}">
                                             <span class="d-flex align-items-center align-middle">
                                                 <i class="flex-shrink-0 bx bx-cog me-2"></i>
-                                                <span class="flex-grow-1 align-middle ms-1">Settings</span>
-                                                <span
-                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                                                <span class="flex-grow-1 align-middle ms-1">Change Password</span>
                                             </span>
                                         </a>
                                     </li>

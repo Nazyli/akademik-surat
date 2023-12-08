@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class AkunController extends Controller
 {
@@ -68,6 +69,44 @@ class AkunController extends Controller
             return redirect()->route('pengaturan-akun.indexAdmin')->with('success', 'Image updated successfully.');
         } else {
             return redirect()->route('pengaturan-akun.index')->with('success', 'Image updated successfully.');
+        }
+    }
+
+
+    public function changePassword()
+    {
+        $user = User::find(auth()->user()->id);
+        if ($user->role_id == 1) {
+            return view('admin.akun.change-password', compact('user'));
+        } else {
+            return view('user.akun.change-password', compact('user'));
+        }
+    }
+
+    public function changePasswordUpdate(Request $request, $id)
+    {
+        //
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+
+        #Match The Old Password
+        if (!Hash::check($request->old_password, auth()->user()->password)) {
+            return back()->with("error", "Kata Sandi Lama Tidak Cocok!");
+        }
+
+
+        #Update the new Password
+        $user = User::find(auth()->user()->id);
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+        if ($user->role_id == 1) {
+            return redirect()->route('change-password.admin')->with('success', 'Password updated successfully.');
+        } else {
+            return redirect()->route('change-password')->with('success', 'Password updated successfully.');
         }
     }
 }
