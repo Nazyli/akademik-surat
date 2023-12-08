@@ -142,6 +142,12 @@
                                 <div data-i18n="Support">Master User</div>
                             </a>
                         </li>
+                        <li class="menu-item {{ isActiveLink('admin/pengaturan-akun') }}">
+                            <a href="{{ url('admin/pengaturan-akun') }}" class="menu-link">
+                                <i class="menu-icon bx bx-lock"></i>
+                                <div data-i18n="Support">Pengaturan Akun</div>
+                            </a>
+                        </li>
                         <!--
                         <li class="menu-item">
                             <a href="#" target="_blank" class="menu-link">

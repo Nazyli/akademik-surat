@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -12,7 +12,11 @@ class AkunController extends Controller
     public function index()
     {
         $user = User::find(auth()->user()->id);
-        return view('user.akun.index', compact('user'));
+        if ($user->role_id == 1) {
+            return view('admin.akun.index', compact('user'));
+        } else {
+            return view('user.akun.index', compact('user'));
+        }
     }
 
     public function update(Request $request, $id)
@@ -22,16 +26,20 @@ class AkunController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
-            'npm' => 'required',
+            // 'npm' => 'required',
             'phone' => 'required',
         ]);
 
         $data = $request->all();
         $data['status'] = 'Active';
         $data['updated_by'] = auth()->user()->id;
-        User::find($id)->update($data);
-
-        return redirect()->route('pengaturan-akun.index')->with('success', 'Account updated successfully.');
+        $user = User::find($id);
+        $user->update($data);
+        if ($user->role_id == 1) {
+            return redirect()->route('pengaturan-akun.indexAdmin')->with('success', 'Account updated successfully.');
+        } else {
+            return redirect()->route('pengaturan-akun.index')->with('success', 'Account updated successfully.');
+        }
     }
 
     public function updateImg(Request $request, $id)
@@ -56,6 +64,10 @@ class AkunController extends Controller
         $data['updated_by'] = auth()->user()->id;
         $user->update($data);
 
-        return redirect()->route('pengaturan-akun.index')->with('success', 'Account updated successfully.');
+        if ($user->role_id == 1) {
+            return redirect()->route('pengaturan-akun.indexAdmin')->with('success', 'Image updated successfully.');
+        } else {
+            return redirect()->route('pengaturan-akun.index')->with('success', 'Image updated successfully.');
+        }
     }
 }

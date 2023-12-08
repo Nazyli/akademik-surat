@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\MasterUsersController;
 use App\Http\Controllers\Admin\PengajuanAdminController;
 use App\Http\Controllers\Admin\ProgramStudiController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\User\AkunController;
+use App\Http\Controllers\Auth\AkunController;
 use App\Http\Controllers\User\PengajuanController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +71,10 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
 
     Route::get('users', [MasterUsersController::class, 'index'])->name('masteruser.index');
     Route::get('users/getByDepartementId/{departmentId}', [MasterUsersController::class, 'getByDepartmentId'])->name('masteruser.getByDepartementId');
+
+    Route::get('pengaturan-akun', [AkunController::class, 'index'])->name('pengaturan-akun.indexAdmin');
+    Route::put('pengaturan-akun/{id}', [AkunController::class, 'update'])->name('pengaturan-akun.updateAdmin');
+    Route::put('pengaturan-akun-updateImg/{id}', [AkunController::class, 'updateImg'])->name('pengaturan-akun-updateImgAdmin');
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
