@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="row mb-3 alert alert-primary">
             <label class="col-sm-2 col-form-label text-primary" for="basic-default-department" style="font-weight: bold;">Pilih
                 Department</label>

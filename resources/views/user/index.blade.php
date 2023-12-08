@@ -3,6 +3,11 @@
  @section('content')
      <div class="container-xxl flex-grow-1 container-p-y">
          <div class="row">
+             @if (session('status'))
+                 <div class="alert alert-success" role="alert">
+                     {{ session('status') }}
+                 </div>
+             @endif
              @if ($dataHome->countRevisi > 0)
                  <div class="col-12">
                      <div class="alert alert-info alert-dismissible" role="alert">
