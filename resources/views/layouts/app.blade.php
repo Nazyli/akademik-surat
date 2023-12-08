@@ -136,18 +136,20 @@
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">Administrator</span>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" target="_blank" class="menu-link">
+                        <li class="menu-item {{ isActiveLink('admin/users') }}">
+                            <a href="{{ url('admin/users') }}" class="menu-link">
                                 <i class="menu-icon bx bx-user"></i>
                                 <div data-i18n="Support">Master User</div>
                             </a>
                         </li>
+                        <!--
                         <li class="menu-item">
                             <a href="#" target="_blank" class="menu-link">
                                 <i class="menu-icon bx bx-lock"></i>
                                 <div data-i18n="Support">Setujui Password</div>
                             </a>
                         </li>
+                    -->
                     </ul>
                 @else
                     <ul class="menu-inner py-1">

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardNewsController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FormTemplatesController;
 use App\Http\Controllers\Admin\FormTypeController;
+use App\Http\Controllers\Admin\MasterUsersController;
 use App\Http\Controllers\Admin\PengajuanAdminController;
 use App\Http\Controllers\Admin\ProgramStudiController;
 use App\Http\Controllers\Auth\LoginController;
@@ -67,6 +68,9 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::put('pengajuan-surat/{id}', [PengajuanAdminController::class, 'update'])->name('pengajuanadmin.update');
     Route::get('/get-data-by-department/{departmentId}/{status}', [PengajuanAdminController::class, 'getByDepartmentId'])->name('getPengajuanByDepartmentId');
     Route::get('/api/getDataHome/{departmentId}', [AdminController::class, 'getDataHome'])->name('getDataHome');
+
+    Route::get('users', [MasterUsersController::class, 'index'])->name('masteruser.index');
+    Route::get('users/getByDepartementId/{departmentId}', [MasterUsersController::class, 'getByDepartmentId'])->name('masteruser.getByDepartementId');
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
