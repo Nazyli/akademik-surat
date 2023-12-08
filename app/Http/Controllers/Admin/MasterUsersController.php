@@ -30,6 +30,7 @@ class MasterUsersController extends Controller
                 ->leftJoin('study_programs as sp', 'fs.study_program_id', '=', 'sp.id')
                 ->select(
                     'u.id',
+                    'u.img_url',
                     'u.first_name',
                     DB::raw('CONCAT(u.first_name, " ", u.last_name) AS full_name'),
                     'u.npm',
@@ -53,12 +54,26 @@ class MasterUsersController extends Controller
                         . $row->role_name . '</span>';
                     return $badge;
                 })
+                ->addColumn('avatar', function ($row) {
+                    $image =  isset($row->img_url) ? asset($row->img_url) : asset("img/avatars/blank-profile.png");
+                    return '<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                    <li
+                      data-bs-toggle="tooltip"
+                      data-popup="tooltip-custom"
+                      data-bs-placement="top"
+                      class="avatar avatar-xs pull-up"
+                      title="' . $row->full_name . '">
+                      <img src="' . $image . '" alt="Avatar" class="rounded-circle" />
+                    </li>
+                    <li>' . $row->full_name . '</li>
+                  </ul>';
+                })
                 ->addColumn('action', function ($row) {
                     $url = route('pengajuanadmin.preview', $row->id);
                     $btn = '<a href="' . $url . '" class="badge bg-label-primary">View</a>';
                     return $btn;
                 })
-                ->rawColumns(['status', 'action'])
+                ->rawColumns(['status', 'avatar', 'action'])
                 ->make(true);
         }
 

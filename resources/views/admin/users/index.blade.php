@@ -105,9 +105,10 @@
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
+
                         {
-                            data: 'full_name',
-                            name: 'full_name'
+                            data: 'avatar',
+                            name: 'avatar'
                         },
                         {
                             data: 'npm',
