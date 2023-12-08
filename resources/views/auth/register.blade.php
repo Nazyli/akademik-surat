@@ -17,6 +17,11 @@
                     <p class="text-center mb-4" style="font-weight: bolder; font-size: 14px; color: #130f40;">
                         Sistem Informasi Persuratan Akademik FMIPA UI</p>
                     <hr style="margin-top: -15px;">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardNewsController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FormTemplatesController;
 use App\Http\Controllers\Admin\FormTypeController;
@@ -35,6 +34,7 @@ Route::get('/', [LoginController::class, 'showLoginForm']);
 Route::view('/forbidden', '400');
 
 Auth::routes();
+// Auth::routes(['verify' => true]);
 /*
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
