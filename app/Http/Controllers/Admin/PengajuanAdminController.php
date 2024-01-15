@@ -152,6 +152,11 @@ class PengajuanAdminController extends Controller
                 'upload_file' => ['required', 'mimes:pdf,xlsx,xls,docx'],
             ]);
         }
+        if ($request->action == 'Reject' || $request->action == 'Revisi') {
+            $request->validate([
+                'komentar' => ['required'],
+            ]);
+        }
         try {
             $formSubmission = FormSubmission::find($id);
             $publicPath = "pengajuan-surat/" . $formSubmission->user()->id . "/approve";

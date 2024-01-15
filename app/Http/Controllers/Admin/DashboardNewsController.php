@@ -7,6 +7,7 @@ use App\Models\DashboardNews;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class DashboardNewsController extends Controller
 {
@@ -43,15 +44,15 @@ class DashboardNewsController extends Controller
         //
         $request->validate([
             'upload_file' => ['required', 'mimes:png,jpg,jpeg'],
-            'title' => 'required',
-            'body' => 'required',
+            // 'title' => 'required',
+            // 'body' => 'required',
             'sort_order' => 'required',
         ]);
         try {
             $data = $request->all();
             if ($file = $request->file('upload_file')) {
                 $publicPath = "berita-dashboard";
-                $title = str_replace(' ', '-', $request->title);
+                $title = Str::uuid();
                 $fileName = $title . '-' . time() . '.' . $file->extension();
                 $data['img_url'] = $publicPath . "/" . $fileName;
                 $file->move($publicPath, $fileName);
@@ -105,8 +106,8 @@ class DashboardNewsController extends Controller
         //
         $request->validate([
             'upload_file' => ['mimes:png,jpg,jpeg'],
-            'title' => 'required',
-            'body' => 'required',
+            // 'title' => 'required',
+            // 'body' => 'required',
             'sort_order' => 'required',
         ]);
         try {
@@ -114,7 +115,8 @@ class DashboardNewsController extends Controller
             $data = $request->all();
             if ($file = $request->file('upload_file')) {
                 $publicPath = "berita-dashboard";
-                $title = str_replace(' ', '-', $request->title);
+                // $title = str_replace(' ', '-', $request->title);
+                $title = Str::uuid();
                 $fileName = $title . '-' . time() . '.' . $file->extension();
                 $data['img_url'] = $publicPath . "/" . $fileName;
                 $file->move($publicPath, $fileName);

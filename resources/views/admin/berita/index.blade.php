@@ -20,8 +20,8 @@
                             @csrf
                             @method(isset($dashboardNew) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label">Title</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                <label class="form-label">Link</label>
+                                <input type="url" class="form-control @error('title') is-invalid @enderror"
                                     name="title"
                                     value="{{ isset($dashboardNew) ? $dashboardNew->title : old('title') }}" />
                                 @error('title')
@@ -32,7 +32,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Body</label>
+                                <label class="form-label">Link Name</label>
                                 <input type="text" class="form-control @error('body') is-invalid @enderror"
                                     name="body" value="{{ isset($dashboardNew) ? $dashboardNew->body : old('body') }}" />
                                 @error('body')
@@ -86,8 +86,8 @@
                             <table id="datatable" class="table table-bordered table-hover table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Title</th>
-                                        <th>Body</th>
+                                        <th>Link</th>
+                                        {{-- <th>Body</th> --}}
                                         <th>Sort Order</th>
                                         <th>image</th>
                                         <th>Status</th>
@@ -97,8 +97,18 @@
                                 <tbody>
                                     @foreach ($dashboardNews as $key => $value)
                                         <tr>
-                                            <td>{{ $value->title }}</td>
-                                            <td>{{ $value->body }}</td>
+                                            <td>
+                                                @if ($value->title)
+                                                    <a href="{{ $value->title }}" target="_blank">
+                                                        @if ($value->body)
+                                                            {{ $value->body }}
+                                                        @else
+                                                            Show More
+                                                        @endif
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            {{-- <td>{{ $value->body }}</td> --}}
                                             <td>{{ $value->sort_order }}</td>
                                             <td align="center">
                                                 @if ($value->pathUrl())

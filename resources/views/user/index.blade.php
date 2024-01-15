@@ -58,8 +58,17 @@
                                  <img class="d-block w-100" src="{{ $value->pathUrl() }}" alt="{{ $value->title }}"
                                      style="height: 400px" />
                                  <div class="carousel-caption d-none d-md-block">
-                                     <h3>{{ $value->title }}</h3>
-                                     <p>{{ $value->body }}</p>
+                                     {{-- <h3>{{ $value->title }}</h3> --}}
+                                     {{-- <p>{{ $value->body }}</p> --}}
+                                     @if ($value->title)
+                                         <a href="{{ $value->title }}" target="_blank" class="btn btn-sm btn-primary mb-3">
+                                             @if ($value->body)
+                                                 {{ $value->body }}
+                                             @else
+                                                 Show More
+                                             @endif
+                                         </a>
+                                     @endif
                                  </div>
                              </div>
                          @endforeach
