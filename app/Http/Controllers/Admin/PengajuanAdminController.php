@@ -159,7 +159,7 @@ class PengajuanAdminController extends Controller
         }
         try {
             $formSubmission = FormSubmission::find($id);
-            $publicPath = "pengajuan-surat/" . $formSubmission->user()->id . "/approve";
+            $publicPath = "file/pengajuan-surat" . "/"  . $formSubmission->user()->id . "/approve";
             $data = $request->all();
             if ($request->action == 'Finished') {
                 if ($file = $request->file('upload_file')) {

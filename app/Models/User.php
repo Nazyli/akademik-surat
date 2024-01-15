@@ -94,6 +94,6 @@ class User extends Authenticatable
 
     public function imgUrl()
     {
-        return isset($this->img_url) ? asset($this->img_url) : asset("img/avatars/blank-profile.png");
+        return isset($this->img_url) ? asset($this->img_url) : asset("file/avatars/blank-profile.png");
     }
 }

@@ -56,7 +56,7 @@ class AkunController extends Controller
         $user = User::find($id);
         $data = $request->all();
         if ($file = $request->file('upload_file')) {
-            $publicPath = "img/avatars";
+            $publicPath = "file/avatars";
             $title = str_replace(' ', '-', $user->first_name);
             $fileName = $title . '-' . time() . '.' . $file->extension();
             $data['img_url'] = $publicPath . "/" . $fileName;

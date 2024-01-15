@@ -51,7 +51,7 @@ class DashboardNewsController extends Controller
         try {
             $data = $request->all();
             if ($file = $request->file('upload_file')) {
-                $publicPath = "berita-dashboard";
+                $publicPath = "file/berita-dashboard";
                 $title = Str::uuid();
                 $fileName = $title . '-' . time() . '.' . $file->extension();
                 $data['img_url'] = $publicPath . "/" . $fileName;
@@ -114,7 +114,7 @@ class DashboardNewsController extends Controller
             $formTemplate = DashboardNews::find($id);
             $data = $request->all();
             if ($file = $request->file('upload_file')) {
-                $publicPath = "berita-dashboard";
+                $publicPath = "file/berita-dashboard";
                 // $title = str_replace(' ', '-', $request->title);
                 $title = Str::uuid();
                 $fileName = $title . '-' . time() . '.' . $file->extension();

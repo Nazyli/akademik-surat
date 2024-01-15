@@ -57,7 +57,7 @@ class MasterUsersController extends Controller
                     return $badge;
                 })
                 ->addColumn('avatar', function ($row) {
-                    $image =  isset($row->img_url) ? asset($row->img_url) : asset("img/avatars/blank-profile.png");
+                    $image =  isset($row->img_url) ? asset($row->img_url) : asset("file/avatars/blank-profile.png");
                     return '<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                     <li
                       data-bs-toggle="tooltip"

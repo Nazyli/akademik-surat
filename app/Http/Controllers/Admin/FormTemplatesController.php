@@ -60,7 +60,7 @@ class FormTemplatesController extends Controller
         try {
             $data = $request->all();
             if ($file = $request->file('upload_file')) {
-                $publicPath = "template-surat";
+                $publicPath = "file/template-surat";
                 $template_name = str_replace(' ', '-', $request->template_name);
                 $fileName = $template_name . '-' . time() . '.' . $file->extension();
                 $data['url_file'] = $publicPath . "/" . $fileName;
@@ -131,7 +131,7 @@ class FormTemplatesController extends Controller
             $formTemplate = FormTemplates::find($id);
             $data = $request->all();
             if ($file = $request->file('upload_file')) {
-                $publicPath = "template-surat";
+                $publicPath = "file/template-surat";
                 $template_name = str_replace(' ', '-', $request->template_name);
                 $fileName = $template_name . '-' . time() . '.' . $file->extension();
                 $data['url_file'] = $publicPath . "/" . $fileName;

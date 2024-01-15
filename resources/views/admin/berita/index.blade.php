@@ -103,7 +103,7 @@
                                                         @if ($value->body)
                                                             {{ $value->body }}
                                                         @else
-                                                            Show More
+                                                            Lihat Selengkapnya
                                                         @endif
                                                     </a>
                                                 @endif

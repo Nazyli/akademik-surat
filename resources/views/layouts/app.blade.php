@@ -147,7 +147,7 @@
                         <li class="menu-item {{ isActiveLink('admin/master/berita-dashboard') }}">
                             <a href="{{ url('admin/master/berita-dashboard') }}" class="menu-link">
                                 <i class="menu-icon bx bx-news"></i>
-                                <div data-i18n="berita-dashboard">Berita Dashboard</div>
+                                <div data-i18n="file/berita-dashboard">Berita Dashboard</div>
                             </a>
                         </li>
 

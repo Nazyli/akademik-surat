@@ -47,7 +47,7 @@ class PengajuanController extends Controller
     public function store(Request $request)
     {
         $user = User::find(auth()->user()->id);
-        $publicPath = "pengajuan-surat" . "/" . $user->id;
+        $publicPath = "file/pengajuan-surat" . "/" . $user->id;
         $request->validate([
             'upload_file' => ['required', 'mimes:pdf,xlsx,xls,docx'],
             'department_id' => 'required',
@@ -126,7 +126,7 @@ class PengajuanController extends Controller
             return redirect()->route('pengajuan.riwayat')->with('error', 'Pengajuan ' . $formSubmission->form_status . ' tidak dapat diedit!');
         }
         $user = User::find(auth()->user()->id);
-        $publicPath = "pengajuan-surat" . "/" . $user->id;
+        $publicPath = "file/pengajuan-surat" . "/" . $user->id;
         $request->validate([
             'upload_file' => 'mimes:pdf,xlsx,xls,docx',
             'department_id' => 'required',

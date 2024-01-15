@@ -61,11 +61,11 @@
                                      {{-- <h3>{{ $value->title }}</h3> --}}
                                      {{-- <p>{{ $value->body }}</p> --}}
                                      @if ($value->title)
-                                         <a href="{{ $value->title }}" target="_blank" class="btn btn-sm btn-primary mb-3">
+                                         <a href="{{ $value->title }}" target="_blank" class="btn btn-md btn-primary mb-1">
                                              @if ($value->body)
                                                  {{ $value->body }}
                                              @else
-                                                 Show More
+                                                 Lihat Selengkapnya
                                              @endif
                                          </a>
                                      @endif
