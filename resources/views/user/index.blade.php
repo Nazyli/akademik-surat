@@ -26,12 +26,25 @@
                                      Selamat Datang di Aplikasi <span class="fw-medium">Sistem Informasi Persuratan
                                          Akademik</span>
                                  </p>
-                                 <a href="{{ url('user/pengajuan') }}" class="btn btn-sm btn-outline-primary mb-3">Mulai
-                                     Pengajuan Surat</a>
-                                 <a href="{{ url('user/template-surat/akademik') }}"
-                                     class="btn btn-sm btn-outline-info mb-3">Download
-                                     Format Form
-                                     Akademik</a>
+                                 <div class="d-inline-blockk">
+                                     <div class="dropdown">
+                                         <button class="btn btn-sm btn-outline-info dropdown-toggle mb-3" type="button"
+                                             id="formatForm" data-bs-toggle="dropdown" aria-haspopup="true"
+                                             aria-expanded="false">
+                                             Download Format Form Akademik
+                                         </button>
+                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="formatForm">
+                                             <a class="dropdown-item" href="{{ url('user/template-surat/skripsi') }}">
+                                                 Skripsi/Tesis/Promosi</a>
+                                             <a class="dropdown-item"
+                                                 href="{{ url('user/template-surat/akademik') }}">Akademik</a>
+                                         </div>
+                                         <a href="{{ url('user/pengajuan') }}"
+                                             class="btn btn-sm btn-outline-primary mb-3">Mulai
+                                             Pengajuan Surat</a>
+                                     </div>
+                                 </div>
+
                              </div>
                          </div>
                          <div class="col-md-5 text-center text-sm-right ">
