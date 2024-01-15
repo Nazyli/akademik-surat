@@ -96,7 +96,7 @@
                             @method(isset($formSubmission) ? 'PUT' : 'POST')
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label for="departmentName" class="form-label">Nama Department</label>
+                                    <label for="departmentName" class="form-label">Nama Departemen</label>
                                     <select
                                         class="form-select department-select @error('department_id') is-invalid @enderror"
                                         id="departmentName" aria-label="Default select example" name="department_id">

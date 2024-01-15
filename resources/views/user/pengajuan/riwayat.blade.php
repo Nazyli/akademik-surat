@@ -20,7 +20,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nama</th>
-                                    <th>Department</th>
+                                    <th>Departemen</th>
                                     <th>Program Studi</th>
                                     <th>Tipe Form</th>
                                     <th>Tanggal Pengajuan</th>

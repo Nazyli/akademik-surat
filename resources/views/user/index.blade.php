@@ -84,7 +84,7 @@
                              <table class="table table-bordered table-hover table-sm">
                                  <thead class="thead-dark">
                                      <tr>
-                                         <th>Department</th>
+                                         <th>Departemen</th>
                                          <th>Program Studi</th>
                                          <th>Tipe Form</th>
                                          <th>Tanggal Pengajuan</th>

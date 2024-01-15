@@ -20,7 +20,7 @@
                             @csrf
                             @method(isset($department) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-department">Kode Department</label>
+                                <label class="form-label" for="basic-default-department">Kode Departemen</label>
                                 <input type="text" class="form-control @error('department_code') is-invalid @enderror"
                                     id="basic-default-department" name="department_code"
                                     value="{{ isset($department) ? $department->department_code : old('department_code') }}" />
@@ -32,7 +32,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-department">Nama Department</label>
+                                <label class="form-label" for="basic-default-department">Nama Departemen</label>
                                 <input type="text" class="form-control @error('department_name') is-invalid @enderror"
                                     id="basic-default-department" name="department_name"
                                     value="{{ isset($department) ? $department->department_name : old('department_name') }}" />
@@ -57,7 +57,7 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Department</h5>
+                        <h5 class="mb-0">Data Departemen</h5>
                     </div>
                     <div class="card-body">
                         <div class="col-12 table-responsive">
@@ -65,7 +65,7 @@
                                 <thead>
                                     <tr>
                                         <th>Kode</th>
-                                        <th>Nama Department</th>
+                                        <th>Nama Departemen</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>

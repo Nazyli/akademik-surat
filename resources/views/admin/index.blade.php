@@ -9,10 +9,10 @@
         @endif
         <div class="row mb-3 alert alert-primary">
             <label class="col-sm-2 col-form-label text-primary" for="basic-default-department" style="font-weight: bold;">Pilih
-                Department</label>
+                Departemen</label>
             <div class="col-sm-10">
                 <select id="departmentSelect" class="form-select" onchange="getDepartmentData()">
-                    <option value="0">Semua Department</option>
+                    <option value="0">Semua Departemen</option>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}">
                             {{ $department->department_name }}

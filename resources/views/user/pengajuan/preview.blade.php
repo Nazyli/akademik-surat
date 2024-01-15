@@ -76,7 +76,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="departmentName" class="form-label">Nama Department</label>
+                                <label for="departmentName" class="form-label">Nama Departemen</label>
                                 <input type="text" class="form-control" name="gender"
                                     value="{{ $formSubmission->department()->department_name }}" disabled />
                             </div>

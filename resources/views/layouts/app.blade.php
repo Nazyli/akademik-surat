@@ -123,7 +123,7 @@
                         <li class="menu-item {{ isActiveLink('admin/master/department') }}">
                             <a href="{{ url('admin/master/department') }}" class="menu-link">
                                 <i class="menu-icon bx bx-building"></i>
-                                <div data-i18n="Department">Department</div>
+                                <div data-i18n="Department">Departemen</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/program-studi') }}">

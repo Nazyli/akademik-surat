@@ -45,7 +45,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label for="departmentName" class="form-label">Nama Department</label>
+                                <label for="departmentName" class="form-label">Nama Departemen</label>
                                 <select class="form-select @error('department_id') is-invalid @enderror""
                                     id="departmentName" aria-label="Default select example" name="department_id">
                                     <option></option>
@@ -84,7 +84,7 @@
                                 <thead>
                                     <tr>
                                         <th>Kode</th>
-                                        <th>Nama Department</th>
+                                        <th>Nama Departemen</th>
                                         <th>Program Studi</th>
                                         <th>Status</th>
                                         <th>Action</th>

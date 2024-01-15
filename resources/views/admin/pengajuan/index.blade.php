@@ -16,10 +16,10 @@
                     <div class="card-body">
                         <div class="row mb-3 alert alert-info">
                             <label class="col-sm-2 col-form-label text-info" for="basic-default-department"
-                                style="font-weight: bold;">Pilih Department</label>
+                                style="font-weight: bold;">Pilih Departemen</label>
                             <div class="col-sm-10">
                                 <select id="departmentSelect" class="form-select">
-                                    <option value="">Semua Department</option>
+                                    <option value="">Semua Departemen</option>
                                     @foreach ($departments as $department)
                                         <option value="{{ $department->id }}">
                                             {{ $department->department_name }}
@@ -35,7 +35,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Nama</th>
-                                            <th>Department</th>
+                                            <th>Departemen</th>
                                             <th>Program Studi</th>
                                             <th>Tipe Form</th>
                                             <th>Tanggal Pengajuan</th>
