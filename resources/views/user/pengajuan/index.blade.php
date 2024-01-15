@@ -26,7 +26,7 @@
 
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">First Name</label>
+                                <label class="form-label">Nama Depan / First Name</label>
                                 <input type="text" class="form-control @error('first_name') is-invalid @enderror"
                                     name="first_name" value="{{ $user->first_name }}" disabled />
                                 @error('first_name')
@@ -36,7 +36,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Last Name</label>
+                                <label class="form-label">Nama Belakang / Last Name</label>
                                 <input type="text" class="form-control @error('last_name') is-invalid @enderror"
                                     name="last_name" value="{{ $user->last_name }}" disabled />
                                 @error('last_name')
@@ -46,7 +46,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">E-mail</label>
+                                <label class="form-label">Surel / E-mail</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                                     name="email" value="{{ $user->email }}" disabled />
                                 @error('email')
@@ -66,7 +66,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">No. Telp/Wa</label>
+                                <label class="form-label">Telp / Tel / Wa</label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                     name="phone" value="{{ $user->phone }}" disabled />
                                 @error('phone')
@@ -76,7 +76,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Jenis Kelamin</label>
+                                <label class="form-label">Jenis Kelamin / Gender</label>
                                 <input type="text" class="form-control @error('gender') is-invalid @enderror"
                                     name="gender" value="{{ $user->getGender() }}" disabled />
                                 @error('gender')
@@ -96,7 +96,7 @@
                             @method(isset($formSubmission) ? 'PUT' : 'POST')
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label for="departmentName" class="form-label">Nama Departemen</label>
+                                    <label for="departmentName" class="form-label">Nama Departemen / Department Name</label>
                                     <select
                                         class="form-select department-select @error('department_id') is-invalid @enderror"
                                         id="departmentName" aria-label="Default select example" name="department_id">
@@ -115,7 +115,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="programStudi" class="form-label">Program Studi</label>
+                                    <label for="programStudi" class="form-label">Program Studi / Study Program</label>
                                     <select
                                         class="form-select program-studi-select @error('study_program_id') is-invalid @enderror"
                                         id="programStudi" aria-label="Default select example" name="study_program_id">
@@ -131,7 +131,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="jenisBorang" class="form-label">Jenis Form</label>
+                                    <label for="jenisBorang" class="form-label">Jenis Form / Form Type</label>
                                     <select class="form-select @error('form_template_id') is-invalid @enderror"
                                         id="jenisBorang" aria-label="Default select example" name="form_template_id">
                                         <option></option>
@@ -149,7 +149,8 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="upload_file" class="form-label">Upload Pengajuan</label>
+                                    <label for="upload_file" class="form-label">Upload Pengajuan / Submission
+                                        Files</label>
                                     <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
                                         id="upload_file" name="upload_file"
                                         value="{{ isset($formSubmission) ? $formSubmission->url_file : old('url_file') }}" />
@@ -160,7 +161,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Keterangan</label>
+                                    <label class="form-label">Keterangan / Description</label>
                                     <textarea class="form-control  @error('keterangan') is-invalid @enderror" rows="3" name="keterangan">{{ isset($formSubmission) ? $formSubmission->keterangan : old('keterangan') }}</textarea>
                                     @error('keterangan')
                                         <span class="invalid-feedback" role="alert">

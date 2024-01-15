@@ -41,17 +41,17 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">First Name</label>
+                                <label class="form-label">Nama Depan / First Name</label>
                                 <input type="text" class="form-control" name="first_name"
                                     value="{{ $formSubmission->user()->first_name }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Last Name</label>
+                                <label class="form-label">Nama Belakang / Last Name</label>
                                 <input type="text" class="form-control" name="last_name"
                                     value="{{ $formSubmission->user()->last_name }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">E-mail</label>
+                                <label class="form-label">Surel / E-mail</label>
                                 <input type="email" class="form-control" name="email"
                                     value="{{ $formSubmission->user()->email }}" disabled />
                             </div>
@@ -61,12 +61,12 @@
                                     value="{{ $formSubmission->user()->npm }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">No. Telp/Wa</label>
+                                <label class="form-label">Telp / Tel / Wa</label>
                                 <input type="text" class="form-control" name="phone"
                                     value="{{ $formSubmission->user()->phone }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Jenis Kelamin</label>
+                                <label class="form-label">Jenis Kelamin / Gender</label>
                                 <input type="text" class="form-control" name="gender"
                                     value="{{ $formSubmission->user()->getGender() }}" disabled />
                             </div>
@@ -76,28 +76,29 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="departmentName" class="form-label">Nama Departemen</label>
+                                <label for="departmentName" class="form-label">Nama Departemen / Department Name</label>
                                 <input type="text" class="form-control" name="gender"
                                     value="{{ $formSubmission->department()->department_name }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="programStudi" class="form-label">Program Studi</label>
+                                <label for="programStudi" class="form-label">Program Studi / Study Program</label>
                                 <input type="text" class="form-control" name="gender"
                                     value="{{ $formSubmission->studyProgram()->study_program_name }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="jenisBorang" class="form-label">Jenis Form</label>
+                                <label for="jenisBorang" class="form-label">Jenis Form / Form Type</label>
                                 <input type="text" class="form-control" name="gender"
                                     value="{{ $formSubmission->formTemplate()->template_name }}" disabled />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">File Pengajuan</label> <br>
+                                <label class="form-label">File Pengajuan / Submission
+                                    Files</label> <br>
                                 <a href="{{ $formSubmission->pathUrl() }}" class="badge bg-label-primary" target="_blank">
                                     Download
                                 </a>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Keterangan</label>
+                                <label class="form-label">Keterangan / Description</label>
                                 <textarea class="form-control " rows="3" name="keterangan" disabled>{{ $formSubmission->keterangan }}</textarea>
                             </div>
                         </div>
@@ -105,7 +106,7 @@
                     <hr class="my-0" />
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">Komentar</h5>
+                            <h5 class="card-title">Komentar / Comment</h5>
                             @if ($formSubmission->processed_date != null)
                                 <div class="card-subtitle text-muted mb-3">Di Proses :
                                     {{ $formSubmission->processed_date }}
