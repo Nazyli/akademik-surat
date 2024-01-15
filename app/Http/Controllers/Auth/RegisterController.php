@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -17,13 +18,18 @@ class RegisterController extends Controller
     }
     public function register(Request $request)
     {
+        $currentYear = Carbon::now()->format('y');
+        $allowedYears = range($currentYear - 6, $currentYear);
+
+        $allowedYearString = implode('|', $allowedYears);
+
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required'],
             'phone' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'npm' => ['required', 'string', 'unique:users'],
+            'npm' => ['required', 'string', 'regex:/^(' . $allowedYearString . ')06\d{6}$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         $user = User::create([

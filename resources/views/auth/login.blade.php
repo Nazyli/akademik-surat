@@ -12,12 +12,21 @@
                             </span>
                         </a>
                     </div>
-                    <h4 class="text-center fw-bold"
-                        style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
-                    <p class="text-center mb-4" style="font-weight: bolder; font-size: 14px; color: #130f40;">Sistem
-                        Informasi
-                        Persuratan
-                        Akademik FMIPA UI</p>
+                    <div class="app-brand justify-content-center mb-4">
+                        <a href="#" class="app-brand-link gap-2">
+                            <span class="app-brand-logo demo">
+                                <img src="{{ asset('/img/logo/logo-app.png') }}" style="width: 250px;height: auto;">
+                            </span>
+                        </a>
+                    </div>
+                    <!--
+                                                                                <h4 class="text-center fw-bold"
+                                                                                    style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
+                                                                                <p class="text-center mb-4" style="font-weight: bolder; font-size: 14px; color: #130f40;">Sistem
+                                                                                    Informasi
+                                                                                    Persuratan
+                                                                                    Akademik FMIPA UI</p>
+                                                                                -->
                     <hr style="margin-top: -15px;">
                     <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
                         @csrf
@@ -39,9 +48,9 @@
 
 
                                 @if (Route::has('password.request'))
-                                    <a href="{{ url('/password/reset') }}">
-                                        <small>Lupa Kata Sandi?</small>
-                                    </a>
+                                    <b> <a href="{{ url('/password/reset') }}">
+                                            <small>Lupa Kata Sandi?</small>
+                                        </a></b>
                                 @endif
 
                             </div>
@@ -58,23 +67,24 @@
                                 @enderror
                             </div>
                         </div>
-                        <!--
-                                                    <div class="mb-3">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="remember-me" />
-                                                            <label class="form-check-label" for="remember-me"> Remember Me </label>
-                                                        </div>
-                                                    </div>
-                                                -->
+                        {{-- <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remember-me" />
+                                <label class="form-check-label" for="remember-me"> Remember Me </label>
+                            </div>
+                        </div> --}}
                         <div class="mb-3">
                             <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
                         </div>
+                        <hr style="">
+
                     </form>
                     <p class="text-center mt-2">
-                        <span>Pengguna Baru?</span>
-                        <a href="{{ url('/register') }}">
-                            <span>Daftar Disini</span>
-                        </a>
+                        <span>Pengguna Baru?</span><b>
+                            <a href="{{ url('/register') }}">
+                                <span>Daftar Disini</span>
+                            </a>
+                        </b>
                     </p>
                 </div>
             </div>

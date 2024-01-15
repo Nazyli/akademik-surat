@@ -82,58 +82,60 @@
                         <h5 class="mb-0">Data Berita Dashboard</h5>
                     </div>
                     <div class="card-body">
-                        <table id="datatable" class="table table-bordered table-hover table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Body</th>
-                                    <th>Sort Order</th>
-                                    <th>image</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($dashboardNews as $key => $value)
+                        <div class="col-12 table-responsive">
+                            <table id="datatable" class="table table-bordered table-hover table-sm">
+                                <thead>
                                     <tr>
-                                        <td>{{ $value->title }}</td>
-                                        <td>{{ $value->body }}</td>
-                                        <td>{{ $value->sort_order }}</td>
-                                        <td align="center">
-                                            @if ($value->pathUrl())
-                                                <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
-                                                    target="_blank">
-                                                    Download
-                                                </a>
-                                            @endif
-                                        </td>
-                                        @php
-                                            $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
-                                        @endphp
-
-                                        <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group">
-
-                                                <form action="{{ route('berita-dashboard.destroy', $value->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ route('berita-dashboard.edit', $value->id) }}"
-                                                        class="btn btn-icon btn-outline-primary btn-sm">
-                                                        <span class="tf-icons bx bx-edit-alt"></span>
-                                                    </a>
-                                                    <button type="submit"
-                                                        class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
-                                                            class="tf-icons bx bx-trash"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                        <th>Title</th>
+                                        <th>Body</th>
+                                        <th>Sort Order</th>
+                                        <th>image</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($dashboardNews as $key => $value)
+                                        <tr>
+                                            <td>{{ $value->title }}</td>
+                                            <td>{{ $value->body }}</td>
+                                            <td>{{ $value->sort_order }}</td>
+                                            <td align="center">
+                                                @if ($value->pathUrl())
+                                                    <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
+                                                        target="_blank">
+                                                        Download
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            @php
+                                                $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                            @endphp
+
+                                            <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+
+                                                    <form action="{{ route('berita-dashboard.destroy', $value->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('berita-dashboard.edit', $value->id) }}"
+                                                            class="btn btn-icon btn-outline-primary btn-sm">
+                                                            <span class="tf-icons bx bx-edit-alt"></span>
+                                                        </a>
+                                                        <button type="submit"
+                                                            class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
+                                                                class="tf-icons bx bx-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

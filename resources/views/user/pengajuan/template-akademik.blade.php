@@ -35,7 +35,8 @@
                 <div class="col-sm-6 col-lg-6 mb-4">
                     <div class="card p-3 pb-1">
                         <p>
-                            <a href="{{ $value->pathUrl() }}" target="_blank">{{ $value->template_name }}</a>
+                            <i class="menu-icon bx bx-envelope text-primary"></i><a href="{{ $value->pathUrl() }}"
+                                target="_blank">{{ $value->template_name }}</a>
                         </p>
                     </div>
                 </div>

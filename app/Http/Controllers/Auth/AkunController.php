@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -23,11 +24,15 @@ class AkunController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $currentYear = Carbon::now()->format('y');
+        $allowedYears = range($currentYear - 6, $currentYear);
+        $allowedYearString = implode('|', $allowedYears);
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
             // 'npm' => 'required',
+            'npm' => ['string', 'regex:/^(' . $allowedYearString . ')06\d{6}$/'],
             'phone' => 'required',
         ]);
 

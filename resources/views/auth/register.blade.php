@@ -12,11 +12,20 @@
                             </span>
                         </a>
                     </div>
-                    <h4 class="text-center fw-bold"
-                        style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
-                    <p class="text-center mb-4" style="font-weight: bolder; font-size: 14px; color: #130f40;">
-                        Sistem Informasi Persuratan Akademik FMIPA UI</p>
-                    <hr style="margin-top: -15px;">
+                    <div class="app-brand justify-content-center mb-4">
+                        <a href="#" class="app-brand-link gap-2">
+                            <span class="app-brand-logo demo">
+                                <img src="{{ asset('/img/logo/logo-app.png') }}" style="width: 250px;height: auto;">
+                            </span>
+                        </a>
+                    </div>
+                    <!--
+                                        <h4 class="text-center fw-bold"
+                                            style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
+                                        <p class="text-center mb-4" style="font-weight: bolder; font-size: 14px; color: #130f40;">
+                                            Sistem Informasi Persuratan Akademik FMIPA UI</p>
+                                        <hr style="margin-top: -15px;">
+                                        -->
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -156,9 +165,9 @@
 
                     <p class="text-center mt-2">
                         <span>Sudah punya akun?</span>
-                        <a href="{{ url('/login') }}">
-                            <span>Login Disini</span>
-                        </a>
+                        <b><a href="{{ url('/login') }}">
+                                <span>Login Disini</span>
+                            </a></b>
                     </p>
                 </div>
             </div>

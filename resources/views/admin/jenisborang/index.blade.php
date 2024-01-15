@@ -20,7 +20,7 @@
                             @csrf
                             @method(isset($formTemplate) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label">Jenis Borang</label>
+                                <label class="form-label">Nama Form</label>
                                 <input type="text" class="form-control @error('template_name') is-invalid @enderror"
                                     name="template_name"
                                     value="{{ isset($formTemplate) ? $formTemplate->template_name : old('template_name') }}" />
@@ -89,58 +89,60 @@
                         <h5 class="mb-0">Data Jenis Borang</h5>
                     </div>
                     <div class="card-body">
-                        <table id="datatable" class="table table-bordered table-hover table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Jenis Borang</th>
-                                    <th>Tipe Borang</th>
-                                    <th>Sort</th>
-                                    <th>File</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($formTemplates as $key => $value)
+                        <div class="col-12 table-responsive">
+                            <table id="datatable" class="table table-bordered table-hover table-sm">
+                                <thead>
                                     <tr>
-                                        <td>{{ $value->template_name }}</td>
-                                        <td>{{ $value->formType()->name }}</td>
-                                        <td>{{ $value->sort_order }}</td>
-                                        <td align="center">
-                                            @if ($value->pathUrl())
-                                                <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
-                                                    target="_blank">
-                                                    Download
-                                                </a>
-                                            @endif
-                                        </td>
-                                        @php
-                                            $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
-                                        @endphp
-
-                                        <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group">
-
-                                                <form action="{{ route('jenis-borang.destroy', $value->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ route('jenis-borang.edit', $value->id) }}"
-                                                        class="btn btn-icon btn-outline-primary btn-sm">
-                                                        <span class="tf-icons bx bx-edit-alt"></span>
-                                                    </a>
-                                                    <button type="submit"
-                                                        class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
-                                                            class="tf-icons bx bx-trash"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                        <th>Jenis Borang</th>
+                                        <th>Tipe Borang</th>
+                                        <th>Sort</th>
+                                        <th>File</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($formTemplates as $key => $value)
+                                        <tr>
+                                            <td>{{ $value->template_name }}</td>
+                                            <td>{{ $value->formType()->name }}</td>
+                                            <td>{{ $value->sort_order }}</td>
+                                            <td align="center">
+                                                @if ($value->pathUrl())
+                                                    <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
+                                                        target="_blank">
+                                                        Download
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            @php
+                                                $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                            @endphp
+
+                                            <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+
+                                                    <form action="{{ route('jenis-borang.destroy', $value->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('jenis-borang.edit', $value->id) }}"
+                                                            class="btn btn-icon btn-outline-primary btn-sm">
+                                                            <span class="tf-icons bx bx-edit-alt"></span>
+                                                        </a>
+                                                        <button type="submit"
+                                                            class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
+                                                                class="tf-icons bx bx-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

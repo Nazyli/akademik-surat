@@ -12,10 +12,18 @@
                             </span>
                         </a>
                     </div>
-                    <h4 class="text-center fw-bold"
-                        style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
-                    <p class="text-center mb-1" style="font-weight: bolder; font-size: 14px; color: #130f40;;">
-                        Sistem Informasi Persuratan Akademik FMIPA UI</p>
+                    <div class="app-brand justify-content-center mb-4">
+                        <a href="#" class="app-brand-link gap-2">
+                            <span class="app-brand-logo demo">
+                                <img src="{{ asset('/img/logo/logo-app.png') }}" style="width: 250px;height: auto;">
+                            </span>
+                        </a>
+                    </div>
+                    <!--<h4 class="text-center fw-bold"
+                                                style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
+                                            <p class="text-center mb-1" style="font-weight: bolder; font-size: 14px; color: #130f40;;">
+                                                Sistem Informasi Persuratan Akademik FMIPA UI</p>
+                                            -->
                     <p class="text-center mb-4" style="font-weight: bolder; font-size: 16px;">
                         RESET PASSWORD</p>
                     <hr style="margin-top: -15px;">

@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('/img/logo/logo-app.png') }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,11 +27,36 @@
     <link rel="stylesheet" href="{{ asset('/vendor/css/pages/page-auth.css') }}" />
     <style>
         .bg {
+            background-color: #192a56;
             background-image: url("{{ asset('img/backgrounds/login.png') }}");
             height: 100%;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+        }
+
+        .btn-primary {
+            background-color: #feca57;
+            font-weight: bold;
+            border: none !important;
+        }
+
+        .btn-primary:active {
+            background-color: #ff9f43 !important;
+            border: none !important;
+
+        }
+
+        .btn-primary:hover {
+            background-color: #ff9f43 !important;
+            border: none !important;
+
+        }
+
+        .btn-primary:focus {
+            background-color: #ff9f43 !important;
+            border: none !important;
+
         }
     </style>
 </head>

@@ -79,49 +79,51 @@
                         <h5 class="mb-0">Data Program Studi</h5>
                     </div>
                     <div class="card-body">
-                        <table id="datatable" class="table table-bordered table-hover table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Kode</th>
-                                    <th>Nama Department</th>
-                                    <th>Program Studi</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($studyPrograms as $key => $value)
+                        <div class="col-12 table-responsive">
+                            <table id="datatable" class="table table-bordered table-hover table-sm">
+                                <thead>
                                     <tr>
-                                        <td>{{ $value->study_program_code }}</td>
-                                        <td>{{ $value->department()->department_name }}</td>
-                                        <td>{{ $value->study_program_name }}</td>
-                                        @php
-                                            $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
-                                        @endphp
-
-                                        <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group">
-
-                                                <form action="{{ route('program-studi.destroy', $value->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ route('program-studi.edit', $value->id) }}"
-                                                        class="btn btn-icon btn-outline-primary btn-sm">
-                                                        <span class="tf-icons bx bx-edit-alt"></span>
-                                                    </a>
-                                                    <button type="submit"
-                                                        class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
-                                                            class="tf-icons bx bx-trash"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                        <th>Kode</th>
+                                        <th>Nama Department</th>
+                                        <th>Program Studi</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($studyPrograms as $key => $value)
+                                        <tr>
+                                            <td>{{ $value->study_program_code }}</td>
+                                            <td>{{ $value->department()->department_name }}</td>
+                                            <td>{{ $value->study_program_name }}</td>
+                                            @php
+                                                $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                            @endphp
+
+                                            <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+
+                                                    <form action="{{ route('program-studi.destroy', $value->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('program-studi.edit', $value->id) }}"
+                                                            class="btn btn-icon btn-outline-primary btn-sm">
+                                                            <span class="tf-icons bx bx-edit-alt"></span>
+                                                        </a>
+                                                        <button type="submit"
+                                                            class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
+                                                                class="tf-icons bx bx-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

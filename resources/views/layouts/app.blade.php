@@ -24,7 +24,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('/img/logo/logo-app.png') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -56,6 +56,25 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('/js/config.js') }}"></script>
+    <style>
+        .desktop {
+            display: block;
+        }
+
+        .mobile {
+            display: none;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .desktop {
+                display: none;
+            }
+
+            .mobile {
+                display: block;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -68,10 +87,10 @@
                 <div class="app-brand demo">
                     <a href="{{ url('/') }}" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="{{ asset('/img/logo/logo-app.svg') }}" width="25" alt="Logo" />
+                            <img src="{{ asset('/img/logo/logo-app.png') }}" width="150" alt="Logo" />
                         </span>
-                        <span class="app-brand-text menu-text fw-bold ms-2"
-                            style="font-weight: bolder; font-size: 30px; letter-spacing: 3px;">SIPA</span>
+                        {{-- <span class="app-brand-text menu-text fw-bold ms-2"
+                            style="font-weight: bolder; font-size: 30px; letter-spacing: 3px;">SIPA</span> --}}
                     </a>
 
                     <a href="javascript:void(0);"
@@ -225,20 +244,28 @@
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
-
                             <div class="nav-item d-flex align-items-center">
-                                <i style="font-style: normal; font-weight: bold;">Sistem Informasi Persuratan
+                                <i style="font-style: normal; font-weight: bold;" class="desktop">Sistem Informasi
+                                    Persuratan
+                                    Akademik</i>
+                                <i style="font-style: normal; font-weight: bold; font-size:12px" class="mobile">Sistem
+                                    Informasi
+                                    Persuratan
                                     Akademik</i>
                             </div>
                         </div>
                         <!-- /Search -->
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
-                            <!-- Place this tag where you want the button to render. -->
-                            <li class="nav-item lh-1 me-3">
+                            <li class="nav-item lh-1 me-3 desktop">
                                 <a class="github-button" href="#">FMIPA UI - Innovative, Smart, and
                                     Competitive</a>
                             </li>
+
+                            <li class="nav-item lh-1 me-3 mobile">
+                                <a class="github-button" href="#">FMIPA UI</a>
+                            </li>
+
 
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -327,8 +354,6 @@
                             </script> Sistem Informasi Persuratan Akademik - FMIPA UI
                         </div>
                         <div class="d-none d-lg-inline-block">
-                            <a href="#" class="footer-link me-4" target="_blank">Link</a>
-                            <a href="#" class="footer-link me-4" target="_blank">Link</a>
                             <a href="https://themeselection.com" target="_blank"
                                 class="footer-link">ThemeSelection</a>
                         </div>
