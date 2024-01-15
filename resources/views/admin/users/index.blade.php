@@ -153,5 +153,13 @@
                 initDataTable(departmentId); // Initialize DataTable with new departmentId
             });
         });
+
+        function handleImageError(img) {
+            if (!img.getAttribute('data-error-handled')) {
+                img.src = '{{ asset('file/avatars/blank-profile.png') }}';
+                img.alt = 'Image not found';
+                img.setAttribute('data-error-handled', true);
+            }
+        }
     </script>
 @endsection

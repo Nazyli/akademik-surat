@@ -65,7 +65,7 @@ class MasterUsersController extends Controller
                       data-bs-placement="top"
                       class="avatar avatar-xs pull-up"
                       title="' . $row->full_name . '">
-                      <img src="' . $image . '" alt="Avatar" class="rounded-circle" />
+                      <img src="' . $image . '" alt="Avatar" onerror="handleImageError(this)" class="rounded-circle" />
                     </li>
                     <li>' . $row->full_name . '</li>
                   </ul>';
