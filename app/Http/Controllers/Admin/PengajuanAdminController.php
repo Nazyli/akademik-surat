@@ -149,7 +149,7 @@ class PengajuanAdminController extends Controller
         //
         if ($request->action == 'Finished') {
             $request->validate([
-                'upload_file' => ['required', 'mimes:pdf'],
+                'upload_file' => ['required', 'mimes:pdf', 'max:3000'],
             ]);
         }
         if ($request->action == 'Reject' || $request->action == 'Revisi') {

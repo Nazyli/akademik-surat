@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="upload_file" class="form-label">Upload Pengajuan / Submission
-                                        Files</label>
+                                        Files (Maks 3MB)</label>
                                     <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
                                         id="upload_file" name="upload_file"
                                         value="{{ isset($formSubmission) ? $formSubmission->url_file : old('url_file') }}" />

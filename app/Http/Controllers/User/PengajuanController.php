@@ -49,7 +49,7 @@ class PengajuanController extends Controller
         $user = User::find(auth()->user()->id);
         $publicPath = "file/pengajuan-surat" . "/" . $user->id;
         $request->validate([
-            'upload_file' => ['required', 'mimes:pdf'],
+            'upload_file' => ['required', 'mimes:pdf', 'max:3000'],
             'department_id' => 'required',
             'study_program_id' => 'required',
             'form_template_id' => 'required',
@@ -128,7 +128,7 @@ class PengajuanController extends Controller
         $user = User::find(auth()->user()->id);
         $publicPath = "file/pengajuan-surat" . "/" . $user->id;
         $request->validate([
-            'upload_file' => 'mimes:pdf',
+            'upload_file' => 'mimes:pdf|max:3000', // max size in kilobytes (3 MB = 3000 KB)
             'department_id' => 'required',
             'study_program_id' => 'required',
             'form_template_id' => 'required',

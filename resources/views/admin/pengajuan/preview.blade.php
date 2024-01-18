@@ -130,7 +130,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label for="upload_file" class="form-label">Upload File Persetujuan / Upload
-                                                Approval File</label>
+                                                Approval File (Maks 3MB)</label>
                                             <input class="form-control @error('upload_file') is-invalid @enderror"
                                                 type="file" id="upload_file" name="upload_file"
                                                 value="{{ isset($formSubmission) ? $formSubmission->signed_file : old('signed_file') }}" />
