@@ -98,6 +98,8 @@
             $(document).ready(showNotif('error', '{{ session('error') }}'));
         @endif
     </script>
+    @yield('js')
+
 
 </body>
 

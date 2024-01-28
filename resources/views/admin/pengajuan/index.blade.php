@@ -39,6 +39,7 @@
                                             <th>Program Studi</th>
                                             <th>Tipe Form</th>
                                             <th>Tanggal Pengajuan</th>
+                                            <th>Tanggal Pemrosesan</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -125,6 +126,10 @@
                         {
                             data: 'submission_date',
                             name: 'submission_date'
+                        },
+                        {
+                            data: 'processed_date',
+                            name: 'processed_date'
                         },
 
                         {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\StudyProgram;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
@@ -14,7 +16,16 @@ class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        $departments = Department::where('status', 'Active')
+            ->orderBy('department_name')
+            ->get();
+        $programStudi = StudyProgram::where('status', 'Active')
+            ->orderBy('study_program_name')
+            ->get();
+
+        return view('auth.register')
+            ->with(compact('departments'))
+            ->with(compact('programStudi'));
     }
     public function register(Request $request)
     {
@@ -26,6 +37,8 @@ class RegisterController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'department_id' => ['required', 'string'],
+            'study_program_id' => ['required', 'string'],
             'gender' => ['required'],
             'phone' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -38,6 +51,8 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'role_id' => 2,
             'email' => $request->email,
+            'department_id' => $request->department_id,
+            'study_program_id' => $request->study_program_id,
             'npm' => $request->npm,
             'gender' => $request->gender,
             'status' => 'Active',

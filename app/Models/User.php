@@ -28,6 +28,8 @@ class User extends Authenticatable
         'npm',
         'gender',
         'phone',
+        'department_id',
+        'study_program_id',
         'img_url',
         'role_id',
         'status',
@@ -95,5 +97,14 @@ class User extends Authenticatable
     public function imgUrl()
     {
         return isset($this->img_url) ? asset($this->img_url) : asset("file/avatars/blank-profile.png");
+    }
+    public function department()
+    {
+        return Department::find($this->department_id);
+    }
+
+    public function studyProgram()
+    {
+        return StudyProgram::find($this->study_program_id);
     }
 }

@@ -23,7 +23,6 @@
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Nama Depan / First Name</label>
@@ -85,6 +84,29 @@
                                     </span>
                                 @enderror
                             </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Nama Departemen / Department Name</label>
+                                <input type="text" class="form-control @error('department_id') is-invalid @enderror"
+                                    name="department_id" value="{{ $user->department()->department_name }}" disabled />
+                                @error('department_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Program Studi / Study Program</label>
+                                <input type="text" class="form-control @error('study_program_id') is-invalid @enderror"
+                                    name="study_program_id" value="{{ $user->studyProgram()->study_program_name }}"
+                                    disabled />
+                                @error('study_program_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <hr class="my-0" />
@@ -95,41 +117,6 @@
                             @csrf
                             @method(isset($formSubmission) ? 'PUT' : 'POST')
                             <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label for="departmentName" class="form-label">Nama Departemen / Department Name</label>
-                                    <select
-                                        class="form-select department-select @error('department_id') is-invalid @enderror"
-                                        id="departmentName" aria-label="Default select example" name="department_id">
-                                        <option></option>
-                                        @foreach ($departments as $key => $value)
-                                            <option value="{{ $value->id }}"
-                                                {{ old('department_id') == $value->id ? 'selected' : '' }}
-                                                {{ isset($formSubmission) ? ($formSubmission->department_id == $value->id ? 'selected' : '') : '' }}>
-                                                {{ $value->department_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('department_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="programStudi" class="form-label">Program Studi / Study Program</label>
-                                    <select
-                                        class="form-select program-studi-select @error('study_program_id') is-invalid @enderror"
-                                        id="programStudi" aria-label="Default select example" name="study_program_id">
-                                        @isset($formSubmission)
-                                            <option value="{{ $formSubmission->study_program_id }}">
-                                                {{ $formSubmission->studyProgram()->study_program_name }}</option>
-                                        @endisset
-                                    </select>
-                                    @error('study_program_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="jenisBorang" class="form-label">Jenis Form / Form Type</label>
                                     <select class="form-select @error('form_template_id') is-invalid @enderror"
@@ -184,29 +171,4 @@
 
         </div>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        document.getElementById('departmentName').addEventListener('change', function() {
-            var departmentId = this.value;
-            var programStudiSelect = document.querySelector('.program-studi-select');
-            programStudiSelect.innerHTML = '<option></option>';
-
-            if (departmentId) {
-                var link = "{{ route('getProgramStudi', ':departmentId') }}";
-                link = link.replace(':departmentId', departmentId);
-                fetch(link)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(program => {
-                            var option = document.createElement('option');
-                            option.value = program.id;
-                            option.text = program.study_program_name;
-                            programStudiSelect.appendChild(option);
-                        });
-                    });
-            }
-        });
-    </script>
 @endsection

@@ -106,10 +106,10 @@
                              <table class="table table-bordered table-hover table-sm">
                                  <thead class="thead-dark">
                                      <tr>
-                                         <th>Departemen</th>
-                                         <th>Program Studi</th>
+                                         <th>No</th>
                                          <th>Tipe Form</th>
                                          <th>Tanggal Pengajuan</th>
+                                         <th>Tanggal Pemrosesan</th>
                                          <th>Status</th>
                                          <th>#</th>
                                      </tr>
@@ -117,10 +117,10 @@
                                  <tbody>
                                      @foreach ($dataHome->formSubmission as $key => $value)
                                          <tr>
-                                             <td>{{ $value->department()->department_name }}</td>
-                                             <td>{{ $value->studyProgram()->study_program_name }}</td>
+                                             <td>{{ $key + 1 }}</td>
                                              <td>{{ $value->formTemplate()->template_name }}</td>
                                              <td>{{ $value->submission_date }}</td>
+                                             <td>{{ $value->processed_date }}</td>
                                              <td>
                                                  <span class="badge {{ $value->getLabelStatus() }}">
                                                      {{ $value->form_status }}

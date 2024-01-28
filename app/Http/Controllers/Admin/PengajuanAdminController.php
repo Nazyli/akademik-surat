@@ -46,11 +46,12 @@ class PengajuanAdminController extends Controller
                     'submission_date',
                     'departments.department_name as department_name',
                     'study_programs.study_program_name as study_program_name',
-                    'form_templates.template_name'
+                    'form_templates.template_name',
+                    'form_submissions.processed_date'
                 );
 
             if ($departmentId != 0) {
-                $data->where('form_submissions.department_id', $departmentId);
+                $data->where('users.department_id', $departmentId);
             }
             if ($status != 'all') {
                 $data->whereIn('form_status', ['Sent', 'Reviewed']);

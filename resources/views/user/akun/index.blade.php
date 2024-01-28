@@ -100,6 +100,38 @@
                                         <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                     </div>
                                 </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="departmentName" class="form-label">Nama Departemen / Department Name</label>
+                                    <select
+                                        class="form-select department-select @error('department_id') is-invalid @enderror"
+                                        id="departmentName" aria-label="Default select example" name="department_id">
+                                        <option></option>
+                                        @foreach ($departments as $key => $value)
+                                            <option value="{{ $value->id }}"
+                                                {{ old('department_id') == $value->id ? 'selected' : ($user->department_id == $value->id ? 'selected' : '') }}>
+                                                {{ $value->department_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('department_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="programStudi" class="form-label">Program Studi / Study Program</label>
+                                    <select
+                                        class="form-select program-studi-select @error('study_program_id') is-invalid @enderror"
+                                        id="programStudi" aria-label="Default select example" name="study_program_id">
+                                    </select>
+                                    @error('study_program_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
                             </div>
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary me-2">Save changes</button>
@@ -120,5 +152,54 @@
         function submitForm() {
             document.getElementById('updateImgForm').submit();
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            var departmentSelect = document.getElementById('departmentName');
+            var programStudiSelect = document.querySelector('.program-studi-select');
+
+            // Fungsi untuk mengisi program studi
+            function fillProgramStudi(departmentId, selectedProgramId) {
+                programStudiSelect.innerHTML = '<option></option>';
+
+                var link = "{{ route('getProgramStudi', ':departmentId') }}";
+                link = link.replace(':departmentId', departmentId);
+
+                fetch(link)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(program => {
+                            var option = document.createElement('option');
+                            option.value = program.id;
+                            option.text = program.study_program_name;
+
+                            // Tambahkan atribut 'selected' berdasarkan kondisi Laravel Blade
+                            if ((selectedProgramId !== null) && (program.id == selectedProgramId)) {
+                                option.setAttribute('selected', 'selected');
+                            }
+
+                            programStudiSelect.appendChild(option);
+                        });
+                    });
+            }
+
+            // Event listener untuk perubahan pada departmentName
+            departmentSelect.addEventListener('change', function() {
+                var departmentId = this.value;
+
+                if (departmentId) {
+                    // Dapatkan selectedProgramId dari old('study_program_id') atau $user->study_program_id
+                    var selectedProgramId =
+                        "{{ old('study_program_id', isset($user) ? $user->study_program_id : null) }}";
+                    fillProgramStudi(departmentId, selectedProgramId);
+                }
+            });
+
+            // Ambil option value saat pertama kali load
+            var initialDepartmentId = departmentSelect.value;
+            var initialSelectedProgramId =
+                "{{ old('study_program_id', isset($user) ? $user->study_program_id : null) }}";
+            if (initialDepartmentId) {
+                fillProgramStudi(initialDepartmentId, initialSelectedProgramId);
+            }
+        });
     </script>
 @endsection

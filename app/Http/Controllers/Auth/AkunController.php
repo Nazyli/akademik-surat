@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\StudyProgram;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,10 +16,20 @@ class AkunController extends Controller
     public function index()
     {
         $user = User::find(auth()->user()->id);
+        $departments = Department::where('status', 'Active')
+            ->orderBy('department_name')
+            ->get();
+        $programStudi = StudyProgram::where('status', 'Active')
+            ->orderBy('study_program_name')
+            ->get();
         if ($user->role_id == 1) {
-            return view('admin.akun.index', compact('user'));
+            return view('admin.akun.index')->with(compact('user'))
+                ->with(compact('departments'))
+                ->with(compact('programStudi'));
         } else {
-            return view('user.akun.index', compact('user'));
+            return view('user.akun.index')->with(compact('user'))
+                ->with(compact('departments'))
+                ->with(compact('programStudi'));
         }
     }
 
@@ -34,6 +46,8 @@ class AkunController extends Controller
             // 'npm' => 'required',
             'npm' => ['string', 'regex:/^(' . $allowedYearString . ')06\d{6}$/'],
             'phone' => 'required',
+            'department_id' => 'required',
+            'study_program_id' => 'required',
         ]);
 
         $data = $request->all();

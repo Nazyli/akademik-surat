@@ -18,7 +18,9 @@ class CreateUsersSeeder extends Seeder
      */
     public function run()
     {
-        //php artisan db:seed --class=CreateUsersSeeder
+        // php artisan migrate -> buat database
+        // php artisan migrate:refresh -> update refresh
+        // php artisan db:seed --class=CreateUsersSeeder
         DB::transaction(function () {
 
             RoleMembership::insert([

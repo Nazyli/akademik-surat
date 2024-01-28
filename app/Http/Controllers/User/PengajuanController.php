@@ -50,8 +50,6 @@ class PengajuanController extends Controller
         $publicPath = "file/pengajuan-surat" . "/" . $user->id;
         $request->validate([
             'upload_file' => ['required', 'mimes:pdf', 'max:3000'],
-            'department_id' => 'required',
-            'study_program_id' => 'required',
             'form_template_id' => 'required',
         ]);
         $formTemplate = FormTemplates::find($request->form_template_id);
@@ -72,6 +70,8 @@ class PengajuanController extends Controller
             $data['user_id'] = $user->id;
             $data['form_status'] = $request->action;
             $data['created_by'] = $user->id;
+            $data['department_id'] = $user->department_id;
+            $data['study_program_id'] = $user->study_program_id;
             FormSubmission::create($data);
 
             return redirect()->route('pengajuan.riwayat')->with('success', 'Pengajuan created successfully.');

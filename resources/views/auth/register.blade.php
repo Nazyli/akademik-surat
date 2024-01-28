@@ -20,12 +20,12 @@
                         </a>
                     </div>
                     <!--
-                                        <h4 class="text-center fw-bold"
-                                            style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
-                                        <p class="text-center mb-4" style="font-weight: bolder; font-size: 14px; color: #130f40;">
-                                            Sistem Informasi Persuratan Akademik FMIPA UI</p>
-                                        <hr style="margin-top: -15px;">
-                                        -->
+                                                                                                                <h4 class="text-center fw-bold"
+                                                                                                                    style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
+                                                                                                                <p class="text-center mb-4" style="font-weight: bolder; font-size: 14px; color: #130f40;">
+                                                                                                                    Sistem Informasi Persuratan Akademik FMIPA UI</p>
+                                                                                                                <hr style="margin-top: -15px;">
+                                                                                                                -->
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -81,6 +81,44 @@
                                 @enderror
                             </div>
                         </div>
+
+
+                        <div class="row mb-3">
+                            <label for="departmentName" class="col-md-4 col-form-label text-md-right">Department
+                                Name</label>
+                            <div class="col-md-8">
+                                <select class="form-select department-select @error('department_id') is-invalid @enderror"
+                                    id="departmentName" aria-label="Default select example" name="department_id">
+                                    <option></option>
+                                    @foreach ($departments as $key => $value)
+                                        <option value="{{ $value->id }}"
+                                            {{ old('department_id') == $value->id ? 'selected' : '' }}>
+                                            {{ $value->department_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('department_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <label for="programStudi" class="col-md-4 col-form-label text-md-right">Study Program</label>
+                            <div class="col-md-8">
+                                <select
+                                    class="form-select program-studi-select @error('study_program_id') is-invalid @enderror"
+                                    id="programStudi" aria-label="Default select example" name="study_program_id">
+                                </select>
+                                @error('study_program_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="row mb-3">
                             <small class="col-md-4 col-form-label text-md-right">Gender</small>
                             <div class="col-md-8">
@@ -99,7 +137,8 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
+                            <label for="phone"
+                                class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
 
                             <div class="col-md-8">
                                 <input id="phone" type="text"
@@ -173,4 +212,55 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var departmentSelect = document.getElementById('departmentName');
+            var programStudiSelect = document.querySelector('.program-studi-select');
+
+            function fillProgramStudi(departmentId, selectedProgramId) {
+                programStudiSelect.innerHTML = '<option></option>';
+
+                var link = "{{ route('openGetProgramStudi', ':departmentId') }}";
+                link = link.replace(':departmentId', departmentId);
+
+                fetch(link)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(program => {
+                            var option = document.createElement('option');
+                            option.value = program.id;
+                            option.text = program.study_program_name;
+
+                            // Tambahkan atribut 'selected' berdasarkan kondisi Laravel Blade
+                            if ((selectedProgramId !== null) && (program.id == selectedProgramId)) {
+                                option.setAttribute('selected', 'selected');
+                            }
+
+                            programStudiSelect.appendChild(option);
+                        });
+                    });
+            }
+
+            departmentSelect.addEventListener('change', function() {
+                var departmentId = this.value;
+
+                if (departmentId) {
+                    var selectedProgramId =
+                        "{{ old('study_program_id', isset($user) ? $user->study_program_id : null) }}";
+                    fillProgramStudi(departmentId, selectedProgramId);
+                }
+            });
+
+            var initialDepartmentId = departmentSelect.value;
+            var initialSelectedProgramId =
+                "{{ old('study_program_id', isset($user) ? $user->study_program_id : null) }}";
+            if (initialDepartmentId) {
+                fillProgramStudi(initialDepartmentId, initialSelectedProgramId);
+            }
+        });
+    </script>
 @endsection
