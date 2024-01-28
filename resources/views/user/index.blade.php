@@ -8,6 +8,12 @@
                      {{ session('status') }}
                  </div>
              @endif
+             <div class="col-12">
+                 <div class="alert alert-warning alert-dismissible" role="alert">
+                     Setiap surat akan tersimpan di situs web selama satu tahun akademik.
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 </div>
+             </div>
              @if ($dataHome->countRevisi > 0)
                  <div class="col-12">
                      <div class="alert alert-info alert-dismissible" role="alert">
@@ -122,7 +128,7 @@
                                              <td>{{ $value->submission_date }}</td>
                                              <td>{{ $value->processed_date }}</td>
                                              <td>
-                                                 <span class="badge {{ $value->getLabelStatus() }}">
+                                                 <span class="badge bg-label-{{ $value->getLabelStatus() }}">
                                                      {{ $value->form_status }}
                                                  </span>
                                              </td>

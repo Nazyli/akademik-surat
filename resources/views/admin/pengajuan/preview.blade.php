@@ -10,9 +10,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0 badge {{ $formSubmission->getLabelStatus() }}">Preview Form</h5>
-                        <span class="float-end badge {{ $formSubmission->getLabelStatus() }}">
+                    <div class="card-header d-flex justify-content-between align-items-center border-top border-3 border-{{ $formSubmission->getLabelStatusAdmin() }}"
+                        style="border-bottom: none">
+                        <h5 class="mb-0 badge bg-label-{{ $formSubmission->getLabelStatusAdmin() }}">Preview Form</h5>
+                        <span class="float-end badge bg-label-{{ $formSubmission->getLabelStatusAdmin() }}">
                             {{ $formSubmission->form_status }}
                         </span>
                     </div>
@@ -98,7 +99,8 @@
                         </div>
                     </div>
                     <hr class="my-0" />
-                    <div class="card">
+                    <div class="card border-bottom border-3 border-{{ $formSubmission->getLabelStatusAdmin() }}"
+                        style="border-top:none; border-right:none; border-left:none;">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Komentar / Comment</h5>
                             <div class="card-subtitle text-muted mb-3">Di Proses : {{ $formSubmission->processed_date }}

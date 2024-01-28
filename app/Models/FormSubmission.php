@@ -75,19 +75,19 @@ class FormSubmission extends Model
     {
         switch ($this->form_status) {
             case 'Sent':
-                return 'bg-label-primary';
+                return 'primary';
             case 'Cancel':
-                return 'bg-label-secondary';
+                return 'secondary';
             case 'Draft':
-                return 'bg-label-dark';
+                return 'dark';
             case 'Reviewed':
-                return 'bg-label-warning';
+                return 'warning';
             case 'Revisi':
-                return 'bg-label-info';
+                return 'info';
             case 'Reject':
-                return 'bg-label-danger';
+                return 'danger';
             case 'Finished':
-                return 'bg-label-success';
+                return 'success';
             default:
                 return '';
         }
@@ -97,19 +97,19 @@ class FormSubmission extends Model
     {
         switch ($this->form_status) {
             case 'Sent':
-                return 'bg-label-dark';
+                return 'dark';
             case 'Cancel':
-                return 'bg-label-secondary';
+                return 'secondary';
             case 'Draft':
-                return 'bg-label-dark';
+                return 'dark';
             case 'Reviewed':
-                return 'bg-label-warning';
+                return 'warning';
             case 'Revisi':
-                return 'bg-label-info';
+                return 'info';
             case 'Reject':
-                return 'bg-label-danger';
+                return 'danger';
             case 'Finished':
-                return 'bg-label-success';
+                return 'success';
             default:
                 return '';
         }

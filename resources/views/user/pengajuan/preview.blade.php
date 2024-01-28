@@ -8,15 +8,16 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0 badge {{ $formSubmission->getLabelStatus() }}">Preview Borang</h5>
+                    <div class="card-header d-flex justify-content-between align-items-cente border-top border-3 border-{{ $formSubmission->getLabelStatus() }}"
+                        style="border-bottom: none">
+                        <h5 class="mb-0 badge bg-label-{{ $formSubmission->getLabelStatus() }}">Preview Borang</h5>
                         @if ($formSubmission->form_status == 'Draft' || $formSubmission->form_status == 'Revisi')
                             <span class="float-end">
                                 <a class="btn btn-primary me-2"
                                     href="{{ route('pengajuan.edit', $formSubmission->id) }}">Edit</a>
                             </span>
                         @else
-                            <span class="float-end badge {{ $formSubmission->getLabelStatus() }}">
+                            <span class="float-end badge bg-label-{{ $formSubmission->getLabelStatus() }}">
                                 {{ $formSubmission->form_status }}
                             </span>
                         @endif
@@ -104,7 +105,8 @@
                         </div>
                     </div>
                     <hr class="my-0" />
-                    <div class="card">
+                    <div class="card border-bottom border-3 border-{{ $formSubmission->getLabelStatus() }}"
+                        style="border-top:none; border-right:none; border-left:none;">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Komentar / Comment</h5>
                             @if ($formSubmission->processed_date != null)
@@ -127,6 +129,10 @@
                                             href="{{ $formSubmission->pathSignedFile() }}"
                                             target="_blank">{{ $formSubmission->signedFileName() }}</a>
                                     </div>
+                                </div>
+                                <div class=" text-secondary">
+                                    <span class="text-warning">*</span> Apabila kurang puas, dapat diajukan ulang dengan
+                                    menambahkan komentar revisi dan keterangan terkait.
                                 </div>
                             @endif
                         </div>

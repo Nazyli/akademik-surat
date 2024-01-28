@@ -18,7 +18,7 @@ class ProgramStudiController extends Controller
     public function index()
     {
         //
-        $studyPrograms = StudyProgram::orderBy('study_program_name')->get();
+        $studyPrograms = StudyProgram::orderBy('status')->orderBy('study_program_name')->get();
         $departments = Department::where('status', 'Active')
             ->orderBy('department_name')
             ->get();
@@ -82,7 +82,7 @@ class ProgramStudiController extends Controller
     {
         //
         $studyProgram = StudyProgram::find($id);
-        $studyPrograms = StudyProgram::orderBy('study_program_name')->get();
+        $studyPrograms = StudyProgram::orderBy('status')->orderBy('study_program_name')->get();
         $departments = Department::where('status', 'Active')->orderBy('department_name')->get();
         return view('admin.programstudi.index')
             ->with(compact('studyProgram'))

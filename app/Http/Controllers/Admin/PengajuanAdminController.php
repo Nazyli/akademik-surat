@@ -60,7 +60,7 @@ class PengajuanAdminController extends Controller
 
             return FacadesDataTables::of($data)->addIndexColumn()
                 ->addColumn('status', function ($row) {
-                    $badge = '<span class="badge ' . $row->getLabelStatusAdmin() . '">'
+                    $badge = '<span class="badge bg-label-' . $row->getLabelStatusAdmin() . '">'
                         . $row->getFormStatusAdmin() . '</span>';
                     return $badge;
                 })

@@ -38,6 +38,17 @@ class CreateUsersSeeder extends Seeder
 
             $user = [
                 [
+                    'id' => "administrator",
+                    'first_name' => 'Administrator',
+                    'last_name' => 'SIPA',
+                    'phone' => '087657890377',
+                    'email' => 'administrator@mail.com',
+                    'role_id' => '1',
+                    'img_url' => 'file/avatars/admin.png',
+                    'status' => 'Active',
+                    'password' => bcrypt('P@ssw0rd!'),
+                ],
+                [
                     'id' => Str::uuid(),
                     'first_name' => 'Admin',
                     'last_name' => 'Dummy',

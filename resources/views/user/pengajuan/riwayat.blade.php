@@ -37,7 +37,7 @@
                                             <td>{{ $value->submission_date }}</td>
                                             <td>{{ $value->processed_date }}</td>
                                             <td>
-                                                <span class="badge {{ $value->getLabelStatus() }}">
+                                                <span class="badge bg-label-{{ $value->getLabelStatus() }}">
                                                     {{ $value->form_status }}
                                                 </span>
                                             </td>
