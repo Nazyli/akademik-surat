@@ -167,6 +167,12 @@
                                 <div data-i18n="Support">Pengaturan Akun</div>
                             </a>
                         </li>
+                        <li class="menu-item {{ isActiveLink('admin/backup') }}">
+                            <a href="{{ url('admin/backup') }}" class="menu-link">
+                                <i class="menu-icon bx bx-box"></i>
+                                <div data-i18n="Support">Backup</div>
+                            </a>
+                        </li>
                         <!--
                         <li class="menu-item">
                             <a href="#" target="_blank" class="menu-link">

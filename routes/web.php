@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\DashboardNewsController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FormTemplatesController;
@@ -80,6 +81,8 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
 
     Route::get('change-password', [AkunController::class, 'changePassword'])->name('change-password.admin');
     Route::put('change-password/{id}', [AkunController::class, 'changePasswordUpdate'])->name('change-password-update.admin');
+
+    Route::resource('backup', BackupController::class);
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
