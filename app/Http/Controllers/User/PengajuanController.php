@@ -12,6 +12,7 @@ use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 
 class PengajuanController extends Controller
@@ -66,6 +67,12 @@ class PengajuanController extends Controller
             }
             if ($request->action == 'Sent') {
                 $data['submission_date'] = new DateTime();
+                $today = Carbon::today();
+                $totalSurat = FormSubmission::where('user_id', $user->id)
+                    ->whereDate('submission_date', $today->toDateString())->count();
+                if ($totalSurat >= 3) {
+                    return redirect()->route('pengajuan.riwayat')->with('error', 'Anda sudah mencapai limit pengajuan (3 kali sehari)');
+                }
             }
             $data['user_id'] = $user->id;
             $data['form_status'] = $request->action;
@@ -129,8 +136,6 @@ class PengajuanController extends Controller
         $publicPath = "file/pengajuan-surat" . "/" . $user->id;
         $request->validate([
             'upload_file' => 'mimes:pdf|max:3000', // max size in kilobytes (3 MB = 3000 KB)
-            'department_id' => 'required',
-            'study_program_id' => 'required',
             'form_template_id' => 'required',
         ]);
         $formTemplate = FormTemplates::find($request->form_template_id);
@@ -152,10 +157,18 @@ class PengajuanController extends Controller
             }
             if ($request->action == 'Sent') {
                 $data['submission_date'] = new DateTime();
+                $today = Carbon::today();
+                $totalSurat = FormSubmission::where('user_id', $user->id)
+                    ->whereDate('submission_date', $today->toDateString())->count();
+                if ($totalSurat >= 3) {
+                    return redirect()->route('pengajuan.riwayat')->with('error', 'Anda sudah mencapai limit pengajuan (3 kali sehari)');
+                }
             } else if ($request->action == 'Draft') {
                 $data['submission_date'] = null;
             }
             $data['user_id'] = $user->id;
+            $data['department_id'] = $user->department_id;
+            $data['study_program_id'] = $user->study_program_id;
             $data['form_status'] = $request->action;
             $data['updated_by'] = auth()->user()->id;
             $formSubmission->update($data);
@@ -167,9 +180,16 @@ class PengajuanController extends Controller
     }
     public function sent($id)
     {
+        $user = User::find(auth()->user()->id);
         $formSubmission = FormSubmission::find($id);
         if ($formSubmission->form_status != 'Draft') {
             return redirect()->route('pengajuan.riwayat')->with('error', 'Pengajuan ' . $formSubmission->form_status . ' tidak dapat diedit!');
+        }
+        $today = Carbon::today();
+        $totalSurat = FormSubmission::where('user_id', $user->id)
+            ->whereDate('submission_date', $today->toDateString())->count();
+        if ($totalSurat >= 3) {
+            return redirect()->route('pengajuan.riwayat')->with('error', 'Anda sudah mencapai limit pengajuan (3 kali sehari)');
         }
         $data['submission_date'] = new DateTime();
         $data['form_status'] = "Sent";
