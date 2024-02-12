@@ -37,14 +37,6 @@
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">Kata Sandi</label>
-
-
-                                @if (Route::has('password.request'))
-                                    <b> <a href="{{ url('/password/reset') }}">
-                                            <small>Lupa Kata Sandi?</small>
-                                        </a></b>
-                                @endif
-
                             </div>
                             <div class="input-group input-group-merge">
                                 <input type="password" id="password"
@@ -59,13 +51,16 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me" />
-                                <label class="form-check-label" for="remember-me"> Remember Me </label>
-                            </div>
-                        </div> --}}
                         <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <div></div>
+                                @if (Route::has('password.request'))
+                                    <b> <a href="{{ url('/password/reset') }}" class="pull-right">
+                                            <small>Lupa Kata Sandi?</small>
+                                        </a></b>
+                                @endif
+                            </div>
+
                             <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
                         </div>
                         <hr style="">
