@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDashboardNewsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateDashboardNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dashboard_news', function (Blueprint $table) {
+        Schema::create('other_menus', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string("title")->nullable();
-            $table->string("body")->nullable();
-            $table->string("img_url")->nullable();
+            $table->string("url")->nullable();
             $table->string("status")->nullable();
             $table->integer("sort_order")->nullable();
             $table->string('created_by')->nullable();
@@ -33,6 +32,6 @@ class CreateDashboardNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dashboard_news');
+        Schema::dropIfExists('other_menus');
     }
-}
+};

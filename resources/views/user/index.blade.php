@@ -80,7 +80,8 @@
                                      {{-- <h3>{{ $value->title }}</h3> --}}
                                      {{-- <p>{{ $value->body }}</p> --}}
                                      @if ($value->title)
-                                         <a href="{{ $value->title }}" target="_blank" class="btn btn-md btn-primary mb-1">
+                                         <a href="{{ $value->title }}" target="_blank" class="btn btn-md btn-primary mb-1"
+                                             style="opacity: 0.7; background-color:white;">
                                              @if ($value->body)
                                                  {{ $value->body }}
                                              @else

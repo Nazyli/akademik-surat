@@ -26,6 +26,13 @@ class CreateUsersSeeder extends Seeder
         // php artisan migrate -> buat database
         // php artisan migrate:refresh -> update refresh
         // php artisan db:seed --class=CreateUsersSeeder
+
+
+        // php artisan make:model Todo -mcr
+        // -m, --migration Create a new migration file for the model.
+        // -c, --controller Create a new controller for the model.
+        // -r, --resource Indicates if the generated controller should be a resource controller
+        // php artisan make:model Todo -a (--all Generate a migration, factory, and resource controller for the model)
         DB::transaction(function () {
 
             DB::table('role_memberships')->insert([
@@ -47,11 +54,11 @@ class CreateUsersSeeder extends Seeder
                     'first_name' => 'Administrator',
                     'last_name' => 'SIPA',
                     'phone' => '087657890377',
-                    'email' => 'administrator@mail.com',
+                    'email' => 'sipa@sci.ui.ac.id',
                     'role_id' => '1',
                     'img_url' => 'file/avatars/administrator.png',
                     'status' => 'Active',
-                    'password' => bcrypt('P@ssw0rd!'),
+                    'password' => bcrypt('F4kult4$'),
                 ],
                 [
                     'id' => Str::uuid(),
@@ -654,6 +661,21 @@ class CreateUsersSeeder extends Seeder
             ];
             foreach ($dashboardNews as $key => $value) {
                 DB::table('dashboard_news')->insert($value);
+            }
+
+            $otherMenus = [
+                [
+                    "id" => "MENU1",
+                    "title" => "Pengambilan Ijazah",
+                    "url" => "https://s.id/Persyaratan_Pengambilan_Ijazah_Transkrip_SKPI",
+                    "status" => "Active",
+                    "sort_order" => 1,
+                    "created_by" => "System",
+                    "updated_by" => "System",
+                ]
+            ];
+            foreach ($otherMenus as $key => $value) {
+                DB::table('other_menus')->insert($value);
             }
         });
     }
