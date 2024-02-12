@@ -207,6 +207,7 @@
                                 <span>Login Disini</span>
                             </a></b>
                     </p>
+                    <div class="form-social"></div>
                 </div>
             </div>
         </div>

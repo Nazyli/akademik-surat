@@ -60,7 +60,6 @@
                                         </a></b>
                                 @endif
                             </div>
-
                             <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
                         </div>
                         <hr style="">
@@ -73,6 +72,7 @@
                             </a>
                         </b>
                     </p>
+                    <div class="form-social"></div>
                 </div>
             </div>
         </div>

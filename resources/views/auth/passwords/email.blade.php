@@ -19,12 +19,6 @@
                             </span>
                         </a>
                     </div>
-                    <!--
-                                    <h4 class="text-center fw-bold"
-                                        style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
-                                    <p class="text-center mb-1" style="font-weight: bolder; font-size: 14px; color: #130f40;;">
-                                        Sistem Informasi Persuratan Akademik FMIPA UI</p>
-                                    -->
                     <p class="text-center mb-4" style="font-weight: bolder; font-size: 16px;">
                         RESET PASSWORD</p>
                     <hr style="margin-top: -15px;">
@@ -59,6 +53,7 @@
                             <button class="btn btn-primary d-grid w-100" type="submit">Send Password Reset Link</button>
                         </div>
                     </form>
+                    <div class="form-social"></div>
                 </div>
             </div>
         </div>

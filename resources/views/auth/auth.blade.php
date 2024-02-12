@@ -164,6 +164,32 @@
                 padding-top: 70px;
             }
         }
+
+        /*==================================================================
+        [ Social ]*/
+        .flex-c-m {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            justify-content: center;
+            -ms-align-items: center;
+            align-items: center;
+        }
+
+        .login100-form-social-item {
+            width: 36px;
+            height: 36px;
+            font-size: 18px;
+            color: #fff;
+            border-radius: 50%;
+        }
+
+        .login100-form-social-item:hover {
+            background: #333333;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -215,6 +241,24 @@
         @if (session('error'))
             $(document).ready(showNotif('error', '{{ session('error') }}'));
         @endif
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var formSocialDiv = document.querySelector('.form-social');
+
+            var socialIconsHTML = `
+        <div class="flex-c-m">
+            <a class="login100-form-social-item flex-c-m" href="https://www.facebook.com"><img src="{{ asset('img/logo/instagram.png') }}" alt="instgram"></a>
+            <a class="login100-form-social-item flex-c-m" href="https://www.twitter.com"><img src="{{ asset('img/logo/twitter.png') }}" alt="twitter"></a>
+            <a class="login100-form-social-item flex-c-m" href="https://www.facebook.com"><img src="{{ asset('img/logo/facebook.png') }}" alt="facebook"></a>
+            <a class="login100-form-social-item flex-c-m" href="https://www.youtube.com"><img src="{{ asset('img/logo/youtube.png') }}" alt="youtube"></a>
+        </div>
+        <p class="text-center mt-2">
+            <a href="www.sci.ui.ac.id" target="_blank" style="font-family: Barlow; font-size: 20px; font-style: italic; font-weight: bolder; color: #001D5F;">www.sci.ui.ac.id</a>
+        </p>
+    `;
+
+            formSocialDiv.innerHTML = socialIconsHTML;
+        });
     </script>
     @yield('js')
 

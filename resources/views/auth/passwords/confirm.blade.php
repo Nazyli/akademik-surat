@@ -44,6 +44,7 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="form-social"></div>
                     </div>
                 </div>
             </div>
