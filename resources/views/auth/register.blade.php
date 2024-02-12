@@ -19,13 +19,6 @@
                             </span>
                         </a>
                     </div>
-                    <!--
-                                                                                                                <h4 class="text-center fw-bold"
-                                                                                                                    style="font-weight: bolder; font-size: 50px; margin-bottom: -5px; color:#30336b;">SIPA</h4>
-                                                                                                                <p class="text-center mb-4" style="font-weight: bolder; font-size: 14px; color: #130f40;">
-                                                                                                                    Sistem Informasi Persuratan Akademik FMIPA UI</p>
-                                                                                                                <hr style="margin-top: -15px;">
-                                                                                                                -->
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -137,8 +130,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="phone"
-                                class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
 
                             <div class="col-md-8">
                                 <input id="phone" type="text"
@@ -175,16 +167,19 @@
                             <label for="password"
                                 class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                            <div class="col-md-8">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    autocomplete="new-password">
+                            <div class="col-md-8 form-password-toggle">
+                                <div class="input-group input-group-merge">
+                                    <input id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        autocomplete="new-password" aria-describedby="password">
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
 
@@ -192,9 +187,13 @@
                             <label for="password-confirm"
                                 class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
-                            <div class="col-md-8">
-                                <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" autocomplete="new-password">
+                            <div class="col-md-8 form-password-toggle">
+                                <div class="input-group input-group-merge">
+                                    <input id="password-confirm" type="password" class="form-control"
+                                        name="password_confirmation" autocomplete="new-password"
+                                        aria-describedby="password">
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3">
