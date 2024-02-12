@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('other_menus', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string("title")->nullable();
+            $table->string("menu_name")->nullable();
             $table->string("url")->nullable();
             $table->string("status")->nullable();
             $table->integer("sort_order")->nullable();

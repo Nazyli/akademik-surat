@@ -13,7 +13,7 @@ class OtherMenu extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id',
-        'title',
+        'menu_name',
         'url',
         'sort_order',
         'status',

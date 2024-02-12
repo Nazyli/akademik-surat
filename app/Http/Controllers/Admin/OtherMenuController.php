@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\OtherMenu;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Exception;
 
 class OtherMenuController extends Controller
 {
@@ -17,6 +17,8 @@ class OtherMenuController extends Controller
     public function index()
     {
         //
+        $otherMenus = OtherMenu::orderBy('status')->orderBy('sort_order')->get();
+        return view('admin.menu.index', compact('otherMenus'));
     }
 
     /**
@@ -38,6 +40,21 @@ class OtherMenuController extends Controller
     public function store(Request $request)
     {
         //
+        //
+        $request->validate([
+            'menu_name' => 'required',
+            'url' => 'required',
+            'sort_order' => 'required',
+        ]);
+        try {
+            $data = $request->all();
+            $data['status'] = 'Active';
+            $data['created_by'] = auth()->user()->id;
+            OtherMenu::create($data);
+            return redirect()->route('menu-lain.index')->with('success', 'Other Menu created successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('menu-lain.index')->with('error', $e->errorInfo[2]);
+        }
     }
 
     /**
@@ -57,9 +74,14 @@ class OtherMenuController extends Controller
      * @param  \App\Models\OtherMenu  $otherMenu
      * @return \Illuminate\Http\Response
      */
-    public function edit(OtherMenu $otherMenu)
+    public function edit($id)
     {
         //
+        $otherMenu = OtherMenu::find($id);
+        $otherMenus = OtherMenu::orderBy('status')->orderBy('sort_order')->get();
+        return view('admin.menu.index')
+            ->with(compact('otherMenu'))
+            ->with(compact('otherMenus'));
     }
 
     /**
@@ -69,9 +91,25 @@ class OtherMenuController extends Controller
      * @param  \App\Models\OtherMenu  $otherMenu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OtherMenu $otherMenu)
+    public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'menu_name' => 'required',
+            'url' => 'required',
+            'sort_order' => 'required',
+        ]);
+        try {
+            $formTemplate = OtherMenu::find($id);
+            $data = $request->all();
+            $data['status'] = 'Active';
+            $data['updated_by'] = auth()->user()->id;
+            $formTemplate->update($data);
+
+            return redirect()->route('menu-lain.index')->with('success', 'Other menu updated successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('menu-lain.index')->with('error', $e->errorInfo[2]);
+        }
     }
 
     /**
@@ -80,8 +118,13 @@ class OtherMenuController extends Controller
      * @param  \App\Models\OtherMenu  $otherMenu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OtherMenu $otherMenu)
+    public function destroy($id)
     {
         //
+        OtherMenu::find($id)->update([
+            'status' => 'InActive',
+            'updated_by' => auth()->user()->id,
+        ]);
+        return redirect()->route('menu-lain.index')->with('success', 'Other Menu InActive successfully.');
     }
 }

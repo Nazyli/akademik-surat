@@ -150,6 +150,12 @@
                                 <div data-i18n="file/berita-dashboard">Berita Dashboard</div>
                             </a>
                         </li>
+                        <li class="menu-item {{ isActiveLink('admin/master/menu-lain') }}">
+                            <a href="{{ url('admin/master/menu-lain') }}" class="menu-link">
+                                <i class="menu-icon bx bx-menu"></i>
+                                <div data-i18n="file/menu-lain">Set Menu</div>
+                            </a>
+                        </li>
 
                         <!-- Misc -->
                         <li class="menu-header small text-uppercase">
@@ -203,6 +209,26 @@
                                 <div data-i18n="riwayat">Riwayat Pengajuan</div>
                             </a>
                         </li>
+                        @php
+                            $otherMenus = App\Models\OtherMenu::where('status', 'Active')->orderBy('sort_order')->get();
+                        @endphp
+                        @if (count($otherMenus) > 0)
+                            <li class="menu-item">
+                                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                    <i class="menu-icon bx bx-info-circle"></i>
+                                    <div data-i18n="Misc">Menu Lainnya</div>
+                                </a>
+                                <ul class="menu-sub">
+                                    @foreach ($otherMenus as $menu)
+                                        <li class="menu-item">
+                                            <a href="{{ $menu->url }}" target="_blank" class="menu-link">
+                                                <div>{{ $menu->menu_name }}</div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
 
 
                         <li class="menu-header small text-uppercase">

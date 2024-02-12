@@ -4,27 +4,27 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
             <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Berita Dashboard
+            Set Menu
         </h4>
 
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">{{ isset($dashboardNew) ? 'Edit Data' : 'Tambah Data' }}</h5>
+                        <h5 class="mb-0">{{ isset($otherMenu) ? 'Edit Data' : 'Tambah Data' }}</h5>
                     </div>
                     <div class="card-body">
                         <form enctype="multipart/form-data"
-                            action="{{ isset($dashboardNew) ? route('berita-dashboard.update', $dashboardNew->id) : route('berita-dashboard.store') }}"
+                            action="{{ isset($otherMenu) ? route('menu-lain.update', $otherMenu->id) : route('menu-lain.store') }}"
                             method="POST">
                             @csrf
-                            @method(isset($dashboardNew) ? 'PUT' : 'POST')
+                            @method(isset($otherMenu) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label">Link</label>
-                                <input type="url" class="form-control @error('title') is-invalid @enderror"
-                                    name="title"
-                                    value="{{ isset($dashboardNew) ? $dashboardNew->title : old('title') }}" />
-                                @error('title')
+                                <label class="form-label">Menu Name</label>
+                                <input type="text" class="form-control @error('menu_name') is-invalid @enderror"
+                                    name="menu_name"
+                                    value="{{ isset($otherMenu) ? $otherMenu->menu_name : old('menu_name') }}" />
+                                @error('menu_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -32,10 +32,10 @@
 
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Link Name</label>
-                                <input type="text" class="form-control @error('body') is-invalid @enderror"
-                                    name="body" value="{{ isset($dashboardNew) ? $dashboardNew->body : old('body') }}" />
-                                @error('body')
+                                <label class="form-label">URL</label>
+                                <input type="url" class="form-control @error('url') is-invalid @enderror" name="url"
+                                    value="{{ isset($otherMenu) ? $otherMenu->url : old('url') }}" />
+                                @error('url')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -46,7 +46,7 @@
                                 <label class="form-label">Sort Order</label>
                                 <input type="number" class="form-control @error('sort_order') is-invalid @enderror"
                                     name="sort_order"
-                                    value="{{ isset($dashboardNew) ? $dashboardNew->sort_order : old('sort_order') }}" />
+                                    value="{{ isset($otherMenu) ? $otherMenu->sort_order : old('sort_order') }}" />
                                 @error('sort_order')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -54,20 +54,9 @@
                                 @enderror
 
                             </div>
-                            <div class="mb-3">
-                                <label for="upload_file" class="form-label">Upload Template (1320*583 pixel)</label>
-                                <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
-                                    id="upload_file" name="upload_file"
-                                    value="{{ isset($dashboardNew) ? $dashboardNew->url_file : old('url_file') }}" />
-                                @error('upload_file')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
                             <button class="btn btn-primary btn-block"><b>Save</b></button>
-                            @isset($dashboardNew)
-                                <a href="{{ url('admin/master/berita-dashboard') }}"
+                            @isset($otherMenu)
+                                <a href="{{ url('admin/master/menu-lain') }}"
                                     class="btn btn-secondary btn-block"><b>Cancel</b></a>
                             @endisset
                         </form>
@@ -79,45 +68,28 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Berita Dashboard</h5>
+                        <h5 class="mb-0">Data Menu Lainnya</h5>
                     </div>
                     <div class="card-body">
                         <div class="col-12 table-responsive">
                             <table id="datatable" class="table table-bordered table-hover table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Link</th>
-                                        {{-- <th>Body</th> --}}
+                                        <th>Menu Name</th>
                                         <th>Sort Order</th>
-                                        <th>image</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($dashboardNews as $key => $value)
+                                    @foreach ($otherMenus as $key => $value)
                                         <tr>
                                             <td>
-                                                @if ($value->title)
-                                                    <a href="{{ $value->title }}" target="_blank">
-                                                        @if ($value->body)
-                                                            {{ $value->body }}
-                                                        @else
-                                                            Lihat Selengkapnya
-                                                        @endif
-                                                    </a>
-                                                @endif
+                                                <a href="{{ $value->url }}" target="_blank">
+                                                    {{ $value->menu_name }}
+                                                </a>
                                             </td>
-                                            {{-- <td>{{ $value->body }}</td> --}}
                                             <td>{{ $value->sort_order }}</td>
-                                            <td align="center">
-                                                @if ($value->pathUrl())
-                                                    <a href="{{ $value->pathUrl() }}" class="badge bg-label-primary"
-                                                        target="_blank">
-                                                        Download
-                                                    </a>
-                                                @endif
-                                            </td>
                                             @php
                                                 $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
                                             @endphp
@@ -127,11 +99,11 @@
                                             <td class="text-center">
                                                 <div class="btn-group">
 
-                                                    <form action="{{ route('berita-dashboard.destroy', $value->id) }}"
+                                                    <form action="{{ route('menu-lain.destroy', $value->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="{{ route('berita-dashboard.edit', $value->id) }}"
+                                                        <a href="{{ route('menu-lain.edit', $value->id) }}"
                                                             class="btn btn-icon btn-outline-primary btn-sm">
                                                             <span class="tf-icons bx bx-edit-alt"></span>
                                                         </a>

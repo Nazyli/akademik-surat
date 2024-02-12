@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FormTemplatesController;
 use App\Http\Controllers\Admin\FormTypeController;
 use App\Http\Controllers\Admin\MasterUsersController;
+use App\Http\Controllers\Admin\OtherMenuController;
 use App\Http\Controllers\Admin\PengajuanAdminController;
 use App\Http\Controllers\Admin\ProgramStudiController;
 use App\Http\Controllers\Auth\LoginController;
@@ -64,6 +65,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::resource('master/tipe-borang', FormTypeController::class);
     Route::resource('master/jenis-borang', FormTemplatesController::class);
     Route::resource('master/berita-dashboard', DashboardNewsController::class);
+    Route::resource('master/menu-lain', OtherMenuController::class);
 
     Route::get('pengajuan-surat', [PengajuanAdminController::class, 'index'])->name('pengajuanadmin.index');
     Route::get('pengajuan-surat/{id}', [PengajuanAdminController::class, 'edit'])->name('pengajuanadmin.preview');

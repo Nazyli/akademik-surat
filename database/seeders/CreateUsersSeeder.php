@@ -666,7 +666,7 @@ class CreateUsersSeeder extends Seeder
             $otherMenus = [
                 [
                     "id" => "MENU1",
-                    "title" => "Pengambilan Ijazah",
+                    "menu_name" => "Pengambilan Ijazah",
                     "url" => "https://s.id/Persyaratan_Pengambilan_Ijazah_Transkrip_SKPI",
                     "status" => "Active",
                     "sort_order" => 1,

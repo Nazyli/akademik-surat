@@ -130,7 +130,7 @@ class DashboardNewsController extends Controller
             $data['updated_by'] = auth()->user()->id;
             $formTemplate->update($data);
 
-            return redirect()->route('berita-dashboard.index')->with('success', 'Jenis Form updated successfully.');
+            return redirect()->route('berita-dashboard.index')->with('success', 'Berita Dashboard updated successfully.');
         } catch (Exception $e) {
             return redirect()->route('berita-dashboard.index')->with('error', $e->errorInfo[2]);
         }
