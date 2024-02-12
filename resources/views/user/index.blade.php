@@ -10,7 +10,8 @@
              @endif
              <div class="col-12">
                  <div class="alert alert-warning alert-dismissible" role="alert">
-                     Setiap surat akan tersimpan di situs web selama satu tahun akademik.
+                     File surat akan tersimpan sementara, mohon untuk pengajuan surat yang sudah selesai diproses agar
+                     segera didownload.
                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                  </div>
              </div>
@@ -75,13 +76,11 @@
                          @foreach ($dataHome->dashboardNews as $key => $value)
                              <div class="carousel-item @if ($key == 0) active @endif">
                                  <img class="d-block w-100" src="{{ $value->pathUrl() }}" alt="{{ $value->title }}"
-                                     style="height: 400px" />
+                                     style="height: auto;"" />
                                  <div class="carousel-caption d-none d-md-block">
-                                     {{-- <h3>{{ $value->title }}</h3> --}}
-                                     {{-- <p>{{ $value->body }}</p> --}}
                                      @if ($value->title)
-                                         <a href="{{ $value->title }}" target="_blank" class="btn btn-md btn-primary mb-1"
-                                             style="opacity: 0.7; background-color:white;">
+                                         <a href="{{ $value->title }}" target="_blank"
+                                             class="btn btn-md btn-primary btn-berita-dashboard mb-1">
                                              @if ($value->body)
                                                  {{ $value->body }}
                                              @else

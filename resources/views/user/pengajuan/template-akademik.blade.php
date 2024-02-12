@@ -9,11 +9,11 @@
 
 
 
-        <figure class="text-center mt-2">
+        {{-- <figure class="text-center mt-2">
             <blockquote class="blockquote">
                 <h5 class="mb-0">Download {{ $titleForm }}</h5>
             </blockquote>
-        </figure>
+        </figure> --}}
 
         <div class="row">
             @if ($formTemplates->isNotEmpty())

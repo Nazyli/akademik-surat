@@ -57,6 +57,15 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('/js/config.js') }}"></script>
     <style>
+        .btn-berita-dashboard {
+            color: #001D5F !important;
+            background-color: rgba(255, 255, 255, 0.7)
+        }
+
+        .btn-berita-dashboard:hover {
+            opacity: 1;
+        }
+
         .desktop {
             display: block;
         }
