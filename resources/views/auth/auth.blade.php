@@ -101,6 +101,7 @@
             background-color: #E7F8FF;
             position: relative;
             z-index: 1;
+            background-image: url("{{ asset('img/backgrounds/login2.jpg') }}");
         }
 
         .login100-more::before {
