@@ -66,7 +66,7 @@ class AkunController extends Controller
     public function updateImg(Request $request, $id)
     {
         $request->validate([
-            'upload_file' => ['required', 'mimes:png,jpg,jpeg'],
+            'upload_file' => ['required', 'mimes:jpeg,jpg,png,gif', 'max:800'], // Updated validation rules
         ]);
         $user = User::find($id);
         $data = $request->all();

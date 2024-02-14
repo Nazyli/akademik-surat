@@ -22,9 +22,14 @@
                                     <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                         <span class="d-none d-sm-block">Upload new photo</span>
                                         <i class="bx bx-upload d-block d-sm-none"></i>
-                                        <input type="file" id="upload" class="account-file-input" name="upload_file"
-                                            hidden accept="image/png, image/jpeg" onchange="submitForm()" />
+                                        <input type="file" id="upload"
+                                            class="account-file-input  @error('upload_file') is-invalid @enderror"
+                                            name="upload_file" hidden accept="image/png, image/jpeg"
+                                            onchange="submitForm()" />
                                     </label>
+                                    @error('upload_file')
+                                        <p class="text-danger mb-0">{{ $message }}</p>
+                                    @enderror
                                     <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
                                 </div>
                             </form>
@@ -102,7 +107,8 @@
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label for="departmentName" class="form-label">Nama Departemen / Department Name</label>
+                                    <label for="departmentName" class="form-label">Nama Departemen / Department
+                                        Name</label>
                                     <select
                                         class="form-select department-select @error('department_id') is-invalid @enderror"
                                         id="departmentName" aria-label="Default select example" name="department_id">
