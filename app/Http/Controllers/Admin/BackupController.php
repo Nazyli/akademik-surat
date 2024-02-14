@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Illuminate\Support\Facades\DB;
-use League\Csv\Writer;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Services\ExportDataToExcel;
+use Exception;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class BackupController extends Controller
 {
@@ -94,65 +99,37 @@ class BackupController extends Controller
      */
     public function edit($id)
     {
-        $results = DB::table('form_submissions as fs')
-            ->select(
-                'fs.id',
-                'fs.user_id',
-                'u.first_name',
-                'u.last_name',
-                'u.npm',
-                'u.gender',
-                'u.phone',
-                'u.email',
-                'u.img_url',
-                'u.role_id',
-                'rm.name AS role_name',
-                'fs.form_status',
-                'u.department_id',
-                'd.department_name',
-                'u.study_program_id',
-                'sp.study_program_name',
-                'fs.form_template_id',
-                'ft.template_name',
-                'fs.size_file',
-                'fs.url_file',
-                'fs.signed_file',
-                'fs.signed_size_file',
-                'fs.submission_date',
-                'fs.processed_date',
-                'fs.keterangan',
-                'fs.komentar',
-                'fs.created_by',
-                'fs.updated_by',
-                'fs.created_at',
-                'fs.updated_at'
-            )
-            ->join('users as u', 'fs.user_id', '=', 'u.id')
-            ->join('departments as d', 'u.department_id', '=', 'd.id')
-            ->join('study_programs as sp', 'u.study_program_id', '=', 'sp.id')
-            ->join('role_memberships as rm', 'u.role_id', '=', 'rm.id')
-            ->join('form_templates as ft', 'fs.form_template_id', '=', 'ft.id')
-            ->where(DB::raw("DATE_FORMAT(fs.created_at, '%Y-%m')"), $id)
-            ->get();
-        $csv = Writer::createFromString('');
-        $csv->insertOne([
-            'ID', 'User ID', 'First Name', 'Last Name', 'NPM', 'Gender', 'Phone', 'Email', 'Image URL',
-            'Role ID', 'Role Name', 'Form Status', 'Department ID', 'Department Name', 'Study Program ID',
-            'Study Program Name', 'Form Template ID', 'Template Name', 'Size File', 'URL File', 'Signed File',
-            'Signed Size File', 'Submission Date', 'Processed Date', 'Keterangan', 'Komentar', 'Created By',
-            'Updated By', 'Created At', 'Updated At'
-        ]);
-        $rows = [];
-        foreach ($results as $result) {
-            $rows[] = (array) $result;
-        }
-        $csv->insertAll($rows);
 
-        // Simpan file CSV
-        $filename = 'form_submissions_' . $id . '.csv';
-        $publicPath = public_path('file/pengajuan-surat/' . str_replace('-', '', $id) . '/' . $filename);
-        file_put_contents($publicPath, $csv->getContent());
-        return $publicPath;
+        try {
+            $fileName = 'form_submissions_' . $id . '.xlsx';
+            $folderName = str_replace('-', '', $id);
+            $publicPath = 'file/pengajuan-surat/' . $folderName;
+            Excel::store(new ExportDataToExcel($id), $fileName);
+            File::copy(Storage::path($fileName), public_path($publicPath . "/" . $fileName));
+            Storage::delete($fileName);
+
+
+            $publicFolderPath = public_path($publicPath);
+            if (!is_dir($publicFolderPath)) {
+                abort(404);
+            }
+            $zipFileName = "$folderName.zip";
+            $zipFilePath = storage_path("app/public/$zipFileName");
+            $zip = new ZipArchive();
+            if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
+                $files = glob("$publicFolderPath/*");
+                foreach ($files as $file) {
+                    if (!$zip->addFile($file, basename($file))) {
+                        echo 'Could not add file to ZIP: ' . $file;
+                    }
+                }
+                $zip->close();
+            }
+
+            return redirect()->route('backup.index')->with('success', 'Backup Data created successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('backup.index')->with('error', $e->getMessage());
+        }
     }
 
     /**
