@@ -8,6 +8,7 @@ use App\Models\FormTemplates;
 use App\Models\StudyProgram;
 use App\Models\FormSubmission;
 use App\Models\User;
+use App\Services\FileUploadService;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
@@ -48,31 +49,27 @@ class PengajuanController extends Controller
     public function store(Request $request)
     {
         $user = User::find(auth()->user()->id);
-        $publicPath = "file/pengajuan-surat" . "/" . $user->id;
         $request->validate([
             'upload_file' => ['required', 'mimes:pdf', 'max:3000'],
             'form_template_id' => 'required',
         ]);
         $formTemplate = FormTemplates::find($request->form_template_id);
         try {
+            $dateNow = new DateTime();
             $data = $request->all();
-            if ($file = $request->file('upload_file')) {
-                $concatName = ($user->first_name . '-' . $user->last_name . '-' . $formTemplate->template_name);
-                $template_name = str_replace(' ', '-', $concatName);
-                $fileName = $template_name . '-' . time() . '.' . $file->extension();
-                $data['url_file'] = $publicPath . "/" . $fileName;
-                // file dalam byte
-                $data['size_file'] = $file->getSize();
-                $file->move($publicPath, $fileName);
-            }
             if ($request->action == 'Sent') {
-                $data['submission_date'] = new DateTime();
+                $data['submission_date'] = $dateNow;
                 $today = Carbon::today();
                 $totalSurat = FormSubmission::where('user_id', $user->id)
                     ->whereDate('submission_date', $today->toDateString())->count();
                 if ($totalSurat >= 3) {
                     return redirect()->route('pengajuan.riwayat')->with('error', 'Anda sudah mencapai limit pengajuan (3 kali sehari)');
                 }
+            }
+            [$url, $size] = FileUploadService::uploadPengajuan($request, $user, $formTemplate, $dateNow, null);
+            if ($url != null) {
+                $data['url_file'] = $url;
+                $data['size_file'] = $size;
             }
             $data['user_id'] = $user->id;
             $data['form_status'] = $request->action;
@@ -133,30 +130,16 @@ class PengajuanController extends Controller
             return redirect()->route('pengajuan.riwayat')->with('error', 'Pengajuan ' . $formSubmission->form_status . ' tidak dapat diedit!');
         }
         $user = User::find(auth()->user()->id);
-        $publicPath = "file/pengajuan-surat" . "/" . $user->id;
         $request->validate([
             'upload_file' => 'mimes:pdf|max:3000', // max size in kilobytes (3 MB = 3000 KB)
             'form_template_id' => 'required',
         ]);
         $formTemplate = FormTemplates::find($request->form_template_id);
         try {
+            $dateNow = new DateTime();
             $data = $request->all();
-            if ($file = $request->file('upload_file')) {
-                $concatName = ($user->first_name . '-' . $user->last_name . '-' . $formTemplate->template_name);
-                $template_name = str_replace(' ', '-', $concatName);
-                $fileName = $template_name . '-' . time() . '.' . $file->extension();
-                $data['url_file'] = $publicPath . "/" . $fileName;
-                // file dalam byte
-                $data['size_file'] = $file->getSize();
-                $file->move($publicPath, $fileName);
-
-                // tambahkan proses delete file
-                if ($formSubmission->url_file) {
-                    File::delete($formSubmission->url_file);
-                }
-            }
             if ($request->action == 'Sent') {
-                $data['submission_date'] = new DateTime();
+                $data['submission_date'] = $dateNow;
                 $today = Carbon::today();
                 $totalSurat = FormSubmission::where('user_id', $user->id)
                     ->whereDate('submission_date', $today->toDateString())->count();
@@ -165,6 +148,11 @@ class PengajuanController extends Controller
                 }
             } else if ($request->action == 'Draft') {
                 $data['submission_date'] = null;
+            }
+            [$url, $size] = FileUploadService::uploadPengajuan($request, $user, $formTemplate, $dateNow, $formSubmission->url_file);
+            if ($url != null) {
+                $data['url_file'] = $url;
+                $data['size_file'] = $size;
             }
             $data['user_id'] = $user->id;
             $data['department_id'] = $user->department_id;

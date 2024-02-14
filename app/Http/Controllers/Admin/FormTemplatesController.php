@@ -69,7 +69,6 @@ class FormTemplatesController extends Controller
 
             return redirect()->route('jenis-borang.index')->with('success', 'Jenis Form created successfully.');
         } catch (Exception $e) {
-            dd($e);
             return redirect()->route('jenis-borang.index')->with('error', $e->errorInfo[2]);
         }
     }

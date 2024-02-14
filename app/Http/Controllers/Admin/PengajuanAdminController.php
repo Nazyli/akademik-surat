@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\FormSubmission;
 use App\Models\FormType;
+use App\Services\FileUploadService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -160,19 +161,16 @@ class PengajuanAdminController extends Controller
         }
         try {
             $formSubmission = FormSubmission::find($id);
-            $publicPath = "file/pengajuan-surat" . "/"  . $formSubmission->user()->id . "/approve";
+            $dateNow = $formSubmission->submission_date;
             $data = $request->all();
             if ($request->action == 'Finished') {
-                if ($file = $request->file('upload_file')) {
-                    $concatName = ($formSubmission->user()->first_name . '-' . $formSubmission->user()->last_name . '-' . $formSubmission->formTemplate()->template_name . '-Approve');
-                    $template_name = str_replace(' ', '-', $concatName);
-                    $fileName = $template_name . '-' . time() . '.' . $file->extension();
-                    $data['signed_file'] = $publicPath . "/" . $fileName;
-                    // file dalam byte
-                    $data['signed_size_file'] = $file->getSize();
-                    $file->move($publicPath, $fileName);
+                [$url, $size] = FileUploadService::uploadPengajuanApprove($request, $formSubmission, $dateNow);
+                if ($url != null) {
+                    $data['signed_file'] = $url;
+                    $data['signed_size_file'] = $size;
                 }
             }
+
             $data['form_status'] = $request->action;
             $data['processed_date'] = new DateTime();
             $data['updated_by'] = auth()->user()->id;
