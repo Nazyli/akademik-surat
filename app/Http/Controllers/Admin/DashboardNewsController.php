@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DashboardNews;
+use App\Services\FileUploadService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -41,29 +42,21 @@ class DashboardNewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'upload_file' => ['required', 'mimes:png,jpg,jpeg'],
-            // 'title' => 'required',
-            // 'body' => 'required',
             'sort_order' => 'required',
         ]);
+
         try {
             $data = $request->all();
-            if ($file = $request->file('upload_file')) {
-                $publicPath = "file/berita-dashboard";
-                $title = Str::uuid();
-                $fileName = $title . '-' . time() . '.' . $file->extension();
-                $data['img_url'] = $publicPath . "/" . $fileName;
-                $file->move($publicPath, $fileName);
-            }
+            $data['img_url'] = FileUploadService::uploadFileBerita($request->file('upload_file'), null);
             $data['status'] = 'Active';
             $data['created_by'] = auth()->user()->id;
             DashboardNews::create($data);
 
             return redirect()->route('berita-dashboard.index')->with('success', 'Berita Dashboard created successfully.');
         } catch (Exception $e) {
-            return redirect()->route('berita-dashboard.index')->with('error', $e->errorInfo[2]);
+            return redirect()->route('berita-dashboard.index')->with('error', $e->getMessage());
         }
     }
 
@@ -103,36 +96,25 @@ class DashboardNewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $request->validate([
             'upload_file' => ['mimes:png,jpg,jpeg'],
-            // 'title' => 'required',
-            // 'body' => 'required',
             'sort_order' => 'required',
         ]);
-        try {
-            $formTemplate = DashboardNews::find($id);
-            $data = $request->all();
-            if ($file = $request->file('upload_file')) {
-                $publicPath = "file/berita-dashboard";
-                // $title = str_replace(' ', '-', $request->title);
-                $title = Str::uuid();
-                $fileName = $title . '-' . time() . '.' . $file->extension();
-                $data['img_url'] = $publicPath . "/" . $fileName;
-                $file->move($publicPath, $fileName);
 
-                // tambahkan proses delete file
-                if ($formTemplate->img_url) {
-                    File::delete($formTemplate->img_url);
-                }
+        try {
+            $dashboardNews = DashboardNews::find($id);
+            $data = $request->all();
+            if ($request->hasFile('upload_file')) {
+                $data['img_url'] = FileUploadService::uploadFileBerita($request->file('upload_file'), $dashboardNews->img_url);
             }
+
             $data['status'] = 'Active';
             $data['updated_by'] = auth()->user()->id;
-            $formTemplate->update($data);
+            $dashboardNews->update($data);
 
             return redirect()->route('berita-dashboard.index')->with('success', 'Berita Dashboard updated successfully.');
         } catch (Exception $e) {
-            return redirect()->route('berita-dashboard.index')->with('error', $e->errorInfo[2]);
+            return redirect()->route('berita-dashboard.index')->with('error', $e->getMessage());
         }
     }
 
