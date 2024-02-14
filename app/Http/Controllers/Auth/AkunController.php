@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\StudyProgram;
 use App\Models\User;
+use App\Services\FileUploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -69,17 +70,9 @@ class AkunController extends Controller
         ]);
         $user = User::find($id);
         $data = $request->all();
-        if ($file = $request->file('upload_file')) {
-            $publicPath = "file/avatars";
-            $title = str_replace(' ', '-', $user->first_name);
-            $fileName = $title . '-' . time() . '.' . $file->extension();
-            $data['img_url'] = $publicPath . "/" . $fileName;
-            $file->move($publicPath, $fileName);
-
-            // tambahkan proses delete file
-            if ($user->img_url) {
-                File::delete($user->img_url);
-            }
+        $url = FileUploadService::uploadProfile($request, $user);
+        if ($url != null) {
+            $data['img_url'] = $url;
         }
         $data['updated_by'] = auth()->user()->id;
         $user->update($data);

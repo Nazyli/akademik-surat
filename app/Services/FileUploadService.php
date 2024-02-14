@@ -7,6 +7,20 @@ use Illuminate\Support\Str;
 
 class FileUploadService
 {
+    public static function uploadProfile($request, $user)
+    {
+        if ($file = $request->file('upload_file')) {
+            $publicPath = "file/avatars";
+            $title = str_replace(' ', '-', $user->first_name);
+            $fileName = $title . '-' . time() . '.' . $file->extension();
+            $file->move($publicPath, $fileName);
+            if ($user->img_url) {
+                File::delete($user->img_url);
+            }
+            return $publicPath . "/" . $fileName;
+        }
+        return null;
+    }
     public static function uploadFileBerita($request, $imgUrl)
     {
         if ($file = $request->file('upload_file')) {
