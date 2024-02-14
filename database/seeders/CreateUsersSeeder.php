@@ -48,47 +48,6 @@ class CreateUsersSeeder extends Seeder
 
             ]);
 
-            $user = [
-                [
-                    'id' => "administrator",
-                    'first_name' => 'Administrator',
-                    'last_name' => 'SIPA',
-                    'phone' => '087657890377',
-                    'email' => 'sipa@sci.ui.ac.id',
-                    'role_id' => '1',
-                    'img_url' => 'file/avatars/administrator.png',
-                    'status' => 'Active',
-                    'password' => bcrypt('F4kult4$'),
-                ],
-                [
-                    'id' => Str::uuid(),
-                    'first_name' => 'Admin',
-                    'last_name' => 'Dummy',
-                    'phone' => '087657890377',
-                    'email' => 'admin@gmail.com',
-                    'role_id' => '1',
-                    'img_url' => 'file/avatars/admin.png',
-                    'status' => 'Active',
-                    'password' => bcrypt('123456'),
-                ],
-                [
-                    'id' => Str::uuid(),
-                    'first_name' => 'User',
-                    'last_name' => 'Dummy',
-                    'phone' => '087657890377',
-                    'email' => 'user@gmail.com',
-                    'role_id' => '2',
-                    'img_url' => 'file/avatars/user.jpg',
-                    'npm' => '011022',
-                    'status' => 'Active',
-                    'password' => bcrypt('123456'),
-                ],
-            ];
-
-            foreach ($user as $key => $value) {
-                DB::table('users')->insert($value);
-            }
-
             /* Form Type */
 
             $formType = [
@@ -676,6 +635,50 @@ class CreateUsersSeeder extends Seeder
             ];
             foreach ($otherMenus as $key => $value) {
                 DB::table('other_menus')->insert($value);
+            }
+
+
+            $user = [
+                [
+                    'id' => "administrator",
+                    'first_name' => 'Administrator',
+                    'last_name' => 'SIPA',
+                    'phone' => '087657890377',
+                    'email' => 'sipa@sci.ui.ac.id',
+                    'role_id' => '1',
+                    'img_url' => 'file/avatars/administrator.png',
+                    'status' => 'Active',
+                    'password' => bcrypt('F4kult4$'),
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'first_name' => 'Admin',
+                    'last_name' => 'Dummy',
+                    'phone' => '087657890377',
+                    'email' => 'admin@gmail.com',
+                    'role_id' => '1',
+                    'img_url' => 'file/avatars/admin.png',
+                    'status' => 'Active',
+                    'password' => bcrypt('123456'),
+                ],
+                [
+                    'id' => Str::uuid(),
+                    'first_name' => 'User',
+                    'last_name' => 'Dummy',
+                    'phone' => '087657890377',
+                    'email' => 'user@gmail.com',
+                    'role_id' => '2',
+                    'img_url' => 'file/avatars/user.jpg',
+                    'npm' => '2306000000',
+                    "study_program_id" => "dcb1ec1f-595a-448a-821f-7ff3f2e05680",
+                    "department_id" => "5831b2c9-511c-4e1c-b36e-97dad5f33df4",
+                    'status' => 'Active',
+                    'password' => bcrypt('123456'),
+                ],
+            ];
+
+            foreach ($user as $key => $value) {
+                DB::table('users')->insert($value);
             }
         });
     }
