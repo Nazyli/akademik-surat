@@ -36,38 +36,38 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Periode</th>
+                                        <th>Sent/Draft</th>
+                                        <th>Approve</th>
+                                        <th>Total File</th>
                                         <th>Processed ZIP</th>
-                                        <th>Download ZIP</th>
                                         <th>Delete Data</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>01 Januari - 31 Januari</td>
-                                        <td><a href="#" class="badge bg-label-secondary" target="_blank">
-                                                Processed
-                                            </a></td>
-                                        <td><a href="#" class="badge bg-label-primary" target="_blank">
-                                                Download
-                                            </a></td>
-                                        <td><button type="submit"
-                                                class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
-                                                    class="tf-icons bx bx-trash"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>01 Januari - 31 Januari</td>
-                                        <td><a href="#" class="badge bg-label-info" target="_blank">
-                                                Processed
-                                            </a></td>
-                                        <td><a href="#" class="badge bg-label-secondary" target="_blank">
-                                                Download
-                                            </a></td>
-                                        <td><button type="submit"
-                                                class="btn btn-icon btn-outline-danger btn-sm swalSuccesInActive"><i
-                                                    class="tf-icons bx bx-trash"></i></button></td>
-                                    </tr>
+                                    @foreach ($results as $key => $value)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $value->created_at_month }}</td>
+                                            <td>{{ $value->file_berkas }}</td>
+                                            <td>{{ $value->file_approve }}</td>
+                                            <td>{{ $value->total_files }}</td>
+                                            <td><a href="{{ route('backup.edit', $value->created_at_month) }}"
+                                                    class="badge bg-label-primary">
+                                                    Download
+                                                </a></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <form action="{{ route('backup.destroy', $value->created_at_month) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a type="submit"
+                                                            class="badge bg-label-danger swalDeleteData">Delete</a>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -76,4 +76,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $('.swalDeleteData').click(function(event) {
+            var form = $(this).closest("form");
+            event.preventDefault();
+            Swal.fire({
+                title: 'MENGHAPUS SEMUA DATA',
+                text: "Apakah anda yakin ingin menghapus semua data ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        });
+    </script>
 @endsection

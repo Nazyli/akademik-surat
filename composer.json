@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
+        "league/csv": "^9.8",
         "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {
