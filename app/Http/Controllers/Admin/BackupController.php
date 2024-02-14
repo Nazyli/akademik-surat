@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\BackupService;
 use Illuminate\Http\Request;
-use ZipArchive;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Services\ExportDataToExcel;
+use App\Services\BackupUtilityByFolder;
 use Exception;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 
 class BackupController extends Controller
@@ -58,30 +58,20 @@ class BackupController extends Controller
 
     public function store(Request $request)
     {
-        $folderNames = ["template-surat", "avatars", "berita-dashboard", "pengajuan-surat"];
-        $zipFileName = "multiple_folders.zip";
-        $zipFilePath = storage_path("app/public/$zipFileName");
-        $zip = new ZipArchive();
-        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
-            foreach ($folderNames as $folderName) {
-                $publicFolderPath = public_path('file/' . $folderName);
-                if (!is_dir($publicFolderPath)) {
-                    echo "Directory not found: $folderName";
-                    continue;
-                }
-                $files = glob("$publicFolderPath/*");
-                foreach ($files as $file) {
-                    $fileName = basename($file);
-                    if (!$zip->addFile($file, "$folderName/$fileName")) {
-                        echo 'Could not add file to ZIP: ' . "$folderName/$fileName";
-                    }
-                }
-            }
-            $zip->close();
-        }
-        return response()->download($zipFilePath)->deleteFileAfterSend(true);
-    }
 
+        try {
+            $folderNames = ["template-surat", "avatars", "berita-dashboard"];
+            $backupUtility = new BackupUtilityByFolder();
+            $zipFileName = $backupUtility->backupFolders($folderNames);
+            if ($zipFileName) {
+                return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+            } else {
+                return redirect()->route('backup.index')->with('error', 'Failed backup');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('backup.index')->with('error', $e->getMessage());
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -109,24 +99,13 @@ class BackupController extends Controller
             Storage::delete($fileName);
 
 
-            $publicFolderPath = public_path($publicPath);
-            if (!is_dir($publicFolderPath)) {
-                abort(404);
+            $folderPath = public_path($publicPath);
+            $zipFilePath = public_path($folderName . '.zip');
+            $backupService = new BackupService();
+            if ($backupService->backupFolderToZip($folderPath, $zipFilePath)) {
+                return response()->download($zipFilePath)->deleteFileAfterSend(true);
             }
-            $zipFileName = "$folderName.zip";
-            $zipFilePath = storage_path("app/public/$zipFileName");
-            $zip = new ZipArchive();
-            if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
-                $files = glob("$publicFolderPath/*");
-                foreach ($files as $file) {
-                    if (!$zip->addFile($file, basename($file))) {
-                        echo 'Could not add file to ZIP: ' . $file;
-                    }
-                }
-                $zip->close();
-            }
-
-            return redirect()->route('backup.index')->with('success', 'Backup Data created successfully.');
+            return redirect()->route('backup.index')->with('error', 'Failed backup');
         } catch (Exception $e) {
             return redirect()->route('backup.index')->with('error', $e->getMessage());
         }
