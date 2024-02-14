@@ -49,7 +49,7 @@ class DashboardNewsController extends Controller
 
         try {
             $data = $request->all();
-            $data['img_url'] = FileUploadService::uploadFileBerita($request->file('upload_file'), null);
+            $data['img_url'] = FileUploadService::uploadFileBerita($request, null);
             $data['status'] = 'Active';
             $data['created_by'] = auth()->user()->id;
             DashboardNews::create($data);
@@ -105,7 +105,7 @@ class DashboardNewsController extends Controller
             $dashboardNews = DashboardNews::find($id);
             $data = $request->all();
             if ($request->hasFile('upload_file')) {
-                $data['img_url'] = FileUploadService::uploadFileBerita($request->file('upload_file'), $dashboardNews->img_url);
+                $data['img_url'] = FileUploadService::uploadFileBerita($request, $dashboardNews->img_url);
             }
 
             $data['status'] = 'Active';

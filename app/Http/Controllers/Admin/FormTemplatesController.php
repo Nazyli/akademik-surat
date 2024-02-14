@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\FormTemplates;
 use App\Models\FormType;
+use App\Services\FileUploadService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -59,21 +60,16 @@ class FormTemplatesController extends Controller
         ]);
         try {
             $data = $request->all();
-            if ($file = $request->file('upload_file')) {
-                $publicPath = "file/template-surat";
-                $template_name = str_replace(' ', '-', $request->template_name);
-                $fileName = $template_name . '-' . time() . '.' . $file->extension();
-                $data['url_file'] = $publicPath . "/" . $fileName;
-                // file dalam byte
-                $data['size_file'] = $file->getSize();
-                $file->move($publicPath, $fileName);
-            }
+            [$url, $size] = FileUploadService::uploadTemplates($request, null);
+            $data['url_file'] = $url;
+            $data['size_file'] = $size;
             $data['status'] = 'Active';
             $data['created_by'] = auth()->user()->id;
             FormTemplates::create($data);
 
             return redirect()->route('jenis-borang.index')->with('success', 'Jenis Form created successfully.');
         } catch (Exception $e) {
+            dd($e);
             return redirect()->route('jenis-borang.index')->with('error', $e->errorInfo[2]);
         }
     }
@@ -130,19 +126,10 @@ class FormTemplatesController extends Controller
         try {
             $formTemplate = FormTemplates::find($id);
             $data = $request->all();
-            if ($file = $request->file('upload_file')) {
-                $publicPath = "file/template-surat";
-                $template_name = str_replace(' ', '-', $request->template_name);
-                $fileName = $template_name . '-' . time() . '.' . $file->extension();
-                $data['url_file'] = $publicPath . "/" . $fileName;
-                // file dalam byte
-                $data['size_file'] = $file->getSize();
-                $file->move($publicPath, $fileName);
-
-                // tambahkan proses delete file
-                if ($formTemplate->url_file) {
-                    File::delete($formTemplate->url_file);
-                }
+            [$url, $size] = FileUploadService::uploadTemplates($request, $formTemplate->url_file);
+            if ($url != null) {
+                $data['url_file'] = $url;
+                $data['size_file'] = $size;
             }
             $data['status'] = 'Active';
             $data['updated_by'] = auth()->user()->id;

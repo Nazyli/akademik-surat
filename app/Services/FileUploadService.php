@@ -7,15 +7,36 @@ use Illuminate\Support\Str;
 
 class FileUploadService
 {
-    public static function uploadFileBerita($file, $imgUrl)
+    public static function uploadFileBerita($request, $imgUrl)
     {
-        $publicPath = "file/berita-dashboard";
-        $title = Str::uuid();
-        $fileName = $title . '-' . time() . '.' . $file->extension();
-        $file->move($publicPath, $fileName);
-        if ($imgUrl) {
-            File::delete($imgUrl);
+        if ($file = $request->file('upload_file')) {
+            $publicPath = "file/berita-dashboard";
+            $title = Str::uuid();
+            $fileName = $title . '-' . time() . '.' . $file->extension();
+            $file->move($publicPath, $fileName);
+            if ($imgUrl) {
+                File::delete($imgUrl);
+            }
+            return $publicPath . "/" . $fileName;
         }
-        return $publicPath . "/" . $fileName;
+        return null;
+    }
+
+    public static function uploadTemplates($request, $imgUrl)
+    {
+        if ($file = $request->file('upload_file')) {
+            $publicPath = "file/template-surat";
+            $template_name = str_replace(' ', '-', $request->template_name);
+            $fileName = $template_name . '-' . time() . '.' . $file->extension();
+            $url = $publicPath . "/" . $fileName;
+            $size = $file->getSize();
+
+            $file->move($publicPath, $fileName);
+            if ($imgUrl) {
+                File::delete($imgUrl);
+            }
+            return [$url, $size];
+        }
+        return [null, null];
     }
 }
