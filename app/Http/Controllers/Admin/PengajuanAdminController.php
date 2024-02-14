@@ -161,7 +161,7 @@ class PengajuanAdminController extends Controller
         }
         try {
             $formSubmission = FormSubmission::find($id);
-            $dateNow = $formSubmission->submission_date;
+            $dateNow = $formSubmission->created_at;
             $data = $request->all();
             if ($request->action == 'Finished') {
                 [$url, $size] = FileUploadService::uploadPengajuanApprove($request, $formSubmission, $dateNow);

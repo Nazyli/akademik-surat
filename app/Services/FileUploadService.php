@@ -88,7 +88,7 @@ class FileUploadService
                 $publicPath = "file/pengajuan-surat/" . $formattedDate . "/"  . $formSubmission->user()->id;
                 $concatName = ($formSubmission->user()->first_name . '-' . $formSubmission->user()->last_name . '-' . $formSubmission->formTemplate()->template_name);
                 $template_name = str_replace(' ', '-', $concatName);
-                $fileName = $template_name . '-' . Carbon::createFromFormat('Y-m-d H:i:s', $formSubmission->created_at)->timestamp . '-Approve.' . $file->extension();
+                $fileName = $template_name . '-' . $date->timestamp . '-Approve.' . $file->extension();
                 $url = $publicPath . "/" . $fileName;
             }
             $size = $file->getSize();
