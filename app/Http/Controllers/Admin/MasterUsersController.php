@@ -31,8 +31,8 @@ class MasterUsersController extends Controller
                 ->leftJoin('role_memberships as rm', 'rm.id', '=', 'u.role_id')
                 ->leftJoin(DB::raw('(SELECT SUBSTRING_INDEX(GROUP_CONCAT(id ORDER BY created_at DESC), \',\', 1) AS id, user_id FROM form_submissions GROUP BY user_id) fss'), 'u.id', '=', 'fss.user_id')
                 ->leftJoin('form_submissions as fs', 'fss.id', '=', 'fs.id')
-                ->leftJoin('departments as d', 'fs.department_id', '=', 'd.id')
-                ->leftJoin('study_programs as sp', 'fs.study_program_id', '=', 'sp.id')
+                ->leftJoin('departments as d', 'u.department_id', '=', 'd.id')
+                ->leftJoin('study_programs as sp', 'u.study_program_id', '=', 'sp.id')
                 ->select(
                     'u.id',
                     'u.img_url',
@@ -91,11 +91,11 @@ class MasterUsersController extends Controller
                                         <form method="POST" action="' . $url . '" class="dropdown-item">
                                             ' . csrf_field() . '
                                             ' . method_field('PUT') . '
-                                            <button type="submit" class="btn btn-link swalSuccesInActive">
+                                            <button type="submit" class="btn btn-link">
                                                 <i class="bx bxs-show me-1"></i> Change Role to ' . $changeRole . '
                                             </button>
                                         </form>
-                                        <form method="POST" action="' . $urlDelete . '" class="dropdown-item" onsubmit="return confirm(\'Are you sure you want to delete this user?\');">
+                                        <form method="POST" action="' . $urlDelete . '" class="dropdown-item">
                                             ' . csrf_field() . '
                                             ' . method_field('DELETE') . '
                                             <button type="submit" class="btn btn-link text-danger swalSuccesDeleteUser">

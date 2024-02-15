@@ -60,7 +60,9 @@
 
 @section('js')
     <script>
-        $('.swalSuccesDeleteUser').click(function(event) {
+        $(document).on('click', '.swalSuccesDeleteUser', function(e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
             var form = $(this).closest("form");
             event.preventDefault();
             Swal.fire({
