@@ -128,6 +128,21 @@ class BackupController extends Controller
      */
     public function destroy($id)
     {
+
+        try {
+            DB::table('form_submissions')
+                ->whereRaw("DATE_FORMAT(created_at, '%Y-%m') = ?", $id)
+                ->delete();
+
+            $folderName = str_replace('-', '', $id);
+            $publicPath = 'file/pengajuan-surat/' . $folderName;
+            if (File::exists($publicPath)) {
+                File::deleteDirectory($publicPath);
+            }
+            return redirect()->route('backup.index')->with('success', 'Delete all data ' . $id . ' successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('backup.index')->with('error', $e->getMessage());
+        }
     }
 
 
