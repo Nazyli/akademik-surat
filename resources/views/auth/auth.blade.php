@@ -188,7 +188,7 @@
         }
 
         .login100-form-social-item:hover {
-            background: #333333;
+            /* background: #333333; */
             color: #fff;
         }
     </style>
@@ -248,13 +248,13 @@
 
             var socialIconsHTML = `
         <div class="flex-c-m">
-            <a class="login100-form-social-item flex-c-m" href="https://www.facebook.com"><img src="{{ asset('img/logo/instagram.png') }}" alt="instgram"></a>
-            <a class="login100-form-social-item flex-c-m" href="https://www.twitter.com"><img src="{{ asset('img/logo/twitter.png') }}" alt="twitter"></a>
-            <a class="login100-form-social-item flex-c-m" href="https://www.facebook.com"><img src="{{ asset('img/logo/facebook.png') }}" alt="facebook"></a>
-            <a class="login100-form-social-item flex-c-m" href="https://www.youtube.com"><img src="{{ asset('img/logo/youtube.png') }}" alt="youtube"></a>
+            <a class="login100-form-social-item flex-c-m" target="_blank" href="https://www.instagram.com/fmipa_ui/"><img src="{{ asset('img/logo/instagram.png') }}" alt="instgram"></a>
+            <a class="login100-form-social-item flex-c-m" target="_blank" href="https://twitter.com/fmipa_ui"><img src="{{ asset('img/logo/twitter.png') }}" alt="twitter"></a>
+            <a class="login100-form-social-item flex-c-m" target="_blank" href="https://www.facebook.com/sci.ui.ac.id/"><img src="{{ asset('img/logo/facebook.png') }}" alt="facebook"></a>
+            <a class="login100-form-social-item flex-c-m" target="_blank" href="https://www.youtube.com/c/FMIPAUIOfficial"><img src="{{ asset('img/logo/youtube.png') }}" alt="youtube"></a>
         </div>
         <p class="text-center mt-2">
-            <a href="www.sci.ui.ac.id" target="_blank" style="font-family: Barlow; font-size: 20px; font-style: italic; font-weight: bolder; color: #001D5F;">www.sci.ui.ac.id</a>
+            <a href="https://www.sci.ui.ac.id/" target="_blank" style="font-family: Barlow; font-size: 20px; font-style: italic; font-weight: bolder; color: #001D5F;">www.sci.ui.ac.id</a>
         </p>
     `;
 
