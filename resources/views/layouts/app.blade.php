@@ -150,7 +150,7 @@
                         <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
                             <a href="{{ url('admin/master/jenis-borang') }}" class="menu-link">
                                 <i class="menu-icon bx bx-list-check"></i>
-                                <div data-i18n="jenis-borang">Jenis Borang</div>
+                                <div data-i18n="jenis-borang">Jenis Form</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/berita-dashboard') }}">

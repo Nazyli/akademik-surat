@@ -8,26 +8,21 @@
         </h4>
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">{{ isset($dashboardNew) ? 'Edit Data' : 'Tambah Data' }}</h5>
-                    </div>
-                    <div class="card-body">
-                        <form enctype="multipart/form-data" action="{{ route('backup.store') }}" method="POST">
-                            @csrf
-                            @method('POST')
-                            <button class="btn btn-primary btn-block"><b>Backup</b></button>
-                        </form>
-                    </div>
-                </div>
+            <div class="col-md-12 mb-5">
+                <form enctype="multipart/form-data" action="{{ route('backup.store') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button class="btn btn-primary btn-block"><b>Download (Jenis Form, Berita Dashboard)</b></button>
+                </form>
             </div>
-
             <!-- Table-->
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">List Backup Database</h5>
+                        <h5 class="card-title">List Backup Database</h5>
+                        <div class="card-subtitle text-muted mb-3">
+
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="col-12 table-responsive">

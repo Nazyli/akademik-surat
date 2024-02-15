@@ -4,7 +4,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
             <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Jenis Borang
+            Jenis Form
         </h4>
 
         <div class="row">
@@ -32,7 +32,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label for="tipeBorang" class="form-label">Tipe Borang</label>
+                                <label for="tipeBorang" class="form-label">Tipe Form</label>
                                 <select class="form-select @error('type_id') is-invalid @enderror" id="tipeBorang"
                                     aria-label="Default select example" name="type_id">
                                     <option></option>
@@ -86,15 +86,15 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Jenis Borang</h5>
+                        <h5 class="mb-0">Data Jenis Form</h5>
                     </div>
                     <div class="card-body">
                         <div class="col-12 table-responsive">
                             <table id="datatable" class="table table-bordered table-hover table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Jenis Borang</th>
-                                        <th>Tipe Borang</th>
+                                        <th>Jenis Form</th>
+                                        <th>Tipe Form</th>
                                         <th>Sort</th>
                                         <th>File</th>
                                         <th>Status</th>

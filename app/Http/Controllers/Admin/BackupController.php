@@ -60,7 +60,7 @@ class BackupController extends Controller
     {
 
         try {
-            $folderNames = ["template-surat", "avatars", "berita-dashboard"];
+            $folderNames = ["template-surat", "berita-dashboard"];
             $backupUtility = new BackupUtilityByFolder();
             $zipFileName = $backupUtility->backupFolders($folderNames);
             if ($zipFileName) {
