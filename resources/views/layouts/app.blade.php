@@ -435,7 +435,6 @@
     <script src="{{ asset('/js/main.js') }}"></script>
 
     <!-- Page JS -->
-    @yield('js')
     <script>
         function showNotif(status, message) {
             toastr.options = {
@@ -520,6 +519,8 @@
             })
         });
     </script>
+    @yield('js')
+
 </body>
 
 </html>

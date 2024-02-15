@@ -10,6 +10,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
+use Illuminate\Support\Facades\File;
+use Exception;
+
+
 
 class MasterUsersController extends Controller
 {
@@ -75,6 +79,7 @@ class MasterUsersController extends Controller
                         return null;
                     }
                     $url = route('masteruser.changeRole', ['id' => $row->id, 'roleId' => ($row->role_id == 1 ? 2 : 1)]);
+                    $urlDelete = route('masteruser.destroy', $row->id);
                     $changeRole = $row->role_id == 1 ? 'User' : 'Admin';
 
                     $dropdown = '<div class="dropdown">
@@ -85,8 +90,15 @@ class MasterUsersController extends Controller
                                         <form method="POST" action="' . $url . '" class="dropdown-item">
                                             ' . csrf_field() . '
                                             ' . method_field('PUT') . '
-                                            <button type="submit" class="btn btn-link">
+                                            <button type="submit" class="btn btn-link swalSuccesInActive">
                                                 <i class="bx bxs-show me-1"></i> Change Role to ' . $changeRole . '
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="' . $urlDelete . '" class="dropdown-item" onsubmit="return confirm(\'Are you sure you want to delete this user?\');">
+                                            ' . csrf_field() . '
+                                            ' . method_field('DELETE') . '
+                                            <button type="submit" class="btn btn-link text-danger swalSuccesDeleteUser">
+                                                <i class="tf-icons bx bx-trash me-1"></i> Delete User
                                             </button>
                                         </form>
                                     </div>
@@ -112,5 +124,38 @@ class MasterUsersController extends Controller
             'updated_by' => auth()->user()->id,
         ]);
         return redirect()->route('masteruser.index')->with('success', 'Change role successfully.');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $periodes = DB::table('form_submissions as fs')
+                ->select(DB::raw("DATE_FORMAT(fs.created_at, '%Y-%m') AS periode"))
+                ->where('fs.user_id', '=', $id)
+                ->groupBy(DB::raw("DATE_FORMAT(fs.created_at, '%Y-%m')"))
+                ->get();
+
+            foreach ($periodes as $p) {
+                $folderName = str_replace('-', '', $p->periode);
+                $publicPath = 'file/pengajuan-surat/' . $folderName . '/' . $id;
+                if (File::exists($publicPath)) {
+                    File::deleteDirectory($publicPath);
+                }
+            }
+
+            DB::table('form_submissions')
+                ->whereRaw("user_id = ?", $id)
+                ->delete();
+
+            $user = User::find($id);
+            if ($user->img_url) {
+                File::delete($user->img_url);
+            }
+            $user->delete();
+
+            return redirect()->route('masteruser.index')->with('success', 'Delete all data ' . $user->first_name . ' successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('masteruser.index')->with('error', $e->getMessage());
+        }
     }
 }

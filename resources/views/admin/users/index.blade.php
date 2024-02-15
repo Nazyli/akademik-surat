@@ -60,6 +60,24 @@
 
 @section('js')
     <script>
+        $('.swalSuccesDeleteUser').click(function(event) {
+            var form = $(this).closest("form");
+            event.preventDefault();
+            Swal.fire({
+                title: 'MENGHAPUS SEMUA DATA',
+                text: "Apakah anda yakin ingin menghapus semua data user ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        });
+
         $(function() {
             var table;
 

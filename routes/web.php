@@ -76,6 +76,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::get('users', [MasterUsersController::class, 'index'])->name('masteruser.index');
     Route::put('users/{id}/{roleId}', [MasterUsersController::class, 'changeRole'])->name('masteruser.changeRole');
     Route::get('users/getByDepartementId/{departmentId}', [MasterUsersController::class, 'getByDepartmentId'])->name('masteruser.getByDepartementId');
+    Route::delete('users/{id}', [MasterUsersController::class, 'destroy'])->name('masteruser.destroy');
 
     Route::get('pengaturan-akun', [AkunController::class, 'index'])->name('pengaturan-akun.indexAdmin');
     Route::put('pengaturan-akun/{id}', [AkunController::class, 'update'])->name('pengaturan-akun.updateAdmin');
