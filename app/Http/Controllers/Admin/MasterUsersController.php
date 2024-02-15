@@ -78,11 +78,12 @@ class MasterUsersController extends Controller
                     if ($row->id == auth()->user()->id) {
                         return null;
                     }
-                    $url = route('masteruser.changeRole', ['id' => $row->id, 'roleId' => ($row->role_id == 1 ? 2 : 1)]);
-                    $urlDelete = route('masteruser.destroy', $row->id);
-                    $changeRole = $row->role_id == 1 ? 'User' : 'Admin';
+                    if (auth()->user()->role_id == 1 && auth()->user()->id == 'administrator') {
+                        $url = route('masteruser.changeRole', ['id' => $row->id, 'roleId' => ($row->role_id == 1 ? 2 : 1)]);
+                        $urlDelete = route('masteruser.destroy', $row->id);
+                        $changeRole = $row->role_id == 1 ? 'User' : 'Admin';
 
-                    $dropdown = '<div class="dropdown">
+                        $dropdown = '<div class="dropdown">
                                     <button class="btn btn-link text-danger p-0 dropdown-toggle hide-arrow" type="button" data-bs-toggle="dropdown">
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
@@ -104,7 +105,8 @@ class MasterUsersController extends Controller
                                     </div>
                                 </div>';
 
-                    return $dropdown;
+                        return $dropdown;
+                    };
                 })
 
                 ->rawColumns(['status', 'avatar', 'action'])
