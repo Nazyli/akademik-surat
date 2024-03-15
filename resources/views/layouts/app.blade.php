@@ -115,7 +115,7 @@
                         <li class="menu-item {{ isActiveLink('admin/home') }}">
                             <a href="{{ url('admin/home') }}" class="menu-link">
                                 <i class="menu-icon bx bx-home-circle"></i>
-                                <div data-i18n="Dashboards">Dashboards</div>
+                                <div data-i18n="Dashboards">{{ __('Dashboards') }}</div>
                             </a>
                         </li>
 
@@ -204,20 +204,20 @@
                         <li class="menu-item {{ isActiveLink('user/home') }}">
                             <a href="{{ url('user/home') }}" class="menu-link">
                                 <i class="menu-icon bx bx-home-circle"></i>
-                                <div data-i18n="Dashboards">Dashboards</div>
+                                <div data-i18n="Dashboards">{{ __('Dashboards') }}</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('user/pengajuan') }}">
                             <a href="{{ url('user/pengajuan') }}" class="menu-link">
                                 <i class="menu-icon bx bx-file"></i>
-                                <div data-i18n="pengajuan">Pengajuan Surat</div>
+                                <div data-i18n="pengajuan">{{ __('Applications') }}</div>
                             </a>
                         </li>
 
                         <li class="menu-item {{ isActiveLink('user/riwayat') }}">
                             <a href="{{ url('user/riwayat') }}" class="menu-link">
                                 <i class="menu-icon bx bx-history"></i>
-                                <div data-i18n="riwayat">Riwayat Pengajuan</div>
+                                <div data-i18n="riwayat">{{ __('Application History') }}</div>
                             </a>
                         </li>
                         @php
@@ -227,7 +227,7 @@
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                                     <i class="menu-icon bx bx-info-circle"></i>
-                                    <div data-i18n="Misc">Menu Lainnya</div>
+                                    <div data-i18n="Misc">{{ __('Other Menu') }}</div>
                                 </a>
                                 <ul class="menu-sub">
                                     @foreach ($otherMenus as $menu)
@@ -243,27 +243,27 @@
 
 
                         <li class="menu-header small text-uppercase">
-                            <span class="menu-header-text">Download Format Form</span>
+                            <span class="menu-header-text">{{ __('Download Form') }}</span>
                         </li>
                         <li class="menu-item {{ isActiveLink('user/template-surat/skripsi') }}">
                             <a href="{{ url('user/template-surat/skripsi') }}" class="menu-link">
                                 <i class="menu-icon bx bx-book-content"></i>
-                                <div data-i18n="skripsi">Skripsi/Tesis/Promosi</div>
+                                <div data-i18n="skripsi">{{ __('Thesis and Promotion Registration') }}</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('user/template-surat/akademik') }}">
                             <a href="{{ url('user/template-surat/akademik') }}" class="menu-link">
                                 <i class="menu-icon bx bx-book-open"></i>
-                                <div data-i18n="template-surat">Akademik</div>
+                                <div data-i18n="template-surat">{{ __('Academics') }}</div>
                             </a>
                         </li>
                         <li class="menu-header small text-uppercase">
-                            <span class="menu-header-text">Pengaturan Akun</span>
+                            <span class="menu-header-text">{{ __('Account Setting') }}</span>
                         </li>
                         <li class="menu-item {{ isActiveLink('user/pengaturan-akun') }}">
                             <a href="{{ url('user/pengaturan-akun') }}" class="menu-link">
                                 <i class="menu-icon bx bx-user"></i>
-                                <div data-i18n="Support">Akun</div>
+                                <div data-i18n="Support">{{ __('Account/Profile') }}</div>
                             </a>
                         </li>
                     </ul>

@@ -10,15 +10,19 @@
              @endif
              <div class="col-12">
                  <div class="alert alert-warning alert-dismissible" role="alert">
-                     File surat akan tersimpan sementara, mohon untuk pengajuan surat yang sudah selesai diproses agar
-                     segera didownload.
+                     {{ __('The letter file will be stored temporarily, please submit letters that have been processed so that they can be downloaded immediately.') }}
                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                  </div>
              </div>
              @if ($dataHome->countRevisi > 0)
                  <div class="col-12">
                      <div class="alert alert-info alert-dismissible" role="alert">
-                         Ada <span class="fw-medium">{{ $dataHome->countRevisi }}</span> Surat Perlu Revisi
+                         @php
+                             $totalLetters = '<span class="fw-medium">' . $dataHome->countRevisi . '</span>';
+                         @endphp
+
+                         @lang('There is :TOTAL letter that needs revision', ['TOTAL' => $totalLetters])
+
                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                      </div>
                  </div>
@@ -30,25 +34,23 @@
                              <div class="card-body">
                                  <h5 class="card-title text-primary">Hi, {{ $dataHome->user->fullName() }} 🎉</h5>
                                  <p class="mb-4">
-                                     Selamat Datang di Aplikasi <span class="fw-medium">Sistem Informasi Persuratan
-                                         Akademik</span>
+                                     {{ __('Welcome to Application System of Academic Administration') }}
                                  </p>
                                  <div class="d-inline-blockk">
                                      <div class="dropdown">
                                          <button class="btn btn-sm btn-outline-info dropdown-toggle mb-3" type="button"
                                              id="formatForm" data-bs-toggle="dropdown" aria-haspopup="true"
                                              aria-expanded="false">
-                                             Download Format Form Akademik
+                                             {{ __('Download Academic Form Request') }}
                                          </button>
                                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="formatForm">
-                                             <a class="dropdown-item" href="{{ url('user/template-surat/skripsi') }}">
-                                                 Skripsi/Tesis/Promosi</a>
                                              <a class="dropdown-item"
-                                                 href="{{ url('user/template-surat/akademik') }}">Akademik</a>
+                                                 href="{{ url('user/template-surat/skripsi') }}">{{ __('Thesis and Promotion Registration') }}</a>
+                                             <a class="dropdown-item"
+                                                 href="{{ url('user/template-surat/akademik') }}">{{ __('Academics') }}</a>
                                          </div>
                                          <a href="{{ url('user/pengajuan') }}"
-                                             class="btn btn-sm btn-outline-primary mb-3">Mulai
-                                             Pengajuan Surat</a>
+                                             class="btn btn-sm btn-outline-primary mb-3">{{ __('Start Application') }}</a>
                                      </div>
                                  </div>
 
@@ -67,7 +69,8 @@
                  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                      <div class="carousel-indicators">
                          @foreach ($dataHome->dashboardNews as $key => $value)
-                             <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="{{ $key }}"
+                             <button type="button" data-bs-target="#carouselExample"
+                                 data-bs-slide-to="{{ $key }}"
                                  @if ($key == 0) class="active" @endif
                                  aria-label="{{ $value->title }}"></button>
                          @endforeach
@@ -105,18 +108,18 @@
              <div class="col-12 col-lg-12 mb-4">
                  <div class="card">
                      <div class="card-header d-flex justify-content-between align-items-center">
-                         <h5 class="mb-0">Pengajuan Terbaru</h5>
+                         <h5 class="mb-0">{{ __('Applications') }}</h5>
                      </div>
                      <div class="card-body">
                          <div class="col-12 table-responsive">
                              <table class="table table-bordered table-hover table-sm">
                                  <thead class="thead-dark">
                                      <tr>
-                                         <th>No</th>
-                                         <th>Tipe Form</th>
-                                         <th>Tanggal Pengajuan</th>
-                                         <th>Tanggal Pemrosesan</th>
-                                         <th>Status</th>
+                                         <th>{{ __('No') }}</th>
+                                         <th>{{ __('Form Type') }}</th>
+                                         <th>{{ __('Date of Application') }}</th>
+                                         <th>{{ __('Date of Process') }}</th>
+                                         <th>{{ __('Status') }}</th>
                                          <th>#</th>
                                      </tr>
                                  </thead>
@@ -133,7 +136,10 @@
                                                  </span>
                                              </td>
                                              @php
-                                                 $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                                 $badgeClass =
+                                                     $value->status == 'Active'
+                                                         ? 'bg-label-primary'
+                                                         : 'bg-label-danger';
                                              @endphp
 
                                              <td class="text-center">
