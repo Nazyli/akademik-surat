@@ -30,14 +30,21 @@
     "Academics": "Akademik",
     "Account Setting": "Pengaturan Akun",
     "Account/Profile": "Akun/Profil",
-    "Status of Application":"Data Status Pengajuan",
-
-    "No" : "No",
-    "Form Type":"Tipe Form",
-    "Date of Application":"Tanggal Pengajuan",
-    "Date of Process":"Tanggal Pemrosesan",
-    "Status":"Status",
-    "Name":"Nama",
-    "Action":"Action"
-
+    "Status of Application": "Data Status Pengajuan",
+    "No": "No",
+    "Form Type": "Tipe Form",
+    "Date of Application": "Tanggal Pengajuan",
+    "Date of Process": "Tanggal Pemrosesan",
+    "Status": "Status",
+    "Name": "Nama",
+    "Action": "Action",
+    "Search": "Cari",
+    "Search:": "Cari:",
+    "No data available in table": "Tidak ada data yang tersedia pada tabel ini",
+    "Processing": "Sedang memproses",
+    "Show _MENU_ entries": "Tampilkan _MENU_ entri",
+    "No matching records found": "Tidak ditemukan data yang sesuai",
+    "Showing _START_ to _END_ of _TOTAL_ entries": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+    "Showing 0 to 0 of 0 entries": "Menampilkan 0 sampai 0 dari 0 entri",
+    "(filtered from _MAX_ total entries)": "(disaring dari _MAX_ entri keseluruhan)"
 }
