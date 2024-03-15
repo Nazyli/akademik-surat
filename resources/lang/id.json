@@ -30,11 +30,14 @@
     "Academics": "Akademik",
     "Account Setting": "Pengaturan Akun",
     "Account/Profile": "Akun/Profil",
+    "Status of Application":"Data Status Pengajuan",
 
     "No" : "No",
     "Form Type":"Tipe Form",
     "Date of Application":"Tanggal Pengajuan",
     "Date of Process":"Tanggal Pemrosesan",
-    "Status":"Status"
+    "Status":"Status",
+    "Name":"Nama",
+    "Action":"Action"
 
 }
