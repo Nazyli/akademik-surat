@@ -2,12 +2,13 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Pengaturan Akun /</span> Akun</h4>
+        <h4 class="py-3 mb-4"><span class="text-muted fw-light">{{ __('Account Setting') }} /</span>
+            {{ __('Account/Profile') }}</h4>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">Profile Details</h5>
+                    <h5 class="card-header">{{ __('Profile Details') }}</h5>
                     <!-- Account -->
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -43,7 +44,7 @@
                             @method('PUT')
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">First Name</label>
+                                    <label class="form-label">{{ __('First Name') }}</label>
                                     <input type="text" class="form-control @error('first_name') is-invalid @enderror"
                                         name="first_name" value="{{ $user->first_name }}" autofocus />
                                     @error('first_name')
@@ -53,7 +54,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Last Name</label>
+                                    <label class="form-label">{{ __('Last Name') }}</label>
                                     <input type="text" class="form-control @error('last_name') is-invalid @enderror"
                                         name="last_name" value="{{ $user->last_name }}" autofocus />
                                     @error('last_name')
@@ -63,7 +64,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">E-mail</label>
+                                    <label class="form-label">{{ __('Email') }}</label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
                                         name="email" value="{{ $user->email }}" />
                                     @error('email')
@@ -73,7 +74,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">NPM</label>
+                                    <label class="form-label">{{ __('NPM') }}</label>
                                     <input type="text" class="form-control @error('npm') is-invalid @enderror"
                                         name="npm" value="{{ $user->npm }}" />
                                     @error('npm')
@@ -83,7 +84,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Phone</label>
+                                    <label class="form-label">{{ __('Phone') }}</label>
                                     <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                         name="phone" value="{{ $user->phone }}" />
                                     @error('phone')
@@ -93,22 +94,21 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <small class="fw-medium d-block form-label mb-1 mt-1">Jenis Kelamin</small>
+                                    <small class="fw-medium d-block form-label mb-1 mt-1">{{ __('Gender') }}</small>
                                     <div class="form-check form-check-inline mt-3">
                                         <input class="form-check-input" type="radio" name="gender" id="inlineRadio1"
                                             value="L" {{ $user->gender == 'L' ? 'Checked' : '' }} />
-                                        <label class="form-check-label" for="inlineRadio1">Laki Laki</label>
+                                        <label class="form-check-label" for="inlineRadio1">{{ __('Male') }}</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender" id="inlineRadio2"
                                             value="P" {{ $user->gender == 'P' ? 'Checked' : '' }} />
-                                        <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                        <label class="form-check-label" for="inlineRadio2">{{ __('Female') }}</label>
                                     </div>
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label for="departmentName" class="form-label">Nama Departemen / Department
-                                        Name</label>
+                                    <label for="departmentName" class="form-label">{{ __('Department Name') }}</label>
                                     <select
                                         class="form-select department-select @error('department_id') is-invalid @enderror"
                                         id="departmentName" aria-label="Default select example" name="department_id">
@@ -126,7 +126,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="programStudi" class="form-label">Program Studi / Study Program</label>
+                                    <label for="programStudi" class="form-label">{{ __('Study Program') }}</label>
                                     <select
                                         class="form-select program-studi-select @error('study_program_id') is-invalid @enderror"
                                         id="programStudi" aria-label="Default select example" name="study_program_id">
