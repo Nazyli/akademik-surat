@@ -1,3 +1,19 @@
 {
-    "Welcome to our website!": "Selamat Datang di Website!"
+    "Email": "Email",
+    "Password": "Kata Sandi",
+    "New User?": "Pengguna Baru?",
+    "Register Here":"Daftar Disini",
+    "Forgote Password?": "Lupa Kata Sandi?",
+    "First Name" : "Nama Depan",
+    "Last Name" : "Nama Belakang",
+    "NPM" : "NPM",
+    "Department Name" : "Nama departemen",
+    "Study Program" : "Program Studi",
+    "Gender" : "Jenis Kelamin",
+    "Male" : "Laki Laki",
+    "Female" : "Perempuan",
+    "Phone" : "Telepone",
+    "Confirm Password" : "Konfirmasi Kata Sandi",
+    "Already have an account?": "Sudah punya akun?",
+    "Login Here" : "Login disini"
   }

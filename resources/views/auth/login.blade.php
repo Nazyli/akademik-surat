@@ -29,7 +29,7 @@
                     <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label">{{ __('Email') }}</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                 name="email" placeholder="Enter your email" autocomplete="email" autofocus />
 
@@ -42,7 +42,7 @@
                         </div>
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
-                                <label class="form-label" for="password">Kata Sandi</label>
+                                <label class="form-label" for="password">{{ __('Password') }}</label>
                             </div>
                             <div class="input-group input-group-merge">
                                 <input type="password" id="password"
@@ -62,7 +62,7 @@
                                 <div></div>
                                 @if (Route::has('password.request'))
                                     <b> <a href="{{ url('/password/reset') }}" class="pull-right">
-                                            <small>Lupa Kata Sandi?</small>
+                                            <small>{{ __('Forgote Password?') }}</small>
                                         </a></b>
                                 @endif
                             </div>
@@ -72,9 +72,9 @@
 
                     </form>
                     <p class="text-center mt-2">
-                        <span>Pengguna Baru?</span><b>
+                        <span>{{ __('New User?') }}</span><b>
                             <a href="{{ url('/register') }}">
-                                <span>Daftar Disini</span>
+                                <span>{{ __('Register Here') }}</span>
                             </a>
                         </b>
                     </p>

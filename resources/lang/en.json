@@ -1,3 +1,19 @@
 {
-    "Welcome to our website!": "Selamat Datang di Website English!"
+    "Email": "Email",
+    "Password": "Password",
+    "New User?": "New User?",
+    "Register Here":"Register Here",
+    "Forgote Password?": "Forgote Password?",
+    "First Name" : "First Name",
+    "Last Name" : "Last Name",
+    "NPM" : "NPM",
+    "Department Name" : "Department Name",
+    "Study Program" : "Study Program",
+    "Gender" : "Gender",
+    "Male" : "Male",
+    "Female" : "Female",
+    "Phone" : "Phone",
+    "Confirm Password" : "Confirm Password",
+    "Already have an account?": "Already have an account?",
+    "Login Here" : "Login Here"
   }

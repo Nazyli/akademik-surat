@@ -77,8 +77,8 @@
 
 
                         <div class="row mb-3">
-                            <label for="departmentName" class="col-md-4 col-form-label text-md-right">Department
-                                Name</label>
+                            <label for="departmentName"
+                                class="col-md-4 col-form-label text-md-right">{{ __('Department Name') }}</label>
                             <div class="col-md-8">
                                 <select class="form-select department-select @error('department_id') is-invalid @enderror"
                                     id="departmentName" aria-label="Default select example" name="department_id">
@@ -98,7 +98,8 @@
 
                         </div>
                         <div class="row mb-3">
-                            <label for="programStudi" class="col-md-4 col-form-label text-md-right">Study Program</label>
+                            <label for="programStudi"
+                                class="col-md-4 col-form-label text-md-right">{{ __('Study Program') }}</label>
                             <div class="col-md-8">
                                 <select
                                     class="form-select program-studi-select @error('study_program_id') is-invalid @enderror"
@@ -113,17 +114,17 @@
                         </div>
 
                         <div class="row mb-3">
-                            <small class="col-md-4 col-form-label text-md-right">Gender</small>
+                            <small class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</small>
                             <div class="col-md-8">
                                 <div class="form-check form-check-inline mt-3">
                                     <input class="form-check-input" type="radio" name="gender" id="inlineRadio1"
                                         value="L" @if (old('gender') == 'L') checked @endif />
-                                    <label class="form-check-label" for="inlineRadio1">Laki Laki</label>
+                                    <label class="form-check-label" for="inlineRadio1">{{ __('Male') }}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="gender" id="inlineRadio2"
                                         value="P" @if (old('gender') == 'P') checked @endif />
-                                    <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                    <label class="form-check-label" for="inlineRadio2">{{ __('Female') }}</label>
                                 </div>
 
                             </div>
@@ -147,7 +148,7 @@
 
                         <div class="row mb-3">
                             <label for="email"
-                                class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
 
                             <div class="col-md-8">
                                 <input id="email" type="email"
@@ -202,9 +203,9 @@
                     </form>
 
                     <p class="text-center mt-2">
-                        <span>Sudah punya akun?</span>
+                        <span>{{ __('Already have an account?') }}</span>
                         <b><a href="{{ url('/login') }}">
-                                <span>Login Disini</span>
+                                <span>{{ __('Login Here') }}</span>
                             </a></b>
                     </p>
                     <div class="form-social"></div>
