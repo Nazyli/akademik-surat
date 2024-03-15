@@ -39,6 +39,7 @@ class AdminController extends Controller
             $sizeFile = FormSubmission::whereNotNull('size_file')->sum('size_file');
             $sizeSignedFile = FormSubmission::whereNotNull('signed_size_file')->sum('signed_size_file');
             $dataHome->totalSizeFile = $this->bytesToMB($sizeFile + $sizeSignedFile);
+            $dataHome->totalSizeFileGb = $this->bytesToMB($sizeFile + $sizeSignedFile);
             $dataHome->totalUser = User::count();
         } else {
             $dataHome->totalSubmission = FormSubmission::where('department_id', $departmentId)->count();
@@ -54,14 +55,20 @@ class AdminController extends Controller
             $sizeFile = FormSubmission::whereNotNull('size_file')->where('department_id', $departmentId)->sum('size_file');
             $sizeSignedFile = FormSubmission::whereNotNull('signed_size_file')->where('department_id', $departmentId)->sum('signed_size_file');
             $dataHome->totalSizeFile = $this->bytesToMB($sizeFile + $sizeSignedFile);
+            $dataHome->totalSizeFileGb = $this->bytesToGB($sizeFile + $sizeSignedFile);
             $dataHome->totalUser = User::where('department_id', $departmentId)->count();
         }
 
         return response()->json($dataHome);
     }
 
-    function bytesToMB($bytes, $decimals = 2)
+    function bytesToMB($bytes, $decimals = 0)
     {
-        return number_format($bytes / 1048576, $decimals) . ' MB';;
+        return number_format($bytes / (1024 * 1024), $decimals) . ' MB';
+    }
+
+    function bytesToGB($bytes, $decimals = 2)
+    {
+        return number_format($bytes / (1024 * 1024 * 1024), $decimals) . ' GB';
     }
 }

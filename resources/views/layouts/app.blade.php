@@ -291,15 +291,26 @@
                                 <i style="font-style: normal; font-weight: bold;" class="desktop">Sistem Informasi
                                     Persuratan
                                     Akademik</i>
-                                <i style="font-style: normal; font-weight: bold; font-size:12px" class="mobile">Sistem
-                                    Informasi
-                                    Persuratan
-                                    Akademik</i>
+                                <i style="font-style: normal; font-weight: bold; font-size:12px " class="mobile">
+                                    <img src="{{ asset('/img/logo/logo-app.png') }}" width="60"
+                                        alt="Logo" />
+
+                                </i>
                             </div>
                         </div>
                         <!-- /Search -->
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
+                            <li>
+                                @include('partials/language_switcher')
+                            </li>
+                            <li>
+                                <div
+                                    style="border-right:2px dashed rgb(191, 194, 199); margin-left:10px; margin-right:10px">
+                                    &nbsp;
+                                </div>
+                            </li>
+
                             <li class="nav-item lh-1 me-3 desktop">
                                 <a class="github-button" href="#">FMIPA UI - Innovative, Smart, and
                                     Competitive</a>

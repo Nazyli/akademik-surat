@@ -34,6 +34,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginController::class, 'showLoginForm']);
 
 
+Route::get('/language/{locale}', function ($locale) {
+    // https://lokalise.com/blog/laravel-localization-step-by-step/
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+});
+
 Route::view('/forbidden', '400');
 
 Auth::routes();

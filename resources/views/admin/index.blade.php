@@ -228,6 +228,13 @@
                                     <h3 class="card-title mb-2 text-warning"><span
                                             id="totalSizeFile">{{ isset($totalSizeFile) ? $totalSizeFile : 0 }}</span>
                                     </h3>
+
+                                    {{-- <span class="card-title text-warning d-block"
+                                        style="margin-bottom:-10px !important"><span
+                                            id="totalSizeFileGb">{{ isset($totalSizeFileGb) ? $totalSizeFileGb : 0 }}</span>
+                                    </span>
+                                    <span id="totalSizeFile" class="text-warning"
+                                        style="font-size: 0.8rem">{{ isset($totalSizeFile) ? $totalSizeFile : 0 }}</span> --}}
                                 </div>
                             </div>
                         </div>
@@ -259,6 +266,7 @@
                     document.getElementById('totalUser').innerText = data.totalUser;
                     document.getElementById('totalFile').innerText = data.totalFile;
                     document.getElementById('totalSizeFile').innerText = data.totalSizeFile;
+                    document.getElementById('totalSizeFileGb').innerText = data.totalSizeFileGb;
                 })
                 .catch(error => {
                     console.error('Error:', error);

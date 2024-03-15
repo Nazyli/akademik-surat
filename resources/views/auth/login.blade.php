@@ -4,6 +4,12 @@
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
             <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span></span>
+                    <span class="float-end">
+                        @include('partials/language_switcher')
+                    </span>
+                </div>
                 <div class="card-body">
                     <div class="app-brand justify-content-center mb-1">
                         <a href="#" class="app-brand-link gap-2">
