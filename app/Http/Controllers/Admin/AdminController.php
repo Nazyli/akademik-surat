@@ -39,7 +39,7 @@ class AdminController extends Controller
             $sizeFile = FormSubmission::whereNotNull('size_file')->sum('size_file');
             $sizeSignedFile = FormSubmission::whereNotNull('signed_size_file')->sum('signed_size_file');
             $dataHome->totalSizeFile = $this->bytesToMB($sizeFile + $sizeSignedFile);
-            $dataHome->totalSizeFileGb = $this->bytesToMB($sizeFile + $sizeSignedFile);
+            $dataHome->totalSizeFileGb = $this->bytesToGB($sizeFile + $sizeSignedFile);
             $dataHome->totalUser = User::count();
         } else {
             $dataHome->totalSubmission = FormSubmission::where('department_id', $departmentId)->count();
