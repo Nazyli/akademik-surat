@@ -10,7 +10,7 @@
              @endif
              <div class="col-12">
                  <div class="alert alert-warning alert-dismissible" role="alert">
-                     {{ __('The letter file will be stored temporarily, please submit letters that have been processed so that they can be downloaded immediately.') }}
+                     {{ __('The letter file will be stored temporarily, please immediately download the letter that has been processed.') }}
                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                  </div>
              </div>

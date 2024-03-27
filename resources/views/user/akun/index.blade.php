@@ -21,7 +21,7 @@
                                 @method('PUT')
                                 <div class="button-wrapper">
                                     <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                        <span class="d-none d-sm-block">Upload new photo</span>
+                                        <span class="d-none d-sm-block">{{ __('Upload new photo') }}</span>
                                         <i class="bx bx-upload d-block d-sm-none"></i>
                                         <input type="file" id="upload"
                                             class="account-file-input  @error('upload_file') is-invalid @enderror"
@@ -31,7 +31,7 @@
                                     @error('upload_file')
                                         <p class="text-danger mb-0">{{ $message }}</p>
                                     @enderror
-                                    <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                    <p class="text-muted mb-0">{{ __('Allowed JPG, GIF or PNG. Max size of 800K') }}</p>
                                 </div>
                             </form>
 
@@ -140,8 +140,8 @@
 
                             </div>
                             <div class="mt-2">
-                                <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-primary me-2">{{ __('Save Changes') }}</button>
+                                <button type="reset" class="btn btn-outline-secondary">{{ __('Cancel') }}</button>
                             </div>
                         </form>
                     </div>

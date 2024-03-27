@@ -356,7 +356,7 @@
                                         <a class="dropdown-item"
                                             href="{{ auth()->user()->role_id == 1 ? url('admin/pengaturan-akun') : url('user/pengaturan-akun') }}">
                                             <i class="bx bx-user me-2"></i>
-                                            <span class="align-middle">My Profile</span>
+                                            <span class="align-middle">{{ __('My Profile') }}</span>
                                         </a>
                                     </li>
                                     <li>
@@ -364,7 +364,8 @@
                                             href="{{ auth()->user()->role_id == 1 ? url('admin/change-password') : url('user/change-password') }}">
                                             <span class="d-flex align-items-center align-middle">
                                                 <i class="flex-shrink-0 bx bx-cog me-2"></i>
-                                                <span class="flex-grow-1 align-middle ms-1">Change Password</span>
+                                                <span
+                                                    class="flex-grow-1 align-middle ms-1">{{ __('Change Password') }}</span>
                                             </span>
                                         </a>
                                     </li>
@@ -375,7 +376,7 @@
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
+                                            <span class="align-middle">{{ __('Log Out') }}</span>
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">

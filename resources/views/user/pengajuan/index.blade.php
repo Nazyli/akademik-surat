@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">Form Submit Borang</h5>
+                    <h5 class="card-header">{{ __('Application Form Submission') }}</h5>
                     <!-- Account -->
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -25,7 +25,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Nama Depan / First Name</label>
+                                <label class="form-label">{{ __('First Name') }}</label>
                                 <input type="text" class="form-control @error('first_name') is-invalid @enderror"
                                     name="first_name" value="{{ $user->first_name }}" disabled />
                                 @error('first_name')
@@ -35,7 +35,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Nama Belakang / Last Name</label>
+                                <label class="form-label">{{ __('Last Name') }}</label>
                                 <input type="text" class="form-control @error('last_name') is-invalid @enderror"
                                     name="last_name" value="{{ $user->last_name }}" disabled />
                                 @error('last_name')
@@ -45,7 +45,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Surel / E-mail</label>
+                                <label class="form-label">{{ __('Email') }}</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                                     name="email" value="{{ $user->email }}" disabled />
                                 @error('email')
@@ -55,7 +55,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">NPM</label>
+                                <label class="form-label">{{ __('NPM') }}</label>
                                 <input type="text" class="form-control @error('npm') is-invalid @enderror" name="npm"
                                     value="{{ $user->npm }}" disabled />
                                 @error('npm')
@@ -65,7 +65,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Telp / Tel / Wa</label>
+                                <label class="form-label">{{ __('Phone') }}</label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                     name="phone" value="{{ $user->phone }}" disabled />
                                 @error('phone')
@@ -75,7 +75,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Jenis Kelamin / Gender</label>
+                                <label class="form-label">{{ __('Gender') }}</label>
                                 <input type="text" class="form-control @error('gender') is-invalid @enderror"
                                     name="gender" value="{{ $user->getGender() }}" disabled />
                                 @error('gender')
@@ -86,7 +86,7 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Nama Departemen / Department Name</label>
+                                <label class="form-label">{{ __('Department Name') }}</label>
                                 <input type="text" class="form-control @error('department_id') is-invalid @enderror"
                                     name="department_id" value="{{ $user->department()->department_name }}" disabled />
                                 @error('department_id')
@@ -97,7 +97,7 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Program Studi / Study Program</label>
+                                <label class="form-label">{{ __('Study Program') }}</label>
                                 <input type="text" class="form-control @error('study_program_id') is-invalid @enderror"
                                     name="study_program_id" value="{{ $user->studyProgram()->study_program_name }}"
                                     disabled />
@@ -118,7 +118,7 @@
                             @method(isset($formSubmission) ? 'PUT' : 'POST')
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label for="jenisBorang" class="form-label">Jenis Form / Form Type</label>
+                                    <label for="jenisBorang" class="form-label">{{ __('Form Type') }}</label>
                                     <select class="form-select @error('form_template_id') is-invalid @enderror"
                                         id="jenisBorang" aria-label="Default select example" name="form_template_id">
                                         <option></option>
@@ -136,8 +136,9 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="upload_file" class="form-label">Upload Pengajuan / Submission
-                                        Files (Maks 3MB)</label>
+                                    <label for="upload_file" class="form-label">
+                                        {{ __('Submission Files') }} (Maks
+                                        3MB)</label>
                                     <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
                                         id="upload_file" name="upload_file"
                                         value="{{ isset($formSubmission) ? $formSubmission->url_file : old('url_file') }}" />
@@ -148,7 +149,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Keterangan / Description</label>
+                                    <label class="form-label">{{ __('Description') }}</label>
                                     <textarea class="form-control  @error('keterangan') is-invalid @enderror" rows="3" name="keterangan">{{ isset($formSubmission) ? $formSubmission->keterangan : old('keterangan') }}</textarea>
                                     @error('keterangan')
                                         <span class="invalid-feedback" role="alert">
@@ -160,9 +161,9 @@
                             </div>
                             <div class="mt-2">
                                 <button type="submit" value="Sent" name="action"
-                                    class="btn btn-primary me-2">Kirim</button>
+                                    class="btn btn-primary me-2">{{ __('Send') }}</button>
                                 <button type="submit" value="Draft" name="action"
-                                    class="btn btn-outline-secondary">Draft</button>
+                                    class="btn btn-outline-secondary">{{ __('Draft') }}</button>
                             </div>
                         </form>
                     </div>

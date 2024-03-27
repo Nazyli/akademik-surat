@@ -39,7 +39,8 @@ Route::get('/language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);
     return redirect()->back();
-});
+})->name('language.change'); // Menyediakan nama 'language.change' untuk rute ini
+
 
 Route::view('/forbidden', '400');
 
@@ -93,11 +94,11 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::put('change-password/{id}', [AkunController::class, 'changePasswordUpdate'])->name('change-password-update.admin');
 
     Route::resource('backup', BackupController::class);
-    Route::get('/language/{locale}', function ($locale) {
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
-        return redirect()->back();
-    });
+    // Route::get('/language/{locale}', function ($locale) {
+    //     app()->setLocale($locale);
+    //     session()->put('locale', $locale);
+    //     return redirect()->back();
+    // });
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
@@ -122,9 +123,9 @@ Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', '
     Route::get('riwayat/cancel/{id}', [PengajuanController::class, 'cancel'])->name('pengajuan.cancel');
 
     Route::get('template-surat/{id}', [PengajuanController::class, 'templateSurat'])->name('templateSurat');
-    Route::get('/language/{locale}', function ($locale) {
-        app()->setLocale($locale);
-        session()->put('locale', $locale);
-        return redirect()->back();
-    });
+    // Route::get('/language/{locale}', function ($locale) {
+    //     app()->setLocale($locale);
+    //     session()->put('locale', $locale);
+    //     return redirect()->back();
+    // });
 });

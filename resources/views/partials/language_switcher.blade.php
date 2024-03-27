@@ -19,8 +19,9 @@
             @if ($available_locale === $current_locale)
                 <a class="dropdown-item" style="cursor: not-allowed">{{ $locale_name }}</a>
             @else
-                <a class="dropdown-item text-primary" href="language/{{ $available_locale }}">{{ $locale_name }}</a>
+                <a class="dropdown-item text-primary"
+                    href="{{ route('language.change', $available_locale) }}">{{ $locale_name }}</a>
             @endif
         @endforeach
-    </div>
+    </div>`
 </div>
