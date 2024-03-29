@@ -55,7 +55,7 @@ class FormTemplatesController extends Controller
         //
         $request->validate([
             'upload_file' => ['required', 'mimes:pdf,xlsx,xls,docx,doc'],
-            'template_name' => 'required',
+            'template_name' => ['required', 'regex:/^[^\/\*\|:"\'<>?\$%]+$/'],
             'type_id' => 'required',
         ]);
         try {
@@ -119,7 +119,7 @@ class FormTemplatesController extends Controller
         //
         $request->validate([
             'upload_file' => 'mimes:pdf,xlsx,xls,docx,doc',
-            'template_name' => 'required',
+            'template_name' =>  ['required', 'regex:/^[^\/\*\|:"\'<>?\$%]+$/'],
             'type_id' => 'required',
         ]);
         try {

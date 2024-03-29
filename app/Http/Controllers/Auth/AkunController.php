@@ -38,11 +38,12 @@ class AkunController extends Controller
     {
         //
         $currentYear = Carbon::now()->format('y');
-        $allowedYears = range($currentYear - 6, $currentYear);
+        // $allowedYears = range($currentYear - 6, $currentYear);
+        $allowedYears = range($currentYear - 8, $currentYear);
         $allowedYearString = implode('|', $allowedYears);
         $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' =>  ['required', 'regex:/^[^\/\*\|:"\'<>?\$%]+$/'],
+            'last_name' =>  ['required', 'regex:/^[^\/\*\|:"\'<>?\$%]+$/'],
             'email' => 'required',
             // 'npm' => 'required',
             'npm' => ['string', 'regex:/^(' . $allowedYearString . ')06\d{6}$/'],

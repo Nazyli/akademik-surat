@@ -30,13 +30,14 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $currentYear = Carbon::now()->format('y');
-        $allowedYears = range($currentYear - 6, $currentYear);
+        // $allowedYears = range($currentYear - 6, $currentYear);
+        $allowedYears = range($currentYear - 8, $currentYear);
 
         $allowedYearString = implode('|', $allowedYears);
 
         $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255', 'regex:/^[^\/\*\|:"\'<>?\$%]+$/'],
+            'last_name' => ['required', 'string', 'max:255', 'regex:/^[^\/\*\|:"\'<>?\$%]+$/'],
             'department_id' => ['required', 'string'],
             'study_program_id' => ['required', 'string'],
             'gender' => ['required'],
