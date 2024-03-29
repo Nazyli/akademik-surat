@@ -3,23 +3,23 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Master User
+            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            {{ __('Master User') }}
         </h4>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Status Pengajuan</h5>
+                        <h5 class="mb-0">{{ __('Data User') }}</h5>
                     </div>
                     <div class="card-body">
                         <div class="row mb-3 alert alert-info">
                             <label class="col-sm-2 col-form-label text-info" for="basic-default-department"
-                                style="font-weight: bold;">Pilih Departemen</label>
+                                style="font-weight: bold;">{{ __('Select Department') }}</label>
                             <div class="col-sm-10">
                                 <select id="departmentSelect" class="form-select">
-                                    <option value="">Semua Departemen</option>
+                                    <option value="">{{ __('All Departments') }}</option>
                                     @foreach ($departments as $department)
                                         <option value="{{ $department->id }}">
                                             {{ $department->department_name }}
@@ -33,14 +33,14 @@
                                 <table class="table table-bordered user_datatable">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>NPM</th>
-                                            <th>Email</th>
-                                            <th>Gender</th>
-                                            <th>Departemen</th>
-                                            <th>Program Studi</th>
-                                            <th>Role</th>
+                                            <th>{{ __('No') }}</th>
+                                            <th>{{ __('Name') }}</th>
+                                            <th>{{ __('NPM') }}</th>
+                                            <th>{{ __('Email') }}</th>
+                                            <th>{{ __('Gender') }}</th>
+                                            <th>{{ __('Department') }}</th>
+                                            <th>{{ __('Study Program') }}</th>
+                                            <th>{{ __('Role') }}</th>
                                             <th>#</th>
                                         </tr>
                                     </thead>

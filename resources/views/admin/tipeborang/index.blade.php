@@ -3,15 +3,15 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Tipe Form
+            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            {{ __('Form Category') }}
         </h4>
 
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">{{ isset($formType) ? 'Edit Data' : 'Tambah Data' }}</h5>
+                        <h5 class="mb-0">{{ isset($formType) ? __('Edit Data') : __('Add Data') }}</h5>
                     </div>
                     <div class="card-body">
                         <form
@@ -20,7 +20,7 @@
                             @csrf
                             @method(isset($formType) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label">Tipe Form</label>
+                                <label class="form-label"> {{ __('Form Category') }}</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                                     name="name" value="{{ isset($formType) ? $formType->name : old('name') }}" />
                                 @error('name')
@@ -30,10 +30,10 @@
                                 @enderror
 
                             </div>
-                            <button class="btn btn-primary btn-block"><b>Save</b></button>
+                            <button class="btn btn-primary btn-block"><b>{{ __('Save') }}</b></button>
                             @isset($formType)
                                 <a href="{{ url('admin/master/tipe-borang') }}"
-                                    class="btn btn-secondary btn-block"><b>Cancel</b></a>
+                                    class="btn btn-secondary btn-block"><b>{{ __('Cancel') }}</b></a>
                             @endisset
                         </form>
                     </div>
@@ -44,16 +44,16 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Tipe Form</h5>
+                        <h5 class="mb-0">{{ __('Form Category Data') }}</h5>
                     </div>
                     <div class="card-body">
                         <div class="col-12 table-responsive">
                             <table id="datatable" class="table table-bordered table-hover table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Tipe Borang</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th> {{ __('Form Category') }}</th>
+                                        <th>{{ __('Status') }}</th>
+                                        <th>{{ __('Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,7 +61,8 @@
                                         <tr>
                                             <td>{{ $value->name }}</td>
                                             @php
-                                                $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                                $badgeClass =
+                                                    $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
                                             @endphp
 
                                             <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>

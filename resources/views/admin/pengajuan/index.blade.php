@@ -3,23 +3,23 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Riwayat Pengajuan
+            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            {{ __('Application History') }}
         </h4>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Status Pengajuan</h5>
+                        <h5 class="mb-0">{{ __('Application Status Data') }}</h5>
                     </div>
                     <div class="card-body">
                         <div class="row mb-3 alert alert-info">
                             <label class="col-sm-2 col-form-label text-info" for="basic-default-department"
-                                style="font-weight: bold;">Pilih Departemen</label>
+                                style="font-weight: bold;">{{ __('Select Department') }}</label>
                             <div class="col-sm-10">
                                 <select id="departmentSelect" class="form-select">
-                                    <option value="">Semua Departemen</option>
+                                    <option value="">{{ __('All Departments') }}</option>
                                     @foreach ($departments as $department)
                                         <option value="{{ $department->id }}">
                                             {{ $department->department_name }}
@@ -34,14 +34,14 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Nama</th>
-                                            <th>Departemen</th>
-                                            <th>Program Studi</th>
-                                            <th>Tipe Form</th>
-                                            <th>Tanggal Pengajuan</th>
-                                            <th>Tanggal Pemrosesan</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>{{ __('Name') }}</th>
+                                            <th>{{ __('Department') }}</th>
+                                            <th>{{ __('Study Program') }}</th>
+                                            <th>{{ __('Form Type') }}</th>
+                                            <th>{{ __('Date of Application') }}</th>
+                                            <th>{{ __('Date of Process') }}</th>
+                                            <th>{{ __('Status') }}</th>
+                                            <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>

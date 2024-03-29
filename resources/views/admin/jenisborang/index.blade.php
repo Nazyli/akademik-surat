@@ -3,15 +3,15 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Jenis Form
+            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            {{ __('Form Type') }}
         </h4>
 
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">{{ isset($formTemplate) ? 'Edit Data' : 'Tambah Data' }}</h5>
+                        <h5 class="mb-0">{{ isset($formTemplate) ? __('Edit Data') : __('Add Data') }}</h5>
                     </div>
                     <div class="card-body">
                         <form enctype="multipart/form-data"
@@ -20,7 +20,7 @@
                             @csrf
                             @method(isset($formTemplate) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label">Nama Form</label>
+                                <label class="form-label">{{ __('Form Name') }}</label>
                                 <input type="text" class="form-control @error('template_name') is-invalid @enderror"
                                     name="template_name"
                                     value="{{ isset($formTemplate) ? $formTemplate->template_name : old('template_name') }}" />
@@ -32,7 +32,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label for="tipeBorang" class="form-label">Tipe Form</label>
+                                <label for="tipeBorang" class="form-label">{{ __('Form Category') }}</label>
                                 <select class="form-select @error('type_id') is-invalid @enderror" id="tipeBorang"
                                     aria-label="Default select example" name="type_id">
                                     <option></option>
@@ -50,7 +50,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Sort Order</label>
+                                <label class="form-label">{{ __('Sort Order') }}</label>
                                 <input type="number" class="form-control @error('sort_order') is-invalid @enderror"
                                     name="sort_order"
                                     value="{{ isset($formTemplate) ? $formTemplate->sort_order : old('sort_order') }}" />
@@ -62,7 +62,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label for="upload_file" class="form-label">Upload Template</label>
+                                <label for="upload_file" class="form-label">{{ __('Upload Template') }}</label>
                                 <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
                                     id="upload_file" name="upload_file"
                                     value="{{ isset($formTemplate) ? $formTemplate->url_file : old('url_file') }}" />
@@ -72,10 +72,10 @@
                                     </span>
                                 @enderror
                             </div>
-                            <button class="btn btn-primary btn-block"><b>Save</b></button>
+                            <button class="btn btn-primary btn-block"><b>{{ __('Save') }}</b></button>
                             @isset($formTemplate)
                                 <a href="{{ url('admin/master/jenis-borang') }}"
-                                    class="btn btn-secondary btn-block"><b>Cancel</b></a>
+                                    class="btn btn-secondary btn-block"><b>{{ __('Cancel') }}</b></a>
                             @endisset
                         </form>
                     </div>
@@ -86,19 +86,19 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Jenis Form</h5>
+                        <h5 class="mb-0">{{ __('Form Type Data') }}</h5>
                     </div>
                     <div class="card-body">
                         <div class="col-12 table-responsive">
                             <table id="datatable" class="table table-bordered table-hover table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Jenis Form</th>
-                                        <th>Tipe Form</th>
-                                        <th>Sort</th>
-                                        <th>File</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>{{ __('Form Type') }}</th>
+                                        <th>{{ __('Form Category') }}</th>
+                                        <th>{{ __('Sort') }}</th>
+                                        <th>{{ __('File') }}</th>
+                                        <th>{{ __('Status') }}</th>
+                                        <th>{{ __('Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,7 +116,8 @@
                                                 @endif
                                             </td>
                                             @php
-                                                $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                                $badgeClass =
+                                                    $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
                                             @endphp
 
                                             <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>

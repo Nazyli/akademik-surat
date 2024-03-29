@@ -33,7 +33,7 @@
                             <div
                                 class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
                                 <div class="me-2">
-                                    <h6 class="d-block mb-2 text-white">NOT PROCESSED</h6>
+                                    <h6 class="d-block mb-2 text-white">{{ __('NOT PROCESSED') }}</h6>
                                     <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
                                         <span id="sent">{{ isset($sent) ? $sent : 0 }}</span>
                                     </h3>
@@ -53,7 +53,7 @@
                             <div
                                 class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
                                 <div class="me-2">
-                                    <h6 class="d-block mb-2 text-white">REVIEWED</h6>
+                                    <h6 class="d-block mb-2 text-white">{{ __('REVIEWED') }}</h6>
                                     <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
                                         <span id="reviewed">{{ isset($reviewed) ? $reviewed : 0 }}</span>
 
@@ -75,7 +75,7 @@
                             <div
                                 class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
                                 <div class="me-2">
-                                    <h6 class="d-block mb-2 text-white">REJECTED</h6>
+                                    <h6 class="d-block mb-2 text-white">{{ __('REJECTED') }}</h6>
                                     <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
                                         <span id="reject">{{ isset($reject) ? $reject : 0 }}</span>
                                     </h3>
@@ -95,7 +95,7 @@
                             <div
                                 class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
                                 <div class="me-2">
-                                    <h6 class="d-block mb-2 text-white">FINISHED</h6>
+                                    <h6 class="d-block mb-2 text-white">{{ __('FINISHED') }}</h6>
                                     <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
                                         <span id="finished">{{ isset($finished) ? $finished : 0 }}</span>
                                     </h3>
@@ -143,7 +143,7 @@
                                         <i class="bx bx-edit text-success" style="font-size: 3rem"></i>
                                     </div>
                                 </div>
-                                <span class="fw-medium d-block mb-1"><b>Submission</b></span>
+                                <span class="fw-medium d-block mb-1"><b>{{ __('Submission') }}</b></span>
                                 <h3 class="card-title mb-2 text-success"><span
                                         id="totalSubmission">{{ isset($totalSubmission) ? $totalSubmission : 0 }}</span>
                                 </h3>
@@ -158,7 +158,7 @@
                                         <i class="bx bx-user text-primary" style="font-size: 3rem"></i>
                                     </div>
                                 </div>
-                                <span class="fw-medium d-block mb-1"><b>User</b></span>
+                                <span class="fw-medium d-block mb-1"><b>{{ __('User') }}</b></span>
                                 <h3 class="card-title mb-2 text-primary">
                                     <span id="totalUser">{{ isset($totalUser) ? $totalUser : 0 }}</span>
                                 </h3>
@@ -171,8 +171,8 @@
             <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                 <div class="card" style="min-height: 175px">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">{{ __('Waiting for Processing') }}</h5>
-                        <div class="card-subtitle text-muted mb-3">{{ __('Applications') }}</div>
+                        <h5 class="card-title">{{ __('Processing Application') }}</h5>
+                        <div class="card-subtitle text-muted mb-3"></div>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -208,10 +208,10 @@
                                             <i class="bx bx-file text-info" style="font-size: 3rem"></i>
                                         </div>
                                     </div>
-                                    <span class="fw-medium d-block mb-1"><b>File</b></span>
+                                    <span class="fw-medium d-block mb-1"><b>{{ __('File') }}</b></span>
                                     <h3 class="card-title mb-2 text-info"> <span
                                             id="totalFile">{{ isset($totalFile) ? $totalFile : 0 }}</span>
-                                        File</h3>
+                                        {{ __('File') }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +225,7 @@
                                             <i class="bx bx-server text-warning" style="font-size: 3rem"></i>
                                         </div>
                                     </div>
-                                    <span class="fw-medium d-block mb-1"><b>Size</b></span>
+                                    <span class="fw-medium d-block mb-1"><b>{{ __('Size') }}</b></span>
                                     <h3 class="card-title mb-2 text-warning"><span
                                             id="totalSizeFile">{{ isset($totalSizeFile) ? $totalSizeFile : 0 }}</span>
                                     </h3>

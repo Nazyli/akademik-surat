@@ -3,15 +3,15 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Set Menu
+            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            {{ __('Set Menu') }}
         </h4>
 
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">{{ isset($otherMenu) ? 'Edit Data' : 'Tambah Data' }}</h5>
+                        <h5 class="mb-0">{{ isset($otherMenu) ? __('Edit Data') : __('Add Data') }}</h5>
                     </div>
                     <div class="card-body">
                         <form enctype="multipart/form-data"
@@ -20,7 +20,7 @@
                             @csrf
                             @method(isset($otherMenu) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label">Menu Name</label>
+                                <label class="form-label">{{ __('Menu Name') }}</label>
                                 <input type="text" class="form-control @error('menu_name') is-invalid @enderror"
                                     name="menu_name"
                                     value="{{ isset($otherMenu) ? $otherMenu->menu_name : old('menu_name') }}" />
@@ -32,7 +32,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">URL</label>
+                                <label class="form-label">{{ __('Link') }}</label>
                                 <input type="url" class="form-control @error('url') is-invalid @enderror" name="url"
                                     value="{{ isset($otherMenu) ? $otherMenu->url : old('url') }}" />
                                 @error('url')
@@ -43,7 +43,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Sort Order</label>
+                                <label class="form-label">{{ __('Sort Order') }}</label>
                                 <input type="number" class="form-control @error('sort_order') is-invalid @enderror"
                                     name="sort_order"
                                     value="{{ isset($otherMenu) ? $otherMenu->sort_order : old('sort_order') }}" />
@@ -54,10 +54,10 @@
                                 @enderror
 
                             </div>
-                            <button class="btn btn-primary btn-block"><b>Save</b></button>
+                            <button class="btn btn-primary btn-block"><b>{{ __('Save') }}</b></button>
                             @isset($otherMenu)
                                 <a href="{{ url('admin/master/menu-lain') }}"
-                                    class="btn btn-secondary btn-block"><b>Cancel</b></a>
+                                    class="btn btn-secondary btn-block"><b>{{ __('Cancel') }}</b></a>
                             @endisset
                         </form>
                     </div>
@@ -68,17 +68,17 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Menu Lainnya</h5>
+                        <h5 class="mb-0">{{ __('Other Menu Data') }}</h5>
                     </div>
                     <div class="card-body">
                         <div class="col-12 table-responsive">
                             <table id="datatable" class="table table-bordered table-hover table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Menu Name</th>
-                                        <th>Sort Order</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>{{ __('Menu Name') }}</th>
+                                        <th>{{ __('Sort Order') }}</th>
+                                        <th>{{ __('Status') }}</th>
+                                        <th>{{ __('Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,7 +91,8 @@
                                             </td>
                                             <td>{{ $value->sort_order }}</td>
                                             @php
-                                                $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                                $badgeClass =
+                                                    $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
                                             @endphp
 
                                             <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>

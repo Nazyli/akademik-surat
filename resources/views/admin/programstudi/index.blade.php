@@ -3,15 +3,15 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">Home /</span></a>
-            Program Studi
+            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            {{ __('Study Program') }}
         </h4>
 
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">{{ isset($studyProgram) ? 'Edit Data' : 'Tambah Data' }}</h5>
+                        <h5 class="mb-0">{{ isset($studyProgram) ? __('Edit Data') : __('Add Data') }}</h5>
                     </div>
                     <div class="card-body">
                         <form
@@ -20,7 +20,8 @@
                             @csrf
                             @method(isset($studyProgram) ? 'PUT' : 'POST')
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-department">Kode Program Studi</label>
+                                <label class="form-label"
+                                    for="basic-default-department">{{ __('Code of Study Program') }}</label>
                                 <input type="text" class="form-control @error('study_program_code') is-invalid @enderror"
                                     id="basic-default-department" name="study_program_code"
                                     value="{{ isset($studyProgram) ? $studyProgram->study_program_code : old('study_program_code') }}" />
@@ -33,7 +34,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-department">Program Studi Name</label>
+                                <label class="form-label"
+                                    for="basic-default-department">{{ __('Name of Study Program') }}</label>
                                 <input type="text" class="form-control @error('study_program_name') is-invalid @enderror"
                                     id="basic-default-department" name="study_program_name"
                                     value="{{ isset($studyProgram) ? $studyProgram->study_program_name : old('study_program_name') }}" />
@@ -45,7 +47,7 @@
 
                             </div>
                             <div class="mb-3">
-                                <label for="departmentName" class="form-label">Nama Departemen</label>
+                                <label for="departmentName" class="form-label">{{ __('Name of Department') }}</label>
                                 <select class="form-select @error('department_id') is-invalid @enderror""
                                     id="departmentName" aria-label="Default select example" name="department_id">
                                     <option></option>
@@ -62,10 +64,10 @@
                                     </span>
                                 @enderror
                             </div>
-                            <button class="btn btn-primary btn-block"><b>Save</b></button>
+                            <button class="btn btn-primary btn-block"><b>{{ __('Save') }}</b></button>
                             @isset($studyProgram)
                                 <a href="{{ url('admin/master/program-studi') }}"
-                                    class="btn btn-secondary btn-block"><b>Cancel</b></a>
+                                    class="btn btn-secondary btn-block"><b>{{ __('Cancel') }}</b></a>
                             @endisset
                         </form>
                     </div>
@@ -76,18 +78,18 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Data Program Studi</h5>
+                        <h5 class="mb-0">{{ __('Data of Study Program') }}</h5>
                     </div>
                     <div class="card-body">
                         <div class="col-12 table-responsive">
                             <table id="datatable" class="table table-bordered table-hover table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Kode</th>
-                                        <th>Nama Departemen</th>
-                                        <th>Program Studi</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>{{ __('Code') }}</th>
+                                        <th>{{ __('Name of Department') }}</th>
+                                        <th>{{ __('Name of Study Program') }}</th>
+                                        <th>{{ __('Status') }}</th>
+                                        <th>{{ __('Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,7 +99,8 @@
                                             <td>{{ $value->department()->department_name }}</td>
                                             <td>{{ $value->study_program_name }}</td>
                                             @php
-                                                $badgeClass = $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
+                                                $badgeClass =
+                                                    $value->status == 'Active' ? 'bg-label-primary' : 'bg-label-danger';
                                             @endphp
 
                                             <td><span class="badge {{ $badgeClass }}">{{ $value->status }}</span>

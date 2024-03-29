@@ -122,71 +122,71 @@
                         <li class="menu-item {{ isActiveLink('admin/pengajuan-surat') }}">
                             <a href="{{ url('admin/pengajuan-surat') }}" class="menu-link">
                                 <i class="menu-icon bx bx-file"></i>
-                                <div data-i18n="pengajuan-surat">Pengajuan Surat</div>
+                                <div data-i18n="pengajuan-surat">{{ __('Applications') }}</div>
                             </a>
                         </li>
 
                         <li class="menu-header small text-uppercase">
-                            <span class="menu-header-text">Master Data</span>
+                            <span class="menu-header-text">{{ __('Master Data') }}</span>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/department') }}">
                             <a href="{{ url('admin/master/department') }}" class="menu-link">
                                 <i class="menu-icon bx bx-building"></i>
-                                <div data-i18n="Department">Departemen</div>
+                                <div data-i18n="Department">{{ __('Department') }}</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/program-studi') }}">
                             <a href="{{ url('admin/master/program-studi') }}" class="menu-link">
                                 <i class="menu-icon bx bx-book-alt"></i>
-                                <div data-i18n="program-studi">Program Studi</div>
+                                <div data-i18n="program-studi">{{ __('Study Program') }}</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/tipe-borang') }}">
                             <a href="{{ url('admin/master/tipe-borang') }}" class="menu-link">
                                 <i class="menu-icon bx bx-list-ul"></i>
-                                <div data-i18n="tipe-borang">Tipe Form</div>
+                                <div data-i18n="tipe-borang">{{ __('Form Category') }}</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
                             <a href="{{ url('admin/master/jenis-borang') }}" class="menu-link">
                                 <i class="menu-icon bx bx-list-check"></i>
-                                <div data-i18n="jenis-borang">Jenis Form</div>
+                                <div data-i18n="jenis-borang">{{ __('Form Type') }}</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/berita-dashboard') }}">
                             <a href="{{ url('admin/master/berita-dashboard') }}" class="menu-link">
                                 <i class="menu-icon bx bx-news"></i>
-                                <div data-i18n="file/berita-dashboard">Berita Dashboard</div>
+                                <div data-i18n="file/berita-dashboard">{{ __('Dashboard News') }}</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/master/menu-lain') }}">
                             <a href="{{ url('admin/master/menu-lain') }}" class="menu-link">
                                 <i class="menu-icon bx bx-menu"></i>
-                                <div data-i18n="file/menu-lain">Set Menu</div>
+                                <div data-i18n="file/menu-lain">{{ __('Set Menu') }}</div>
                             </a>
                         </li>
 
                         <!-- Misc -->
                         <li class="menu-header small text-uppercase">
-                            <span class="menu-header-text">Administrator</span>
+                            <span class="menu-header-text">{{ __('Administrator') }}</span>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/users') }}">
                             <a href="{{ url('admin/users') }}" class="menu-link">
                                 <i class="menu-icon bx bx-user"></i>
-                                <div data-i18n="Support">Master User</div>
+                                <div data-i18n="Support">{{ __('Master User') }}</div>
                             </a>
                         </li>
                         <li class="menu-item {{ isActiveLink('admin/pengaturan-akun') }}">
                             <a href="{{ url('admin/pengaturan-akun') }}" class="menu-link">
                                 <i class="menu-icon bx bx-lock"></i>
-                                <div data-i18n="Support">Pengaturan Akun</div>
+                                <div data-i18n="Support">{{ __('Account Setting') }}</div>
                             </a>
                         </li>
                         @if (auth()->user()->id == 'administrator')
                             <li class="menu-item {{ isActiveLink('admin/backup') }}">
                                 <a href="{{ url('admin/backup') }}" class="menu-link">
                                     <i class="menu-icon bx bx-box"></i>
-                                    <div data-i18n="Support">Backup</div>
+                                    <div data-i18n="Support">{{ __('Backup') }}</div>
                                 </a>
                             </li>
                         @endif
