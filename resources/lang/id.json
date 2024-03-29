@@ -67,6 +67,11 @@
     "Save Changes" :"Simpan Perubahan",
     "Cancel":"Batal",
     "My Profile":"Profil",
-    "Log Out" :"Keluar"
+    "Log Out" :"Keluar",
+    "Select Department":"Pilih Departemen",
+    "All Departments":"Semua Departemen",
+    "List of Application":"List Pengajuan Surat",
+    "Welcome Administrator":"Selamat Datang di Administrator",
+    "Waiting for Processing":"Menunggu Pemrosesan"
 
 }

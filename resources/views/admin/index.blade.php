@@ -8,11 +8,11 @@
             </div>
         @endif
         <div class="row mb-3 alert alert-primary">
-            <label class="col-sm-2 col-form-label text-primary" for="basic-default-department" style="font-weight: bold;">Pilih
-                Departemen</label>
+            <label class="col-sm-2 col-form-label text-primary" for="basic-default-department"
+                style="font-weight: bold;">{{ __('Select Department') }}</label>
             <div class="col-sm-10">
                 <select id="departmentSelect" class="form-select" onchange="getDepartmentData()">
-                    <option value="0">Semua Departemen</option>
+                    <option value="0">{{ __('All Departments') }}</option>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}">
                             {{ $department->department_name }}
@@ -115,12 +115,13 @@
                             <div class="card-body">
                                 <h5 class="card-title text-primary">Hi, {{ $user->fullName() }} 🎉</h5>
                                 <p class="mb-4">
-                                    Selamat Datang di Administrator <br> Aplikasi <span class="fw-medium">Sistem Informasi
+                                    {{ __('Welcome Administrator') }} <br>
+                                    Aplikasi <span class="fw-medium">Sistem Informasi
                                         Persuratan
                                         Akademik</span>
                                 </p>
-                                <a href="{{ url('admin/pengajuan-surat') }}" class="btn btn-sm btn-outline-primary">List
-                                    Pengajuan Surat</a>
+                                <a href="{{ url('admin/pengajuan-surat') }}"
+                                    class="btn btn-sm btn-outline-primary">{{ __('List of Application') }}</a>
                             </div>
                         </div>
                         <div class="col-md-5 text-center text-sm-left">
@@ -170,8 +171,8 @@
             <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                 <div class="card" style="min-height: 175px">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">Menunggu Pemrosesan</h5>
-                        <div class="card-subtitle text-muted mb-3">Pengajuan Surat</div>
+                        <h5 class="card-title">{{ __('Waiting for Processing') }}</h5>
+                        <div class="card-subtitle text-muted mb-3">{{ __('Applications') }}</div>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -179,10 +180,10 @@
                                 <table class="table table-sm table-bordered user_datatable">
                                     <thead>
                                         <tr>
-                                            <th>Nama</th>
-                                            <th>Program Studi</th>
-                                            <th>Tipe Form</th>
-                                            <th>Status</th>
+                                            <th>{{ __('Name') }}</th>
+                                            <th>{{ __('Study Program') }}</th>
+                                            <th>{{ __('Form Type') }}</th>
+                                            <th>{{ __('Status') }}</th>
                                             <th>#</th>
                                         </tr>
                                     </thead>
@@ -293,15 +294,15 @@
                     "bJQueryUI": true,
                     "sPaginationType": "full_numbers",
                     oLanguage: {
-                        "sEmptyTable": "Tidak ada data yang tersedia pada tabel ini",
-                        "sProcessing": "Sedang memproses...",
-                        "sLengthMenu": "Tampilkan _MENU_ entri",
-                        "sZeroRecords": "Tidak ditemukan data yang sesuai",
-                        "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                        "sInfoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
-                        "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                        "sEmptyTable": "{{ __('No data available in table') }}",
+                        "sProcessing": "{{ __('Processing') }}...",
+                        "sLengthMenu": "{{ __('Show _MENU_ entries') }}",
+                        "sZeroRecords": "{{ __('No matching records found') }}",
+                        "sInfo": "{{ __('Showing _START_ to _END_ of _TOTAL_ entries') }}",
+                        "sInfoEmpty": "{{ __('Showing 0 to 0 of 0 entries') }}",
+                        "sInfoFiltered": "{{ __('(filtered from _MAX_ total entries)') }}",
                         "sInfoPostFix": "",
-                        "sSearch": "Cari:",
+                        "sSearch": "{{ __('Search') }}:",
                         "sUrl": "",
                         "oPaginate": {
                             "sFirst": "<i class='tf-icon bx bx-chevrons-left'></i>",
