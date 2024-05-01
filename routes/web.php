@@ -94,6 +94,8 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::put('change-password/{id}', [AkunController::class, 'changePasswordUpdate'])->name('change-password-update.admin');
 
     Route::resource('backup', BackupController::class);
+    Route::put('backup', [BackupController::class, 'downloadDB'])->name('backup.downloadDB');
+
     // Route::get('/language/{locale}', function ($locale) {
     //     app()->setLocale($locale);
     //     session()->put('locale', $locale);

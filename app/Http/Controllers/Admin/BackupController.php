@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Services\ExportDataToExcel;
 use App\Services\BackupUtilityByFolder;
 use Exception;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -70,6 +71,36 @@ class BackupController extends Controller
             }
         } catch (Exception $e) {
             return redirect()->route('backup.index')->with('error', $e->getMessage());
+        }
+    }
+
+
+    public function downloadDB()
+    {
+
+        try {
+            $dateTimeNow = now()->format('Y-m-d-H-i-s');
+            Artisan::call('backup:run', [
+                '--only-db' => true,
+                '--disable-notifications' => true,
+            ]);
+
+            $output = Artisan::output();
+            $appName = env('APP_NAME');
+
+            $backupDirectory = storage_path('app');
+
+            $backupFileName =  $dateTimeNow . '.zip';
+
+            $backupFilePath = $backupDirectory . '/'  . $appName . '/' . $backupFileName;
+            if (file_exists($backupFilePath)) {
+                $file = response()->download($backupFilePath);
+                return $file;
+            } else {
+                return response()->json(['error' => 'Backup file not found ' . $backupFilePath], 404);
+            }
+        } catch (\Exception $e) {
+            dd($e);
         }
     }
     /**

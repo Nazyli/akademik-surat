@@ -8,13 +8,23 @@
         </h4>
 
         <div class="row">
-            <div class="col-md-12 mb-5">
+            <div class="col-md-12 mb-1">
                 <form enctype="multipart/form-data" action="{{ route('backup.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <button class="btn btn-primary btn-block"><b>Download (Jenis Form, Berita Dashboard)</b></button>
                 </form>
             </div>
+            <div class="col-md-12 mb-3">
+                <form enctype="multipart/form-data" action="{{ route('backup.downloadDB') }}" method="POST">
+                    @csrf
+
+
+                    @method('PUT')
+                    <button class="btn btn-primary btn-block"><b>Backup Database</b></button>
+                </form>
+            </div>
+
             <!-- Table-->
             <div class="col-md-12">
                 <div class="card mb-4">
