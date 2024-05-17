@@ -48,7 +48,8 @@ class PengajuanAdminController extends Controller
                     'departments.department_name as department_name',
                     'study_programs.study_program_name as study_program_name',
                     'form_templates.template_name',
-                    'form_submissions.processed_date'
+                    'form_submissions.processed_date',
+                    'form_submissions.updated_by'
                 );
 
             if ($departmentId != 0) {
@@ -62,8 +63,12 @@ class PengajuanAdminController extends Controller
             return FacadesDataTables::of($data)->addIndexColumn()
                 ->addColumn('status', function ($row) {
                     $badge = '<span class="badge bg-label-' . $row->getLabelStatusAdmin() . '">'
-                        . $row->getFormStatusAdmin() . '</span>';
+                        . $row->getFormStatusAdmin() . '</span>
+                        </br><span>' . $row->getUpdatedByUserFirstName() . '</span>';
                     return $badge;
+                })
+                ->addColumn('updated_by', function ($row) {
+                    return $row->getUpdatedByUserFirstName();
                 })
                 ->addColumn('action', function ($row) {
                     $url = route('pengajuanadmin.preview', $row->id);

@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 use Illuminate\Support\Facades\File;
 use Exception;
-
-
+use Yajra\DataTables\DataTables;
 
 class MasterUsersController extends Controller
 {
@@ -36,9 +35,8 @@ class MasterUsersController extends Controller
                 ->select(
                     'u.id',
                     'u.img_url',
-                    'u.first_name',
                     DB::raw('CONCAT(u.first_name, " ", u.last_name) AS full_name'),
-                    'u.npm',
+                    'u.npm as npm',
                     'u.email',
                     'u.gender',
                     'd.department_name',
@@ -54,6 +52,9 @@ class MasterUsersController extends Controller
             $data = $data->get();
 
             return FacadesDataTables::of($data)->addIndexColumn()
+                ->addColumn('role_name', function ($row) {
+                    return $row->role_name;
+                })
                 ->addColumn('status', function ($row) {
                     $badgeClass = $row->role_name === 'Admin' ? 'primary' : 'info';
                     $badge = '<span class="badge bg-label-' . $badgeClass . '">'
@@ -110,6 +111,19 @@ class MasterUsersController extends Controller
                 })
 
                 ->rawColumns(['status', 'avatar', 'action'])
+                // ->filter(function ($query) use ($request) {
+                //     // Lakukan filter hanya jika ada input pencarian
+                //     if ($request->has('search') && !empty($request->input('search')['value'])) {
+                //         $searchValue = $request->input('search')['value'];
+                //         // Lakukan filter pada kolom yang ingin Anda filter
+                //         $query->where(function ($query) use ($searchValue) {
+                //             $query->where('role_name', 'like', "%{$searchValue}%")
+                //                 ->orWhere('email', 'like', "%{$searchValue}%");
+                //             // Tambahkan filter untuk kolom lain jika diperlukan
+                //         });
+                //     }
+                // })
+                // ->orderColumn('status', 'confirmed_date $1')
                 ->make(true);
         }
 

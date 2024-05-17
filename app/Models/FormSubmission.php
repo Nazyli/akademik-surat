@@ -58,6 +58,15 @@ class FormSubmission extends Model
         return User::find($this->user_id);
     }
 
+    public function getUpdatedByUserFirstName()
+    {
+        $user = User::find($this->updated_by);
+        if ($user) {
+            $first_name_parts = explode(' ', $user->first_name);
+            return $first_name_parts[0];
+        }
+        return '';
+    }
     public function department()
     {
         return Department::find($this->department_id);

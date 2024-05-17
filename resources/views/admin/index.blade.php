@@ -7,18 +7,26 @@
                 {{ session('status') }}
             </div>
         @endif
-        <div class="row mb-3 alert alert-primary">
-            <label class="col-sm-2 col-form-label text-primary" for="basic-default-department"
-                style="font-weight: bold;">{{ __('Select Department') }}</label>
-            <div class="col-sm-10">
-                <select id="departmentSelect" class="form-select" onchange="getDepartmentData()">
-                    <option value="0">{{ __('All Departments') }}</option>
-                    @foreach ($departments as $department)
-                        <option value="{{ $department->id }}">
-                            {{ $department->department_name }}
-                        </option>
-                    @endforeach
-                </select>
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="card alert alert-primary">
+                    <div class="card-body p-2">
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label text-primary" for="basic-default-department"
+                                style="font-weight: bold;">{{ __('Select Department') }}</label>
+                            <div class="col-sm-10">
+                                <select id="departmentSelect" class="form-select" onchange="getDepartmentData()">
+                                    <option value="0">{{ __('All Departments') }}</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}">
+                                            {{ $department->department_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!--  Total -->
@@ -327,6 +335,11 @@
                         {
                             data: 'status',
                             name: 'status',
+                            orderable: true,
+                            searchable: false,
+                            orderData: [
+                                5
+                            ]
                         },
                         {
                             data: 'action',
@@ -334,6 +347,18 @@
                             orderable: false,
                             searchable: false
                         },
+                        {
+                            data: 'form_status', // Kolom tersembunyi
+                            name: 'form_status',
+                            visible: false, // Menyembunyikan kolom ini
+                            orderable: true, // Kolom ini dapat diurutkan
+                        },
+                        {
+                            data: 'updated_by', // Kolom tersembunyi
+                            name: 'updated_by',
+                            visible: false, // Menyembunyikan kolom ini
+                            orderable: false, // Kolom ini dapat diurutkan
+                        }
                     ]
                 });
             }

@@ -129,7 +129,12 @@
 
                         {
                             data: 'avatar',
-                            name: 'avatar'
+                            name: 'avatar',
+                            orderable: true,
+                            searchable: false,
+                            orderData: [
+                                9
+                            ]
                         },
                         {
                             data: 'npm',
@@ -153,12 +158,30 @@
                         },
                         {
                             data: 'status',
-                            name: 'status'
+                            name: 'status',
+                            orderable: true,
+                            searchable: false,
+                            orderData: [
+                                10
+                            ] // Mengatur pengurutan berdasarkan kolom role_name (indeks 5 dalam array kolom)
                         },
                         {
                             data: 'action',
-                            name: 'action'
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
                         },
+                        {
+                            data: 'full_name', // Kolom tersembunyi
+                            name: 'full_name',
+                            visible: false, // Menyembunyikan kolom ini
+                            orderable: true, // Kolom ini dapat diurutkan
+                        }, {
+                            data: 'role_name', // Kolom tersembunyi
+                            name: 'role_name',
+                            visible: false, // Menyembunyikan kolom ini
+                            orderable: true, // Kolom ini dapat diurutkan
+                        }
                     ]
                 });
             }

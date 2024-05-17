@@ -135,6 +135,11 @@
                         {
                             data: 'status',
                             name: 'status',
+                            orderable: true,
+                            searchable: false,
+                            orderData: [
+                                9
+                            ]
                         },
                         {
                             data: 'action',
@@ -142,6 +147,18 @@
                             orderable: false,
                             searchable: false
                         },
+                        {
+                            data: 'form_status', // Kolom tersembunyi
+                            name: 'form_status',
+                            visible: false, // Menyembunyikan kolom ini
+                            orderable: true, // Kolom ini dapat diurutkan
+                        },
+                        {
+                            data: 'updated_by', // Kolom tersembunyi
+                            name: 'updated_by',
+                            visible: false, // Menyembunyikan kolom ini
+                            orderable: false, // Kolom ini dapat diurutkan
+                        }
                     ]
                 });
             }
