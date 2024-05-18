@@ -10,10 +10,12 @@ use App\Http\Controllers\Admin\MasterUsersController;
 use App\Http\Controllers\Admin\OtherMenuController;
 use App\Http\Controllers\Admin\PengajuanAdminController;
 use App\Http\Controllers\Admin\ProgramStudiController;
+use App\Http\Controllers\Admin\Skpi\DiplomaRequirementTypeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AkunController;
 use App\Http\Controllers\User\PengajuanController;
 use App\Http\Controllers\User\UserController;
+use App\Models\DiplomaRequirementType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -89,11 +91,8 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::resource('backup', BackupController::class);
     Route::put('backup', [BackupController::class, 'downloadDB'])->name('backup.downloadDB');
 
-    // Route::get('/language/{locale}', function ($locale) {
-    //     app()->setLocale($locale);
-    //     session()->put('locale', $locale);
-    //     return redirect()->back();
-    // });
+    // SKPI
+    Route::resource('skpi/diploma-requirement-type', DiplomaRequirementTypeController::class);
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {

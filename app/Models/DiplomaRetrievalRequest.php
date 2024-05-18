@@ -7,18 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 
-class DashboardNews extends Model
+class DiplomaRetrievalRequest extends Model
 {
     use HasFactory;
     protected $keyType = 'string';
     protected $fillable = [
         'id',
-        'title',
-        'body',
-        'img_url',
-        'sort_order',
-        'status',
-        'category',
+        'user_id',
+        'form_status',
+        'submission_date',
+        'processed_date',
+        'user_notes',
+        'comment',
+        'approved_by',
         'created_by',
         'updated_by',
     ];
@@ -30,10 +31,5 @@ class DashboardNews extends Model
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
-    }
-
-    public function pathUrl()
-    {
-        return isset($this->img_url) ? asset($this->img_url) : null;
     }
 }

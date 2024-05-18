@@ -19,6 +19,8 @@ class CreateDiplomaRequirementTypesTable extends Migration
             $table->longText('description')->nullable();
             $table->string('degree')->nullable();
             $table->string('status')->nullable();
+            $table->integer("sort_order")->nullable();
+            $table->boolean('required');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

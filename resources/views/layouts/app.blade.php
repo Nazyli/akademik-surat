@@ -155,6 +155,13 @@
                             </a>
                         </li>
 
+                        <li class="menu-item {{ is_current_route('diploma-requirement-type.index') }}">
+                            <a href="{{ route('diploma-requirement-type.index') }}" class="menu-link">
+                                <i class="menu-icon bx bx-menu"></i>
+                                <div data-i18n="file/menu-lain">{{ __('Requirement Type') }}</div>
+                            </a>
+                        </li>
+
                         <!-- Misc -->
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">{{ __('Administrator') }}</span>
