@@ -15,7 +15,7 @@
                             <img src="{{ $user->imgUrl() }}" alt="user-avatar" class="d-block rounded" height="100"
                                 width="100" id="uploadedAvatar" />
                             <form id="updateImgForm" method="POST"
-                                action="{{ route('pengaturan-akun-updateImg', $user->id) }}" method="POST"
+                                action="{{ route('pengaturan-akun-updateImgAdmin', $user->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
