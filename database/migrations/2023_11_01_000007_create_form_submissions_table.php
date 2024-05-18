@@ -25,8 +25,8 @@ class CreateFormSubmissionsTable extends Migration
             $table->string('form_template_id')->nullable();
             $table->foreign('form_template_id')->references('id')->on('form_templates');
             $table->string('size_file')->nullable();
-            $table->string('url_file')->nullable();
-            $table->string('signed_file')->nullable();
+            $table->string('url_file', 500)->nullable();
+            $table->string('signed_file', 500)->nullable();
             $table->string('signed_size_file')->nullable();
             $table->timestamp('submission_date')->nullable();
             $table->timestamp('processed_date')->nullable();

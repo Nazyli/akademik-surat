@@ -4,7 +4,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
             <a href="{{ route('admin.sipa.home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
-            <a href="{{ route('pengajuan-surat.index') }}"><span class="text-muted fw-light">{{ __('Applications') }}
+            <a href="{{ route('pengajuanadmin.index') }}"><span class="text-muted fw-light">{{ __('Applications') }}
                     /</span></a>
             {{ __('Preview') }}
         </h4>

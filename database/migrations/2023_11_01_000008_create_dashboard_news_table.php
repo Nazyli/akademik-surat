@@ -19,6 +19,7 @@ class CreateDashboardNewsTable extends Migration
             $table->string("body")->nullable();
             $table->string("img_url")->nullable();
             $table->string("status")->nullable();
+            $table->string("category")->nullable();
             $table->integer("sort_order")->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
