@@ -1,14 +1,3 @@
-@php
-    function isActiveLink($text)
-    {
-        if (\Request::is($text) or \Request::is($text . '/*')) {
-            return 'active';
-        } else {
-            return null;
-        }
-    }
-@endphp
-
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default"
@@ -94,7 +83,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="{{ url('/') }}" class="app-brand-link">
+                    <a href="{{ route('index') }}" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <img src="{{ asset('/img/logo/logo-app.png') }}" width="150" alt="Logo" />
                         </span>
@@ -112,15 +101,15 @@
 
                 @if (auth()->user()->role_id == 1)
                     <ul class="menu-inner py-1">
-                        <li class="menu-item {{ isActiveLink('admin/home') }}">
-                            <a href="{{ url('admin/home') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('admin.sipa.home') }}">
+                            <a href="{{ route('admin.sipa.home') }}" class="menu-link">
                                 <i class="menu-icon bx bx-home-circle"></i>
                                 <div data-i18n="Dashboards">{{ __('Dashboards') }}</div>
                             </a>
                         </li>
 
-                        <li class="menu-item {{ isActiveLink('admin/pengajuan-surat') }}">
-                            <a href="{{ url('admin/pengajuan-surat') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('pengajuanadmin.index') }}">
+                            <a href="{{ route('pengajuanadmin.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-file"></i>
                                 <div data-i18n="pengajuan-surat">{{ __('Applications') }}</div>
                             </a>
@@ -129,38 +118,38 @@
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">{{ __('Master Data') }}</span>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/master/department') }}">
-                            <a href="{{ url('admin/master/department') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('department.index') }}">
+                            <a href="{{ route('department.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-building"></i>
                                 <div data-i18n="Department">{{ __('Department') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/master/program-studi') }}">
-                            <a href="{{ url('admin/master/program-studi') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('program-studi.index') }}">
+                            <a href="{{ route('program-studi.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-book-alt"></i>
                                 <div data-i18n="program-studi">{{ __('Study Program') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/master/tipe-borang') }}">
-                            <a href="{{ url('admin/master/tipe-borang') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('tipe-borang.index') }}">
+                            <a href="{{ route('tipe-borang.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-list-ul"></i>
                                 <div data-i18n="tipe-borang">{{ __('Form Category') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/master/jenis-borang') }}">
-                            <a href="{{ url('admin/master/jenis-borang') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('jenis-borang.index') }}">
+                            <a href="{{ route('jenis-borang.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-list-check"></i>
                                 <div data-i18n="jenis-borang">{{ __('Form Type') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/master/berita-dashboard') }}">
-                            <a href="{{ url('admin/master/berita-dashboard') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('berita-dashboard.index') }}">
+                            <a href="{{ route('berita-dashboard.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-news"></i>
                                 <div data-i18n="file/berita-dashboard">{{ __('Dashboard News') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/master/menu-lain') }}">
-                            <a href="{{ url('admin/master/menu-lain') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('menu-lain.index') }}">
+                            <a href="{{ route('menu-lain.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-menu"></i>
                                 <div data-i18n="file/menu-lain">{{ __('Set Menu') }}</div>
                             </a>
@@ -170,21 +159,21 @@
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">{{ __('Administrator') }}</span>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/users') }}">
-                            <a href="{{ url('admin/users') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('masteruser.index') }}">
+                            <a href="{{ route('masteruser.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-user"></i>
                                 <div data-i18n="Support">{{ __('Master User') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('app/pengaturan-akun') }}">
+                        <li class="menu-item {{ is_current_route('pengaturan-akun.index') }}">
                             <a href="{{ route('pengaturan-akun.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-lock"></i>
                                 <div data-i18n="Support">{{ __('Account Setting') }}</div>
                             </a>
                         </li>
                         @if (auth()->user()->id == 'administrator')
-                            <li class="menu-item {{ isActiveLink('admin/backup') }}">
-                                <a href="{{ url('admin/backup') }}" class="menu-link">
+                            <li class="menu-item {{ is_current_route('backup.index') }}">
+                                <a href="{{ route('backup.index') }}" class="menu-link">
                                     <i class="menu-icon bx bx-box"></i>
                                     <div data-i18n="Support">{{ __('Backup') }}</div>
                                 </a>
@@ -201,21 +190,21 @@
                     </ul>
                 @else
                     <ul class="menu-inner py-1">
-                        <li class="menu-item {{ isActiveLink('user/home') }}">
-                            <a href="{{ url('user/home') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('user.sipa.home') }}">
+                            <a href="{{ route('user.sipa.home') }}" class="menu-link">
                                 <i class="menu-icon bx bx-home-circle"></i>
                                 <div data-i18n="Dashboards">{{ __('Dashboards') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('user/pengajuan') }}">
-                            <a href="{{ url('user/pengajuan') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('pengajuan.index') }}">
+                            <a href="{{ route('pengajuan.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-file"></i>
                                 <div data-i18n="pengajuan">{{ __('Applications') }}</div>
                             </a>
                         </li>
 
-                        <li class="menu-item {{ isActiveLink('user/riwayat') }}">
-                            <a href="{{ url('user/riwayat') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('pengajuan.riwayat') }}">
+                            <a href="{{ route('pengajuan.riwayat') }}" class="menu-link">
                                 <i class="menu-icon bx bx-history"></i>
                                 <div data-i18n="riwayat">{{ __('Application History') }}</div>
                             </a>
@@ -232,7 +221,7 @@
                                 <ul class="menu-sub">
                                     @foreach ($otherMenus as $menu)
                                         <li class="menu-item">
-                                            <a href="{{ $menu->url }}" target="_blank" class="menu-link">
+                                            <a href="{{ $menu->route }}" target="_blank" class="menu-link">
                                                 <div>{{ $menu->menu_name }}</div>
                                             </a>
                                         </li>
@@ -245,22 +234,22 @@
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">{{ __('Download Form') }}</span>
                         </li>
-                        <li class="menu-item {{ isActiveLink('user/template-surat/skripsi') }}">
-                            <a href="{{ url('user/template-surat/skripsi') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('templateSurat', 'skripsi') }}">
+                            <a href="{{ route('templateSurat', 'skripsi') }}" class="menu-link">
                                 <i class="menu-icon bx bx-book-content"></i>
                                 <div data-i18n="skripsi">{{ __('Thesis and Promotion Registration') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('user/template-surat/akademik') }}">
-                            <a href="{{ url('user/template-surat/akademik') }}" class="menu-link">
+                        <li class="menu-item {{ is_current_route('templateSurat', 'akademik') }}">
+                            <a href="{{ route('templateSurat', 'akademik') }}" class="menu-link">
                                 <i class="menu-icon bx bx-book-open"></i>
-                                <div data-i18n="template-surat">{{ __('Academics') }}</div>
+                                <div data-i18n="templateSurat">{{ __('Academics') }}</div>
                             </a>
                         </li>
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">{{ __('Account Setting') }}</span>
                         </li>
-                        <li class="menu-item {{ isActiveLink('app/pengaturan-akun') }}">
+                        <li class="menu-item {{ is_current_route('pengaturan-akun.index') }}">
                             <a href="{{ route('pengaturan-akun.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-user"></i>
                                 <div data-i18n="Support">{{ __('Account/Profile') }}</div>

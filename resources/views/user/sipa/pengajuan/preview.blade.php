@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/user/riwayat') }}"><span class="text-muted fw-light">{{ __('Application History') }}
+            <a href="{{ route('pengajuan.riwayat') }}"><span class="text-muted fw-light">{{ __('Application History') }}
                     /</span></a> {{ __('Preview') }}
         </h4>
         <div class="row">

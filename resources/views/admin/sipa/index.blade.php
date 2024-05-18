@@ -128,7 +128,7 @@
                                         Persuratan
                                         Akademik</span>
                                 </p>
-                                <a href="{{ url('admin/pengajuan-surat') }}"
+                                <a href="{{ route('pengajuanadmin.index') }}"
                                     class="btn btn-sm btn-outline-primary">{{ __('List of Application') }}</a>
                             </div>
                         </div>

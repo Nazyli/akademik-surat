@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('auth.login');
 // })->name('login-page');
-Route::get('/', [LoginController::class, 'showLoginForm']);
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('index');
 
 
 Route::get('/language/{locale}', function ($locale) {
@@ -97,7 +97,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
-    Route::get('home', [UserController::class, 'userHome'])->name('user.home');
+    Route::get('home', [UserController::class, 'userHome'])->name('user.sipa.home');
 
     Route::get('pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('getProgramStudi/{departmentId}', [PengajuanController::class, 'getProgramStudi'])->name('getProgramStudi');

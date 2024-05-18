@@ -45,11 +45,11 @@
                                          </button>
                                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="formatForm">
                                              <a class="dropdown-item"
-                                                 href="{{ url('user/template-surat/skripsi') }}">{{ __('Thesis and Promotion Registration') }}</a>
+                                                 href="{{ route('templateSurat', 'skripsi') }}">{{ __('Thesis and Promotion Registration') }}</a>
                                              <a class="dropdown-item"
-                                                 href="{{ url('user/template-surat/akademik') }}">{{ __('Academics') }}</a>
+                                                 href="{{ route('templateSurat', 'akademik') }}">{{ __('Academics') }}</a>
                                          </div>
-                                         <a href="{{ url('user/pengajuan') }}"
+                                         <a href="{{ route('pengajuan.index') }}"
                                              class="btn btn-sm btn-outline-primary mb-3">{{ __('Start Application') }}</a>
                                      </div>
                                  </div>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ url('/admin/home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            <a href="{{ route('admin.sipa.home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
             {{ __('Form Category') }}
         </h4>
 
@@ -32,7 +32,7 @@
                             </div>
                             <button class="btn btn-primary btn-block"><b>{{ __('Save') }}</b></button>
                             @isset($formType)
-                                <a href="{{ url('admin/master/tipe-borang') }}"
+                                <a href="{{ route('tipe-borang.index') }}"
                                     class="btn btn-secondary btn-block"><b>{{ __('Cancel') }}</b></a>
                             @endisset
                         </form>
