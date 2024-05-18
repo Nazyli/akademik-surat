@@ -28,7 +28,7 @@ class UserController extends Controller
             ->take(5)
             ->get();
         $dataHome->dashboardNews = DashboardNews::where('status', 'Active')->orderBy('sort_order')->get();
-        return view('user.index')
+        return view('user.sipa.index')
             ->with(compact('dataHome'));
     }
 }

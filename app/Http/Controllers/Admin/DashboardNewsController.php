@@ -21,7 +21,7 @@ class DashboardNewsController extends Controller
     {
         //
         $dashboardNews = DashboardNews::orderBy('status')->orderBy('sort_order')->get();
-        return view('admin.berita.index', compact('dashboardNews'));
+        return view('admin.sipa.berita.index', compact('dashboardNews'));
     }
 
     /**
@@ -82,7 +82,7 @@ class DashboardNewsController extends Controller
         //
         $dashboardNew = DashboardNews::find($id);
         $dashboardNews = DashboardNews::orderBy('status')->orderBy('sort_order')->get();
-        return view('admin.berita.index')
+        return view('admin.sipa.berita.index')
             ->with(compact('dashboardNew'))
             ->with(compact('dashboardNews'));
     }

@@ -63,11 +63,11 @@ $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 */
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
-// Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+// Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.sipa.home')->middleware('is_admin');
 Route::get('open/getProgramStudi/{departmentId}', [PengajuanController::class, 'getProgramStudi'])->name('openGetProgramStudi');
 
 Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 'is_admin']], function () {
-    Route::get('home', [AdminController::class, 'adminHome'])->name('admin.home');
+    Route::get('home', [AdminController::class, 'adminHome'])->name('admin.sipa.home');
     Route::resource('master/department', DepartmentController::class);
     Route::resource('master/program-studi', ProgramStudiController::class);
     Route::resource('master/tipe-borang', FormTypeController::class);

@@ -16,7 +16,7 @@ class AdminController extends Controller
     {
         $departments = Department::where('status', 'Active')->orderBy('department_name')->get();
         $user = auth()->user();
-        return view('admin.index')
+        return view('admin.sipa.index')
             ->with(compact('departments'))
             ->with(compact('user'));
     }

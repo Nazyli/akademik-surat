@@ -28,7 +28,7 @@ class FormTemplatesController extends Controller
         $formType = FormType::where('status', 'Active')
             ->orderBy('name')
             ->get();
-        return view('admin.jenisborang.index')
+        return view('admin.sipa.jenisborang.index')
             ->with(compact('formType'))
             ->with(compact('formTemplates'));
     }
@@ -101,7 +101,7 @@ class FormTemplatesController extends Controller
         $formType = FormType::where('status', 'Active')
             ->orderBy('name')
             ->get();
-        return view('admin.jenisborang.index')
+        return view('admin.sipa.jenisborang.index')
             ->with(compact('formType'))
             ->with(compact('formTemplate'))
             ->with(compact('formTemplates'));

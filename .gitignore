@@ -15,3 +15,4 @@ yarn-error.log
 *.DS_Store
 /.vscode
 /public/file/pengajuan-surat
+/public/file/avatars

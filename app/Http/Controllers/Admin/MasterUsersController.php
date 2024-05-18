@@ -19,7 +19,7 @@ class MasterUsersController extends Controller
     public function index()
     {
         $departments = Department::where('status', 'Active')->orderBy('department_name')->get();
-        return view('admin.users.index')
+        return view('admin.sipa.users.index')
             ->with(compact('departments'));
     }
 
@@ -127,7 +127,7 @@ class MasterUsersController extends Controller
                 ->make(true);
         }
 
-        return view('admin.users.index');
+        return view('admin.sipa.users.index');
     }
 
 

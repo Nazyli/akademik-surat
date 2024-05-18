@@ -18,7 +18,7 @@ class OtherMenuController extends Controller
     {
         //
         $otherMenus = OtherMenu::orderBy('status')->orderBy('sort_order')->get();
-        return view('admin.menu.index', compact('otherMenus'));
+        return view('admin.sipa.menu.index', compact('otherMenus'));
     }
 
     /**
@@ -79,7 +79,7 @@ class OtherMenuController extends Controller
         //
         $otherMenu = OtherMenu::find($id);
         $otherMenus = OtherMenu::orderBy('status')->orderBy('sort_order')->get();
-        return view('admin.menu.index')
+        return view('admin.sipa.menu.index')
             ->with(compact('otherMenu'))
             ->with(compact('otherMenus'));
     }

@@ -22,7 +22,7 @@ class ProgramStudiController extends Controller
         $departments = Department::where('status', 'Active')
             ->orderBy('department_name')
             ->get();
-        return view('admin.programstudi.index')->with(compact('studyPrograms'))->with(compact('departments'));
+        return view('admin.sipa.programstudi.index')->with(compact('studyPrograms'))->with(compact('departments'));
     }
 
     /**
@@ -84,7 +84,7 @@ class ProgramStudiController extends Controller
         $studyProgram = StudyProgram::find($id);
         $studyPrograms = StudyProgram::orderBy('status')->orderBy('study_program_name')->get();
         $departments = Department::where('status', 'Active')->orderBy('department_name')->get();
-        return view('admin.programstudi.index')
+        return view('admin.sipa.programstudi.index')
             ->with(compact('studyProgram'))
             ->with(compact('studyPrograms'))
             ->with(compact('departments'));

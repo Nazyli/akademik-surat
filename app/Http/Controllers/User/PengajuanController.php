@@ -30,7 +30,7 @@ class PengajuanController extends Controller
         $formTemplates = FormTemplates::where('status', 'Active')
             ->orderBy('template_name')
             ->get();
-        return view('user.pengajuan.index')
+        return view('user.sipa.pengajuan.index')
             ->with(compact('user'))
             ->with(compact('departments'))
             ->with(compact('programStudi'))
@@ -91,7 +91,7 @@ class PengajuanController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('user.pengajuan.riwayat')
+        return view('user.sipa.pengajuan.riwayat')
             ->with(compact('formSubmission'));
     }
 
@@ -99,7 +99,7 @@ class PengajuanController extends Controller
     {
         $user = User::find(auth()->user()->id);
         $formSubmission = FormSubmission::find($id);
-        return view('user.pengajuan.preview')
+        return view('user.sipa.pengajuan.preview')
             ->with(compact('formSubmission'));
     }
 
@@ -116,7 +116,7 @@ class PengajuanController extends Controller
             ->orderBy('template_name')
             ->get();
         $formSubmission = FormSubmission::find($id);
-        return view('user.pengajuan.index')
+        return view('user.sipa.pengajuan.index')
             ->with(compact('user'))
             ->with(compact('departments'))
             ->with(compact('programStudi'))
@@ -207,7 +207,7 @@ class PengajuanController extends Controller
                 ->orderBy('sort_order')
                 ->orderBy('template_name')
                 ->get();
-            return view('user.pengajuan.template-akademik')
+            return view('user.sipa.pengajuan.template-akademik')
                 ->with(compact('titleForm'))
                 ->with(compact('formTemplates'));
         } else {
@@ -218,7 +218,7 @@ class PengajuanController extends Controller
                 ->orderBy('sort_order')
                 ->orderBy('template_name')
                 ->get();
-            return view('user.pengajuan.template-akademik')
+            return view('user.sipa.pengajuan.template-akademik')
                 ->with(compact('titleForm'))
                 ->with(compact('formTemplates'));
         }

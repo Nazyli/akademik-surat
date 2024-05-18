@@ -35,7 +35,7 @@ class BackupController extends Controller
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
             ->orderBy('created_at_month', 'asc')
             ->get();
-        return view('admin.backup.index', compact('results'));
+        return view('admin.sipa.backup.index', compact('results'));
     }
 
 

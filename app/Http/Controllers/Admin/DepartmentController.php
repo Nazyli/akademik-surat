@@ -20,7 +20,7 @@ class DepartmentController extends Controller
     {
         //
         $departments = Department::orderBy('status')->orderBy('department_name')->get();
-        return view('admin.department.index', compact('departments'));
+        return view('admin.sipa.department.index', compact('departments'));
     }
 
     /**
@@ -79,7 +79,7 @@ class DepartmentController extends Controller
     {
         //
         $departments = Department::orderBy('status')->orderBy('department_name')->get();
-        return view('admin.department.index')->with(compact('department'))->with(compact('departments'));
+        return view('admin.sipa.department.index')->with(compact('department'))->with(compact('departments'));
     }
 
     /**

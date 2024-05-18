@@ -26,7 +26,7 @@ class PengajuanAdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('admin.pengajuan.index')
+        return view('admin.sipa.pengajuan.index')
             ->with(compact('departments'))
             ->with(compact('formSubmission'));
     }
@@ -79,7 +79,7 @@ class PengajuanAdminController extends Controller
                 ->make(true);
         }
 
-        return view('admin.pengajuan.index');
+        return view('admin.sipa.pengajuan.index');
     }
 
     // public function getByDepartmentId(Request $request, $departmentId)
@@ -140,7 +140,7 @@ class PengajuanAdminController extends Controller
             $formSubmission->update($data);
         }
 
-        return view('admin.pengajuan.preview')
+        return view('admin.sipa.pengajuan.preview')
             ->with(compact('formSubmission'));
     }
 

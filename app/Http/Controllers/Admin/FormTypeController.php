@@ -17,7 +17,7 @@ class FormTypeController extends Controller
     {
         //
         $formTypes = FormType::orderBy('status')->orderBy('name')->get();
-        return view('admin.tipeborang.index', compact('formTypes'));
+        return view('admin.sipa.tipeborang.index', compact('formTypes'));
     }
 
     /**
@@ -74,7 +74,7 @@ class FormTypeController extends Controller
         $formType = FormType::find($id);
 
         $formTypes = FormType::orderBy('status')->orderBy('name')->get();
-        return view('admin.tipeborang.index')->with(compact('formType'))->with(compact('formTypes'));
+        return view('admin.sipa.tipeborang.index')->with(compact('formType'))->with(compact('formTypes'));
     }
 
     /**
