@@ -3,6 +3,7 @@ ALTER TABLE dashboard_news ADD category varchar(100) NULL;
 
 UPDATE dashboard_news SET  category='SIPA' WHERE category is null 
 
+ALTER TABLE `users` ADD `class` VARCHAR(191) NULL DEFAULT NULL AFTER `phone`, ADD `class_year` VARCHAR(191) NULL DEFAULT NULL AFTER `class`, ADD `semester_graduate` VARCHAR(191) NULL DEFAULT NULL AFTER `class_year`, ADD `whatsapp` VARCHAR(191) NULL DEFAULT NULL AFTER `semester_graduate`;
 
   CreateDiplomaRequirementTypesTable ........................................................................................................  
  create table `diploma_requirement_types` (`id` varchar(191) not null, `requirement` varchar(191) null, `description` longtext null, `degree` varchar(191) null, `status` varchar(191) null, `created_by` varchar(191) null, `updated_by` varchar(191) null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci' ENGINE=MyISAM;

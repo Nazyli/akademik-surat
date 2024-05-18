@@ -20,6 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('npm')->nullable();
             $table->string('phone')->nullable();
+            $table->string('class')->nullable();
+            $table->string('class_year')->nullable();
+            $table->string('semester_graduate')->nullable();
+            $table->string('whatsapp')->nullable();
             $table->string('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
             $table->string('study_program_id')->nullable();
