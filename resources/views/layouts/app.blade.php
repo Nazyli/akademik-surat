@@ -176,8 +176,8 @@
                                 <div data-i18n="Support">{{ __('Master User') }}</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ isActiveLink('admin/pengaturan-akun') }}">
-                            <a href="{{ url('admin/pengaturan-akun') }}" class="menu-link">
+                        <li class="menu-item {{ isActiveLink('app/pengaturan-akun') }}">
+                            <a href="{{ route('pengaturan-akun.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-lock"></i>
                                 <div data-i18n="Support">{{ __('Account Setting') }}</div>
                             </a>
@@ -260,8 +260,8 @@
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">{{ __('Account Setting') }}</span>
                         </li>
-                        <li class="menu-item {{ isActiveLink('user/pengaturan-akun') }}">
-                            <a href="{{ url('user/pengaturan-akun') }}" class="menu-link">
+                        <li class="menu-item {{ isActiveLink('app/pengaturan-akun') }}">
+                            <a href="{{ route('pengaturan-akun.index') }}" class="menu-link">
                                 <i class="menu-icon bx bx-user"></i>
                                 <div data-i18n="Support">{{ __('Account/Profile') }}</div>
                             </a>
@@ -319,15 +319,13 @@
                             <li class="nav-item lh-1 me-3 mobile">
                                 <a class="github-button" href="#">FMIPA UI</a>
                             </li>
-
-
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
                                         <img src="{{ auth()->user()->imgUrl() }}" alt
-                                            class="w-px-40 h-auto rounded-circle" />
+                                            class="w-px-40 h-px-40 rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -337,7 +335,7 @@
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
                                                         <img src="{{ auth()->user()->imgUrl() }}" alt
-                                                            class="w-px-40 h-auto rounded-circle" />
+                                                            class="w-px-40 h-px-40 rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -353,15 +351,13 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item"
-                                            href="{{ auth()->user()->role_id == 1 ? url('admin/pengaturan-akun') : url('user/pengaturan-akun') }}">
+                                        <a class="dropdown-item" href="{{ route('pengaturan-akun.index') }}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">{{ __('My Profile') }}</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item"
-                                            href="{{ auth()->user()->role_id == 1 ? url('admin/change-password') : url('user/change-password') }}">
+                                        <a class="dropdown-item" href="{{ route('change-password') }}">
                                             <span class="d-flex align-items-center align-middle">
                                                 <i class="flex-shrink-0 bx bx-cog me-2"></i>
                                                 <span

@@ -86,12 +86,6 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::get('users/getByDepartementId/{departmentId}', [MasterUsersController::class, 'getByDepartmentId'])->name('masteruser.getByDepartementId');
     Route::delete('users/{id}', [MasterUsersController::class, 'destroy'])->name('masteruser.destroy');
 
-    Route::get('pengaturan-akun', [AkunController::class, 'index'])->name('pengaturan-akun.indexAdmin');
-    Route::put('pengaturan-akun/{id}', [AkunController::class, 'update'])->name('pengaturan-akun.updateAdmin');
-
-    Route::get('change-password', [AkunController::class, 'changePassword'])->name('change-password.admin');
-    Route::put('change-password/{id}', [AkunController::class, 'changePasswordUpdate'])->name('change-password-update.admin');
-
     Route::resource('backup', BackupController::class);
     Route::put('backup', [BackupController::class, 'downloadDB'])->name('backup.downloadDB');
 
@@ -104,11 +98,6 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
     Route::get('home', [UserController::class, 'userHome'])->name('user.home');
-    Route::get('pengaturan-akun', [AkunController::class, 'index'])->name('pengaturan-akun.index');
-    Route::put('pengaturan-akun/{id}', [AkunController::class, 'update'])->name('pengaturan-akun.update');
-
-    Route::get('change-password', [AkunController::class, 'changePassword'])->name('change-password');
-    Route::put('change-password/{id}', [AkunController::class, 'changePasswordUpdate'])->name('change-password-update');
 
     Route::get('pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('getProgramStudi/{departmentId}', [PengajuanController::class, 'getProgramStudi'])->name('getProgramStudi');
@@ -130,5 +119,11 @@ Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', '
 });
 
 Route::group(['namespace' => '', 'prefix' => 'app',  'middleware' => ['auth', 'all_user']], function () {
-    Route::put('pengaturan-akun-updateImg/{id}', [AkunController::class, 'updateImg'])->name('pengaturan-akun-updateImgAdmin');
+    Route::get('pengaturan-akun', [AkunController::class, 'index'])->name('pengaturan-akun.index');
+    Route::put('pengaturan-akun/{id}', [AkunController::class, 'update'])->name('pengaturan-akun.update');
+    Route::put('pengaturan-akun-updateImg/{id}', [AkunController::class, 'updateImg'])->name('pengaturan-akun-updateImg');
+
+
+    Route::get('change-password', [AkunController::class, 'changePassword'])->name('change-password');
+    Route::put('change-password/{id}', [AkunController::class, 'changePasswordUpdate'])->name('change-password-update');
 });

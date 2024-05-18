@@ -23,15 +23,9 @@ class AkunController extends Controller
         $programStudi = StudyProgram::where('status', 'Active')
             ->orderBy('study_program_name')
             ->get();
-        if ($user->role_id == 1) {
-            return view('admin.akun.index')->with(compact('user'))
-                ->with(compact('departments'))
-                ->with(compact('programStudi'));
-        } else {
-            return view('user.akun.index')->with(compact('user'))
-                ->with(compact('departments'))
-                ->with(compact('programStudi'));
-        }
+        return view('layouts.akun.index')->with(compact('user'))
+            ->with(compact('departments'))
+            ->with(compact('programStudi'));
     }
 
     public function update(Request $request, $id)
@@ -57,11 +51,7 @@ class AkunController extends Controller
         $data['updated_by'] = auth()->user()->id;
         $user = User::find($id);
         $user->update($data);
-        if ($user->role_id == 1) {
-            return redirect()->route('pengaturan-akun.indexAdmin')->with('success', 'Account updated successfully.');
-        } else {
-            return redirect()->route('pengaturan-akun.index')->with('success', 'Account updated successfully.');
-        }
+        return redirect()->route('pengaturan-akun.index')->with('success', 'Account updated successfully.');
     }
 
     public function updateImg(Request $request, $id)
@@ -77,23 +67,14 @@ class AkunController extends Controller
         }
         $data['updated_by'] = auth()->user()->id;
         $user->update($data);
-
-        if ($user->role_id == 1) {
-            return redirect()->route('pengaturan-akun.indexAdmin')->with('success', 'Image updated successfully.');
-        } else {
-            return redirect()->route('pengaturan-akun.index')->with('success', 'Image updated successfully.');
-        }
+        return redirect()->route('pengaturan-akun.index')->with('success', 'Image updated successfully.');
     }
 
 
     public function changePassword()
     {
         $user = User::find(auth()->user()->id);
-        if ($user->role_id == 1) {
-            return view('admin.akun.change-password', compact('user'));
-        } else {
-            return view('user.akun.change-password', compact('user'));
-        }
+        return view('layouts.akun.change-password', compact('user'));
     }
 
     public function changePasswordUpdate(Request $request, $id)
@@ -117,10 +98,6 @@ class AkunController extends Controller
             'password' => Hash::make($request->new_password),
             'updated_by' => auth()->user()->id
         ]);
-        if ($user->role_id == 1) {
-            return redirect()->route('change-password.admin')->with('success', 'Password updated successfully.');
-        } else {
-            return redirect()->route('change-password')->with('success', 'Password updated successfully.');
-        }
+        return redirect()->route('change-password')->with('success', 'Password updated successfully.');
     }
 }
