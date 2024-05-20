@@ -35,6 +35,7 @@ class PengajuanSKPIController extends Controller
     public function store(Request $request)
     {
         try {
+
             $user = User::find(auth()->user()->id);
             $data = $request->all();
             $user->update($data);
@@ -43,9 +44,20 @@ class PengajuanSKPIController extends Controller
             $req->update($data);
 
             foreach ($this->getRequiredType() as $index => $requirementType) {
+                if ($requirementType->required == 1 && $requirementType->findRequestUser($req->id) != null && $requirementType->findRequestUser($req->id)->url_file == null) {
+                    return redirect()->route('skpi.pengajuan.index')->with('error', $requirementType->requirement . " is required");
+                }
+            }
+            foreach ($this->getRequiredType() as $index => $requirementType) {
                 $requestDetail = $this->getOrCreateDiplomaRetrievalRequestsDetail($user, $req, $requirementType, $data, $index);
                 $requestDetail->save();
             }
+
+            $data = null;
+            $data['form_status'] = 'Sent';
+            $data['submission_date'] = new DateTime();
+
+            $req->update($data);
 
             return redirect()->route('skpi.pengajuan.index')->with('success', 'SKPI created successfully.');
         } catch (Exception $e) {
@@ -114,10 +126,10 @@ class PengajuanSKPIController extends Controller
         if ($req == null) {
             $data = [
                 'user_id' => $user->id,
-                'submission_date' => $dateNow,
                 'created_by' => $user->id
             ];
-            $req = DiplomaRetrievalRequest::create($data);
+            DiplomaRetrievalRequest::create($data);
+            $req = DiplomaRetrievalRequest::where('user_id', $user->id)->first();
         }
         return $req;
     }
@@ -139,7 +151,11 @@ class PengajuanSKPIController extends Controller
                 'submission_date' => $dateNow,
                 'form_status' => 'Sent'
             ];
-            $requestDetail = DiplomaRetrievalRequestsDetail::create($dataDetail);
+            DiplomaRetrievalRequestsDetail::create($dataDetail);
+            $requestDetail = DiplomaRetrievalRequestsDetail::where('user_id', $user->id)
+                ->where('request_id', $req->id)
+                ->where('requirement_id', $requirementType->id)
+                ->first();
         } else {
             if ($requestDetail->form_status == 'Reject') {
                 $requestDetail->form_status = 'Sent';
