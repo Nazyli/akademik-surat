@@ -20,7 +20,7 @@ class CreateDiplomaRetrievalRequestsTable extends Migration
             $table->string('form_status')->nullable();
             $table->timestamp('submission_date')->nullable();
             $table->timestamp('processed_date')->nullable();
-            $table->longText('user_notes')->nullable();
+            $table->longText('user_note')->nullable();
             $table->longText('comment')->nullable();
             $table->string('approved_by')->nullable();
             $table->string('created_by')->nullable();

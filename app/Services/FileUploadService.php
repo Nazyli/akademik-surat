@@ -97,4 +97,26 @@ class FileUploadService
         }
         return [null, null];
     }
+
+    public static function uploadPengajuanSKPI($request, $user, $requirementtypes, $dateNow, $fileUrl)
+    {
+        $formattedDate = $dateNow->format('Ym');
+        $publicPath = "file/skpi/" . $formattedDate . "/" . $user->id;
+        if ($file = $request->file('upload_file')) {
+
+            $concatName = ($user->first_name . '-' . $user->last_name . '-' . substr($requirementtypes->requirement, 0, 30));
+            // $concatName = ($user->first_name . '-' . $user->last_name . '-' . $file->getClientOriginalName());
+            $template_name = str_replace(' ', '-', $concatName);
+            $safeFileName = preg_replace('#[\\\/:*?"<>|[\]]#', '_', $template_name);
+            $fileName = $safeFileName . '-' . time() . '.' . $file->extension();
+            $url = $publicPath . "/" . $fileName;
+            $size = $file->getSize();
+            $file->move($publicPath, $fileName);
+            if ($fileUrl) {
+                File::delete($fileUrl);
+            }
+            return [$url, $size];
+        }
+        return [null, null];
+    }
 }

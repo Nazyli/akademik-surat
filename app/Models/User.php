@@ -111,4 +111,9 @@ class User extends Authenticatable
     {
         return StudyProgram::find($this->study_program_id);
     }
+
+    public function getDegree()
+    {
+        return Str::substr($this->studyProgram()->study_program_name, 0, 2);
+    }
 }

@@ -15,7 +15,7 @@ class DiplomaRetrievalRequestsDetail extends Model
         'id',
         'user_id',
         'request_id',
-        'requirement',
+        'requirement_id',
         'user_notes',
         'size_file',
         'url_file',
@@ -35,5 +35,14 @@ class DiplomaRetrievalRequestsDetail extends Model
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function pathUrl()
+    {
+        return isset($this->url_file) ? asset($this->url_file) : null;
+    }
+    public function baseNameUrl()
+    {
+        return isset($this->url_file) ? basename($this->url_file) : null;
     }
 }

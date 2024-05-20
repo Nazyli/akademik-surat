@@ -19,8 +19,8 @@ class CreateDiplomaRetrievalRequestsDetailsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('request_id')->nullable();
             $table->foreign('request_id')->references('id')->on('diploma_retrieval_requests');
-            $table->string('requirement')->nullable();
-            $table->foreign('requirement')->references('id')->on('diploma_requirement_types');
+            $table->string('requirement_id')->nullable();
+            $table->foreign('requirement_id')->references('id')->on('diploma_requirement_types');
             $table->longText('user_notes')->nullable();
             $table->string('size_file')->nullable();
             $table->string('url_file', 500)->nullable();

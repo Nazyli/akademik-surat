@@ -17,7 +17,7 @@ class DiplomaRetrievalRequest extends Model
         'form_status',
         'submission_date',
         'processed_date',
-        'user_notes',
+        'user_note',
         'comment',
         'approved_by',
         'created_by',

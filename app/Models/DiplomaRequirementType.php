@@ -31,4 +31,14 @@ class DiplomaRequirementType extends Model
             $model->id = Str::uuid();
         });
     }
+
+    public function findRequestUser($id)
+    {
+        $user = User::find(auth()->user()->id);
+        $requestDetail = DiplomaRetrievalRequestsDetail::where('user_id', $user->id)
+            ->where('request_id', $id)
+            ->where('requirement_id', $this->id)
+            ->first();
+        return $requestDetail;
+    }
 }

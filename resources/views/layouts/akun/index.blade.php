@@ -155,6 +155,8 @@
     </div>
 @endsection
 
+@include('partials/dropdown_department_programstudi')
+
 @section('js')
     <script>
         function submitForm() {
@@ -162,4 +164,3 @@
         }
     </script>
 @endsection
-@include('partials/dropdown_department_programstudi')
