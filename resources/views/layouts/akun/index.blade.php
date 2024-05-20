@@ -155,4 +155,11 @@
     </div>
 @endsection
 
+@section('js')
+    <script>
+        function submitForm() {
+            document.getElementById('updateImgForm').submit();
+        }
+    </script>
+@endsection
 @include('partials/dropdown_department_programstudi')

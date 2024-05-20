@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\Skpi\DiplomaRequirementTypeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AkunController;
 use App\Http\Controllers\User\PengajuanController;
+use App\Http\Controllers\User\Skpi\PengajuanSKPIController;
 use App\Http\Controllers\User\UserController;
 use App\Models\DiplomaRequirementType;
 use Illuminate\Support\Facades\Auth;
@@ -110,11 +111,17 @@ Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', '
     Route::get('riwayat/cancel/{id}', [PengajuanController::class, 'cancel'])->name('pengajuan.cancel');
 
     Route::get('template-surat/{id}', [PengajuanController::class, 'templateSurat'])->name('templateSurat');
-    // Route::get('/language/{locale}', function ($locale) {
-    //     app()->setLocale($locale);
-    //     session()->put('locale', $locale);
-    //     return redirect()->back();
-    // });
+    // SKPI
+    Route::get('skpi/pengajuan', [PengajuanSKPIController::class, 'index'])->name('skpi.pengajuan.index');
+    Route::post('skpi/pengajuan', [PengajuanSKPIController::class, 'store'])->name('skpi.pengajuan.store');
+    Route::get('skpi/riwayat', [PengajuanSKPIController::class, 'riwayat'])->name('skpi.pengajuan.riwayat');
+    Route::get('skpi/riwayat/preview/{id}', [PengajuanSKPIController::class, 'preview'])->name('skpi.pengajuan.preview');
+    Route::get('skpi/riwayat/edit/{id}', [PengajuanSKPIController::class, 'edit'])->name('skpi.pengajuan.edit');
+    Route::put('skpi/riwayat/update/{id}', [PengajuanSKPIController::class, 'update'])->name('skpi.pengajuan.update');
+    Route::get('skpi/riwayat/sent/{id}', [PengajuanSKPIController::class, 'sent'])->name('skpi.pengajuan.sent');
+    Route::get('skpi/riwayat/cancel/{id}', [PengajuanSKPIController::class, 'cancel'])->name('skpi.pengajuan.cancel');
+
+    Route::put('skpi-upload-file/{id}', [PengajuanSKPIController::class, 'uploadFile'])->name('skpi.uploadFile');
 });
 
 Route::group(['namespace' => '', 'prefix' => 'app',  'middleware' => ['auth', 'all_user']], function () {

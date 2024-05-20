@@ -210,6 +210,13 @@
                             </a>
                         </li>
 
+                        <li class="menu-item {{ is_current_route('skpi.pengajuan.index') }}">
+                            <a href="{{ route('skpi.pengajuan.index') }}" class="menu-link">
+                                <i class="menu-icon bx bx-file"></i>
+                                <div data-i18n="pengajuan">{{ __('Applications SKPI') }}</div>
+                            </a>
+                        </li>
+
                         <li class="menu-item {{ is_current_route('pengajuan.riwayat') }}">
                             <a href="{{ route('pengajuan.riwayat') }}" class="menu-link">
                                 <i class="menu-icon bx bx-history"></i>

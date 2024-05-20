@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Skpi;
 
 use App\Models\DiplomaRetrievalRequest;
 use Illuminate\Http\Request;

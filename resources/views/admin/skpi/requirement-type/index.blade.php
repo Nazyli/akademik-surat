@@ -34,7 +34,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-degree">{{ __('Degree') }}</label>
-                                <select class="form-select @error('degree') is-invalid @enderror"" id="departmentName"
+                                <select class="form-select @error('degree') is-invalid @enderror" id="departmentName"
                                     aria-label="Default select example" name="degree">
                                     <option></option>
                                     <option value="S1" {{ old('degree') == 'S1' ? 'selected' : '' }}
