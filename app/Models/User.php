@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
-
+use PDO;
 
 // class User extends Authenticatable implements MustVerifyEmail
 class User extends Authenticatable
@@ -115,5 +115,29 @@ class User extends Authenticatable
     public function getDegree()
     {
         return Str::substr($this->studyProgram()->study_program_name, 0, 2);
+    }
+
+    public function getSemester()
+    {
+        $text = $this->semester_graduate;
+        if ($text == null) {
+            return null;
+        }
+        $parts = explode(' ', $text);
+        $semester = $parts[0];
+        $year = $parts[1];
+        return $semester;
+    }
+
+    public function getAcademicYear()
+    {
+        $text = $this->semester_graduate;
+        if ($text == null) {
+            return null;
+        }
+        $parts = explode(' ', $text);
+        $semester = $parts[0];
+        $year = $parts[1];
+        return $year;
     }
 }

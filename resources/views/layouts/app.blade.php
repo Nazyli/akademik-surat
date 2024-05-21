@@ -531,6 +531,25 @@
                 }
             })
         });
+
+        $('.swalConfirmation').click(function(event) {
+            var form = $(this).closest("form");
+            event.preventDefault();
+            Swal.fire({
+                title: @json(__('Confirmation')),
+                text: @json(__('Are you sure you want to submit this data?')),
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: @json(__('Yes, Submit!')),
+                cancelButtonText: @json(__('Cancel'))
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        });
     </script>
     @yield('js')
 

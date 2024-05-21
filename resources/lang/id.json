@@ -121,6 +121,10 @@
     "Other Menu Data":"Data Menu Lainnya",
     "Menu Name":"Nama Menu",
     "Data User":"Data User",
-    "Role":"Role"
-
+    "Role":"Role",
+    "Odd" : "Gasal",
+    "Even" : "Genap",
+    "Confirmation":"Konfirmasi",
+    "Are you sure you want to submit this data?":"Apakah Anda yakin ingin mengirim data ini?",
+    "Yes, Submit!":"Ya, Kirim!"
 }

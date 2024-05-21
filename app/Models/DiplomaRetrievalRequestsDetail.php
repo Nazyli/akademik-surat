@@ -45,4 +45,26 @@ class DiplomaRetrievalRequestsDetail extends Model
     {
         return isset($this->url_file) ? basename($this->url_file) : null;
     }
+
+    public function getLabelStatus()
+    {
+        switch ($this->form_status) {
+            case 'Sent':
+                return 'info';
+            case 'Cancel':
+                return 'secondary';
+            case 'Draft':
+                return 'dark';
+            case 'Reviewed':
+                return 'warning';
+            case 'Revisi':
+                return 'danger';
+            case 'Reject':
+                return 'danger';
+            case 'Finished':
+                return 'success';
+            default:
+                return '';
+        }
+    }
 }

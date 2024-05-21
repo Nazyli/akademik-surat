@@ -34,30 +34,50 @@ class PengajuanSKPIController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'class' => 'required',
+            'class_year' => 'required',
+            'semester' => 'required',
+            'academic_year' => 'required',
+            'whatsapp' => 'required',
+        ]);
         try {
 
             $user = User::find(auth()->user()->id);
             $data = $request->all();
+            $data['semester_graduate'] = $data['semester'] . " " . $data['academic_year'];
             $user->update($data);
 
             $req = $this->getOrCreateDiplomaRetrievalRequest($user);
             $req->update($data);
 
             foreach ($this->getRequiredType() as $index => $requirementType) {
-                if ($requirementType->required == 1 && $requirementType->findRequestUser($req->id) != null && $requirementType->findRequestUser($req->id)->url_file == null) {
-                    return redirect()->route('skpi.pengajuan.index')->with('error', $requirementType->requirement . " is required");
+                if ($requirementType->required == 1) {
+                    if ($requirementType->findRequestUser($req->id) == null) {
+                        return redirect()->route('skpi.pengajuan.index')->with('error', $requirementType->requirement . " is required");
+                    } else if ($requirementType->findRequestUser($req->id)->url_file == null) {
+                        return redirect()->route('skpi.pengajuan.index')->with('error', $requirementType->requirement . " is required");
+                    }
                 }
             }
             foreach ($this->getRequiredType() as $index => $requirementType) {
                 $requestDetail = $this->getOrCreateDiplomaRetrievalRequestsDetail($user, $req, $requirementType, $data, $index);
+                if ($request->action != 'Draft') {
+                    $requestDetail->form_status = 'Sent';
+                    $requestDetail->submission_date = new DateTime();
+                }
                 $requestDetail->save();
             }
 
-            $data = null;
-            $data['form_status'] = 'Sent';
-            $data['submission_date'] = new DateTime();
+            // $data = null;
+            if ($request->action == 'Draft') {
+                $req->form_status = 'Draft';
+            } else {
+                $req->submission_date = new DateTime();
+                $req->form_status = 'Sent';
+            }
 
-            $req->update($data);
+            $req->save($data);
 
             return redirect()->route('skpi.pengajuan.index')->with('success', 'SKPI created successfully.');
         } catch (Exception $e) {
@@ -149,7 +169,7 @@ class PengajuanSKPIController extends Controller
                 'requirement_id' => $requirementType->id,
                 'created_by' => $user->id,
                 'submission_date' => $dateNow,
-                'form_status' => 'Sent'
+                'form_status' => 'Draft'
             ];
             DiplomaRetrievalRequestsDetail::create($dataDetail);
             $requestDetail = DiplomaRetrievalRequestsDetail::where('user_id', $user->id)
@@ -157,8 +177,8 @@ class PengajuanSKPIController extends Controller
                 ->where('requirement_id', $requirementType->id)
                 ->first();
         } else {
-            if ($requestDetail->form_status == 'Reject') {
-                $requestDetail->form_status = 'Sent';
+            if ($requestDetail->form_status == 'Revisi') {
+                $requestDetail->form_status = 'Draft';
                 $requestDetail->submission_date = $dateNow;
             }
         }

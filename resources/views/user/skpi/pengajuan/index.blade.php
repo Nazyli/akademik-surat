@@ -1,3 +1,12 @@
+@php
+    $notOpen = false;
+    if (
+        isset($diplomaRetrievalRequest) &&
+        ($diplomaRetrievalRequest->form_status == 'Sent' || $diplomaRetrievalRequest->form_status == 'Finished')
+    ) {
+        $notOpen = true;
+    }
+@endphp
 @extends('layouts.app')
 
 @section('content')
@@ -115,8 +124,17 @@
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('Class') }}</label>
-                                    <input type="text" class="form-control @error('class') is-invalid @enderror"
-                                        name="class" value="{{ $user->class }}" />
+                                    <select class="form-select @error('class') is-invalid @enderror" id="class"
+                                        aria-label="Default select example" name="class"
+                                        {{ $notOpen ? 'disabled' : '' }}>
+                                        <option></option>
+                                        <option value="Reguler" {{ old('class') == 'Reguler' ? 'selected' : '' }}
+                                            {{ isset($user) ? ($user->class == 'Reguler' ? 'selected' : '') : '' }}>
+                                            Reguler</option>
+                                        <option value="Paralel" {{ old('class') == 'Paralel' ? 'selected' : '' }}
+                                            {{ isset($user) ? ($user->class == 'Paralel' ? 'selected' : '') : '' }}>
+                                            Paralel</option>
+                                    </select>
                                     @error('class')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -126,8 +144,18 @@
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('Class Year') }}</label>
-                                    <input type="text" class="form-control @error('class_year') is-invalid @enderror"
-                                        name="class_year" value="{{ $user->class_year }}" />
+                                    <select class="form-select @error('class_year') is-invalid @enderror" id="class_year"
+                                        aria-label="Default select example" name="class_year"
+                                        {{ $notOpen ? 'disabled' : '' }}>
+                                        <option></option>
+                                        @for ($year = date('Y'); $year >= date('Y') - 8; $year--)
+                                            <option value="{{ $year }}"
+                                                {{ old('class_year') == $year ? 'selected' : '' }}
+                                                {{ isset($user) ? ($user->class_year == $year ? 'selected' : '') : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endfor
+                                    </select>
                                     @error('class_year')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -137,20 +165,53 @@
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('Semester Graduate') }}</label>
-                                    <input type="text"
-                                        class="form-control @error('semester_graduate') is-invalid @enderror"
-                                        name="semester_graduate" value="{{ $user->semester_graduate }}" />
-                                    @error('semester_graduate')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select class="form-select @error('semester') is-invalid @enderror"
+                                                id="semester" aria-label="Default select example" name="semester"
+                                                {{ $notOpen ? 'disabled' : '' }}>
+                                                <option></option>
+                                                <option value="Gasal" {{ old('semester') == 'Gasal' ? 'selected' : '' }}
+                                                    {{ isset($user) ? ($user->getSemester() == 'Gasal' ? 'selected' : '') : '' }}>
+                                                    {{ __('Odd') }}</option>
+                                                <option value="Genap" {{ old('semester') == 'Genap' ? 'selected' : '' }}
+                                                    {{ isset($user) ? ($user->getSemester() == 'Genap' ? 'selected' : '') : '' }}>
+                                                    {{ __('Even') }}</option>
+                                            </select>
+                                            @error('semester')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-select @error('academic_year') is-invalid @enderror"
+                                                id="academic_year" aria-label="Default select example"
+                                                name="academic_year" {{ $notOpen ? 'disabled' : '' }}>
+                                                <option></option>
+                                                @for ($year = date('Y'); $year >= date('Y') - 8; $year--)
+                                                    <option value="{{ $year }}/{{ $year + 1 }}"
+                                                        {{ old('academic_year') == $year . '/' . $year + 1 ? 'selected' : '' }}
+                                                        {{ isset($user) ? ($user->getAcademicYear() == $year . '/' . $year + 1 ? 'selected' : '') : '' }}>
+                                                        {{ $year }}/{{ $year + 1 }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                            @error('academic_year')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('WhatsApp Number') }}</label>
                                     <input type="text" class="form-control @error('whatsapp') is-invalid @enderror"
-                                        name="whatsapp" value="{{ $user->whatsapp }}" />
+                                        name="whatsapp" value="{{ $user->whatsapp }}"
+                                        {{ $notOpen ? 'disabled' : '' }} />
                                     @error('whatsapp')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -178,6 +239,31 @@
                                                 @foreach ($diplomaRequirementType as $key => $value)
                                                     @php
                                                         $idSafe = preg_replace('/[^A-Za-z0-9\-]/', '_', $value->id); // Ganti karakter yang tidak valid
+                                                        $requestdetail = null;
+                                                        $url = null;
+                                                        $basename = null;
+                                                        $isOpen = false;
+                                                        $badgeColor = 'primary';
+                                                        if (
+                                                            isset($diplomaRetrievalRequest) &&
+                                                            $value->findRequestUser($diplomaRetrievalRequest->id) !=
+                                                                null
+                                                        ) {
+                                                            $requestdetail = $value->findRequestUser(
+                                                                $diplomaRetrievalRequest->id,
+                                                            );
+                                                            if ($requestdetail) {
+                                                                $url = $requestdetail->pathUrl();
+                                                                $basename = $requestdetail->basenameUrl();
+                                                                $badgeColor = $requestdetail->getLabelStatus();
+                                                                if (
+                                                                    $requestdetail->form_status == 'Sent' ||
+                                                                    $requestdetail->form_status == 'Finished'
+                                                                ) {
+                                                                    $isOpen = true;
+                                                                }
+                                                            }
+                                                        }
                                                     @endphp
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
@@ -186,43 +272,40 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}">
-                                                            <!-- for CSRF token -->
-                                                            <input
-                                                                class="form-control form-control-sm @error('upload_file') is-invalid @enderror"
-                                                                type="file" id="uploadFile-{{ $idSafe }}"
-                                                                name="upload_file" data-id="{{ $idSafe }}"
-                                                                data-url="{{ route('skpi.uploadFile', $value->id) }}" />
-                                                            @error('upload_file')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                            @php
-                                                                $requestUser = isset($diplomaRetrievalRequest)
-                                                                    ? $value->findRequestUser(
-                                                                        $diplomaRetrievalRequest->id,
-                                                                    )
-                                                                    : null;
-                                                                $url = $requestUser ? $requestUser->pathUrl() : null;
-                                                                $basename = $requestUser
-                                                                    ? $requestUser->basenameUrl()
-                                                                    : null;
-                                                            @endphp
-                                                            <small class="text-info" id="urlFile-{{ $value->id }}">
-                                                                <a target="_blank" href="{{ $url }}">
+                                                            @if (!$isOpen)
+                                                                <input type="hidden" name="_token"
+                                                                    value="{{ csrf_token() }}">
+                                                                <!-- for CSRF token -->
+                                                                <input
+                                                                    class="form-control form-control-sm @error('upload_file') is-invalid @enderror"
+                                                                    type="file" id="uploadFile-{{ $idSafe }}"
+                                                                    name="upload_file" data-id="{{ $idSafe }}"
+                                                                    data-url="{{ route('skpi.uploadFile', $value->id) }}" />
+                                                                @error('upload_file')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            @endif
+                                                            <small id="urlFile-{{ $value->id }}">
+                                                                <a target="_blank" class="text-{{ $badgeColor }}"
+                                                                    href="{{ $url }}">
                                                                     {{ $basename }}
                                                                 </a>
                                                             </small>
 
                                                         </td>
                                                         <td>
-                                                            <textarea class="form-control form-control-sm @error('user_notes') is-invalid @enderror" rows="2"
-                                                                name="user_notes[]">{{ isset($diplomaRetrievalRequest) && $value->findRequestUser($diplomaRetrievalRequest->id) != null ? $value->findRequestUser($diplomaRetrievalRequest->id)->user_notes : null }}</textarea>
+                                                            @if (!$isOpen)
+                                                                <textarea class="form-control form-control-sm @error('user_notes') is-invalid @enderror" rows="2"
+                                                                    name="user_notes[]">{{ isset($requestdetail) ? $requestdetail->user_notes : null }}</textarea>
+                                                            @else
+                                                                {{ $requestdetail->user_notes }}
+                                                            @endif
                                                         </td>
                                                         <td>
-                                                            <span class="badge bg-label-primary me-1">Active</span>
+                                                            <i class="bx bx-check bx-sm text-success"></i>
+                                                            <i class="bx bx-x bx-sm text-danger"></i>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -233,7 +316,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">{{ __('Description') }}</label>
-                                    <textarea class="form-control  @error('user_note') is-invalid @enderror" rows="3" name="user_note">{{ isset($diplomaRetrievalRequest) ? $diplomaRetrievalRequest->user_note : old('user_note') }}</textarea>
+                                    <textarea class="form-control  @error('user_note') is-invalid @enderror" rows="3" name="user_note"
+                                        {{ $notOpen ? 'disabled' : '' }}>{{ isset($diplomaRetrievalRequest) ? $diplomaRetrievalRequest->user_note : old('user_note') }}</textarea>
                                     @error('user_note')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -242,12 +326,14 @@
 
                                 </div>
                             </div>
-                            <div class="mt-2">
-                                <button type="submit" value="Sent" name="action"
-                                    class="btn btn-primary me-2">{{ __('Send') }}</button>
-                                <button type="submit" value="Draft" name="action"
-                                    class="btn btn-outline-secondary">{{ __('Draft') }}</button>
-                            </div>
+                            @if (!$notOpen)
+                                <div class="mt-2">
+                                    <button type="submit" value="Sent" name="action"
+                                        class="btn btn-primary me-2 swalConfirmation">{{ __('Send') }}</button>
+                                    <button type="submit" value="Draft" name="action"
+                                        class="btn btn-outline-secondary">{{ __('Draft') }}</button>
+                                </div>
+                            @endif
                         </div>
                     </form>
                 </div>
@@ -291,7 +377,8 @@
                             var fileUrl = response.file_url;
                             var fileName = response.file_name;
                             $('#urlFile-' + fileId).html('<a href="' + fileUrl +
-                                '" target="_blank">' + fileName + '</a>');
+                                '" target="_blank" class="text-dark">' + fileName +
+                                '</a>');
                             showNotif('success', 'File uploaded successfully');
                         },
                         error: function(xhr, status, error) {
