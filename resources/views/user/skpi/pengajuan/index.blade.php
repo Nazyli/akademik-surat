@@ -228,11 +228,12 @@
                                         <table class="table table-bordered table-hover table-sm">
                                             <thead class="table-info">
                                                 <tr>
-                                                    <th style="width: 30px;">#</th>
-                                                    <th style="width: 400px;">Requirement</th>
-                                                    <th style="width: 400px;">File Upload</th>
-                                                    <th>Catatan</th>
-                                                    <th>Tanggal Validasi</th>
+                                                    <th style="width: 25px;">No</th>
+                                                    <th>Requirement</th>
+                                                    <th style="width: 300px;">File Upload</th>
+                                                    <th style="width: 200px;">Catatan</th>
+                                                    <th style="width: 120px;">Tgl. Validasi</th>
+                                                    <th style="width: 10px;">#</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0">
@@ -267,7 +268,7 @@
                                                     @endphp
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $value->requirement }} @if ($value->required == '1')
+                                                        <td style="font-size: 85%">{{ $value->requirement }} @if ($value->required == '1')
                                                                 <span style="color: red;">*</span>
                                                             @endif
                                                         </td>
@@ -288,24 +289,46 @@
                                                                 @enderror
                                                             @endif
                                                             <small id="urlFile-{{ $value->id }}">
-                                                                <a target="_blank" class="text-{{ $badgeColor }}"
-                                                                    href="{{ $url }}">
-                                                                    {{ $basename }}
+                                                                <a target="_blank" href="{{ $url }}">
+                                                                    <p
+                                                                        style="line-height:15px; font-size:85%;"class="mb-0 text-{{ $badgeColor }}">
+                                                                        {{ $basename }}</p>
                                                                 </a>
                                                             </small>
 
                                                         </td>
-                                                        <td>
+                                                        <td style="0.25rem 6px !important; font-size: 85%">
                                                             @if (!$isOpen)
-                                                                <textarea class="form-control form-control-sm @error('user_notes') is-invalid @enderror" rows="2"
-                                                                    name="user_notes[]">{{ isset($requestdetail) ? $requestdetail->user_notes : null }}</textarea>
+                                                                <input type="hidden" name="requirement_id[]"
+                                                                    value="{{ $value->id }}">
+                                                                <textarea class="form-control form-control-sm @error('user_notes') is-invalid @enderror"
+                                                                    style="min-height:calc(5.53em + 0.5rem + calc(var(--bs-border-width) * 2)) !important;" name="user_notes[]">{{ isset($requestdetail) ? $requestdetail->user_notes : null }}</textarea>
                                                             @else
-                                                                {{ $requestdetail->user_notes }}
+                                                                <p style="font-size: 85%; line-height:15px;">
+                                                                    {{ $requestdetail->user_notes }}</p>
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            <i class="bx bx-check bx-sm text-success"></i>
-                                                            <i class="bx bx-x bx-sm text-danger"></i>
+                                                            @if ($requestdetail->getApprovedDateFormattedAttribute() != null)
+                                                                <div style="font-size: 75%">
+                                                                    {{ $requestdetail->getApprovedDateFormattedAttribute() }}
+                                                                </div>
+                                                            @endif
+
+                                                            @isset($requestdetail->comment)
+                                                                <p class="text-warning"
+                                                                    style="font-size: 75%; line-height:15px;">*
+                                                                    {{ $requestdetail->comment }}</p>
+                                                            @endisset
+                                                        </td>
+                                                        <td>
+                                                            @if ($requestdetail->form_status == 'Finished')
+                                                                <i class="bx bx-check bx-sm text-success"></i>
+                                                            @elseif($requestdetail->form_status == 'Revisi')
+                                                                <i class="bx bx-x bx-sm text-danger"></i>
+                                                            @elseif ($requestdetail->form_status == 'Sent')
+                                                                <i class="bx bx-loader bx-spin bx-sm text-warning"></i>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -377,8 +400,9 @@
                             var fileUrl = response.file_url;
                             var fileName = response.file_name;
                             $('#urlFile-' + fileId).html('<a href="' + fileUrl +
-                                '" target="_blank" class="text-dark">' + fileName +
-                                '</a>');
+                                '" target="_blank"><p style="line-height:15px; font-size:85%;" class="mb-0 text-dark">' +
+                                fileName +
+                                '</p></a>');
                             showNotif('success', 'File uploaded successfully');
                         },
                         error: function(xhr, status, error) {

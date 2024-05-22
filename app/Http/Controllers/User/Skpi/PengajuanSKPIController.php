@@ -60,13 +60,17 @@ class PengajuanSKPIController extends Controller
                     }
                 }
             }
-            foreach ($this->getRequiredType() as $index => $requirementType) {
-                $requestDetail = $this->getOrCreateDiplomaRetrievalRequestsDetail($user, $req, $requirementType, $data, $index);
-                if ($request->action != 'Draft') {
-                    $requestDetail->form_status = 'Sent';
-                    $requestDetail->submission_date = new DateTime();
+            if (isset($data['requirement_id'])) {
+                foreach ($data['requirement_id'] as $index => $requirement_id) {
+                    $requirementType =  DiplomaRequirementType::find($requirement_id);
+                    $requestDetail = $this->getOrCreateDiplomaRetrievalRequestsDetail($user, $req, $requirementType, $data, $index);
+                    if ($request->action != 'Draft' || $request->action != 'Finished') {
+                        $requestDetail->form_status = 'Sent';
+                        $requestDetail->submission_date = new DateTime();
+                        $requestDetail->approved_date = null;
+                    }
+                    $requestDetail->save();
                 }
-                $requestDetail->save();
             }
 
             // $data = null;

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -44,6 +45,11 @@ class DiplomaRetrievalRequestsDetail extends Model
     public function baseNameUrl()
     {
         return isset($this->url_file) ? basename($this->url_file) : null;
+    }
+
+    public function getApprovedDateFormattedAttribute()
+    {
+        return isset($this->approved_date) ? Carbon::parse($this->approved_date)->format('Y-m-d') : null;
     }
 
     public function getLabelStatus()
