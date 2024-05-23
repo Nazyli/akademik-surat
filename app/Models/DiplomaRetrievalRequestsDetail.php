@@ -22,8 +22,8 @@ class DiplomaRetrievalRequestsDetail extends Model
         'url_file',
         'form_status',
         'submission_date',
-        'approved_date',
-        'approved_by',
+        'processed_by',
+        'processed_date',
         'comment',
         'created_by',
         'updated_by',
@@ -49,7 +49,7 @@ class DiplomaRetrievalRequestsDetail extends Model
 
     public function getApprovedDateFormattedAttribute()
     {
-        return isset($this->approved_date) ? Carbon::parse($this->approved_date)->format('Y-m-d') : null;
+        return isset($this->processed_date) ? Carbon::parse($this->processed_date)->format('Y-m-d') : null;
     }
 
     public function getLabelStatus()
@@ -57,8 +57,8 @@ class DiplomaRetrievalRequestsDetail extends Model
         switch ($this->form_status) {
             case 'Sent':
                 return 'info';
-            case 'Cancel':
-                return 'secondary';
+            case 'Not Processed':
+                return 'dark';
             case 'Draft':
                 return 'dark';
             case 'Reviewed':

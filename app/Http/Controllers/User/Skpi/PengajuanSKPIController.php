@@ -67,7 +67,7 @@ class PengajuanSKPIController extends Controller
                     if ($request->action != 'Draft' || $request->action != 'Finished') {
                         $requestDetail->form_status = 'Sent';
                         $requestDetail->submission_date = new DateTime();
-                        $requestDetail->approved_date = null;
+                        $requestDetail->processed_date = null;
                     }
                     $requestDetail->save();
                 }
@@ -80,7 +80,7 @@ class PengajuanSKPIController extends Controller
                 $req->submission_date = new DateTime();
                 $req->form_status = 'Sent';
             }
-
+            $req->updated_by = auth()->user()->id;
             $req->save($data);
 
             return redirect()->route('skpi.pengajuan.index')->with('success', 'SKPI created successfully.');

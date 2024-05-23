@@ -42,7 +42,7 @@ class PengajuanAdminController extends Controller
                 ->orderBy('form_submissions.created_at', 'DESC')
                 ->select(
                     'form_submissions.id as id',
-                    'form_status',
+                    DB::raw('CASE WHEN form_status = "Sent" THEN "Not Processed" ELSE form_status END as form_status'),
                     DB::raw("CONCAT(first_name, ' ', last_name) as full_name"),
                     'submission_date',
                     'departments.department_name as department_name',
@@ -63,7 +63,7 @@ class PengajuanAdminController extends Controller
             return FacadesDataTables::of($data)->addIndexColumn()
                 ->addColumn('status', function ($row) {
                     $badge = '<span class="badge bg-label-' . $row->getLabelStatusAdmin() . '">'
-                        . $row->getFormStatusAdmin() . '</span>
+                        . $row->form_status . '</span>
                         </br><span>' . $row->getUpdatedByUserFirstName() . '</span>';
                     return $badge;
                 })

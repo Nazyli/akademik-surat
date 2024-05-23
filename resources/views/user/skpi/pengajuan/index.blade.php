@@ -6,17 +6,38 @@
     ) {
         $notOpen = true;
     }
+    $labelStatus = 'dark';
+    $formStatus = null;
+    $processedDate = null;
+    $comment = null;
+    if (isset($diplomaRetrievalRequest)) {
+        $labelStatus = $diplomaRetrievalRequest->getLabelStatus();
+        $formStatus = $diplomaRetrievalRequest->form_status;
+        $processedDate = $diplomaRetrievalRequest->processed_date;
+        $comment = $diplomaRetrievalRequest->comment;
+    }
 @endphp
 @extends('layouts.app')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4"><span class="text-muted fw-light"></span> {{ __('Applications') }}</h4>
+        <h4 class="py-3 mb-4"><span class="text-muted fw-light"></span>
+            {{ __('FMIPA UI Graduate') }}</h4>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">{{ __('Requirements Form for Retrieval of Diplomas and Transcripts') }}</h5>
+                    <div class="card-header d-flex justify-content-between align-items-center border-top border-3 border-{{ $labelStatus }}"
+                        style="border-bottom: none">
+                        <h5 class="mb-0 badge bg-label-{{ $labelStatus }}">
+                            {{ __('Requirements Form for Retrieval of Diplomas and Transcripts') }}
+                        </h5>
+                        @if ($formStatus)
+                            <span class="float-end badge bg-label-{{ $labelStatus }}">
+                                {{ $formStatus }}
+                            </span>
+                        @endif
+                    </div>
                     <!-- Account -->
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -220,7 +241,6 @@
                                 </div>
                             </div>
                         </div>
-                        <hr class="my-0" />
                         <div class="card-body">
                             <div class="row">
                                 <div class="mb-3 col-md-12">
@@ -230,9 +250,9 @@
                                                 <tr>
                                                     <th style="width: 25px;">No</th>
                                                     <th>Requirement</th>
-                                                    <th style="width: 300px;">File Upload</th>
+                                                    <th style="width: 220px;">File Upload</th>
                                                     <th style="width: 200px;">Catatan</th>
-                                                    <th style="width: 120px;">Tgl. Validasi</th>
+                                                    <th style="width: 200px;">Tgl. Validasi</th>
                                                     <th style="width: 10px;">#</th>
                                                 </tr>
                                             </thead>
@@ -309,7 +329,7 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            @if ($requestdetail->getApprovedDateFormattedAttribute() != null)
+                                                            @if ($requestdetail != null && $requestdetail->getApprovedDateFormattedAttribute() != null)
                                                                 <div style="font-size: 75%">
                                                                     {{ $requestdetail->getApprovedDateFormattedAttribute() }}
                                                                 </div>
@@ -317,16 +337,17 @@
 
                                                             @isset($requestdetail->comment)
                                                                 <p class="text-warning"
-                                                                    style="font-size: 75%; line-height:15px;">*
+                                                                    style="font-size: 75%; line-height:15px;">
+                                                                    *
                                                                     {{ $requestdetail->comment }}</p>
                                                             @endisset
                                                         </td>
                                                         <td>
-                                                            @if ($requestdetail->form_status == 'Finished')
+                                                            @if ($requestdetail != null && $requestdetail->form_status == 'Finished')
                                                                 <i class="bx bx-check bx-sm text-success"></i>
-                                                            @elseif($requestdetail->form_status == 'Revisi')
+                                                            @elseif($requestdetail != null && $requestdetail->form_status == 'Revisi')
                                                                 <i class="bx bx-x bx-sm text-danger"></i>
-                                                            @elseif ($requestdetail->form_status == 'Sent')
+                                                            @elseif ($requestdetail != null && $requestdetail->form_status == 'Sent')
                                                                 <i class="bx bx-loader bx-spin bx-sm text-warning"></i>
                                                             @endif
                                                         </td>
@@ -358,6 +379,31 @@
                                 </div>
                             @endif
                         </div>
+                        <hr class="my-0" />
+                        @if ($processedDate != null)
+                            <div class="card border-bottom border-3 border-{{ $labelStatus }}"
+                                style="border-top:none; border-right:none; border-left:none;">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">{{ __('Comment') }}</h5>
+                                    <div class="card-subtitle text-muted mb-3">{{ __('Date of Process') }} :
+                                        {{ $processedDate }}
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3 col-12 mb-0">
+                                        <div class="alert alert-warning">
+                                            <p class="mb-0">
+                                                {{ $comment ? $comment : '-' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class=" text-secondary">
+                                        <span class="text-warning">*</span>
+                                        {{ __('Apabila ada pertanyaan, bisa menghubungi bagian Administrasi') }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>

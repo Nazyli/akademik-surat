@@ -162,6 +162,13 @@
                             </a>
                         </li>
 
+                        <li class="menu-item {{ is_current_route('skpi.pengajuanadmin.index') }}">
+                            <a href="{{ route('skpi.pengajuanadmin.index') }}" class="menu-link">
+                                <i class="menu-icon bx bx-menu"></i>
+                                <div data-i18n="file/menu-lain">{{ __('Pengajuan SKPI') }}</div>
+                            </a>
+                        </li>
+
                         <!-- Misc -->
                         <li class="menu-header small text-uppercase">
                             <span class="menu-header-text">{{ __('Administrator') }}</span>

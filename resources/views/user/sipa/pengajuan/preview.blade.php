@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-cente border-top border-3 border-{{ $formSubmission->getLabelStatus() }}"
+                    <div class="card-header d-flex justify-content-between align-items-center border-top border-3 border-{{ $formSubmission->getLabelStatus() }}"
                         style="border-bottom: none">
                         <h5 class="mb-0 badge bg-label-{{ $formSubmission->getLabelStatus() }}">{{ __('Preview Form') }}
                         </h5>
@@ -146,24 +146,4 @@
 @endsection
 
 @section('js')
-    <script>
-        document.getElementById('departmentName').addEventListener('change', function() {
-            var departmentId = this.value;
-            var programStudiSelect = document.querySelector('.program-studi-select');
-            programStudiSelect.innerHTML = '<option></option>';
-
-            if (departmentId) {
-                fetch('getProgramStudi/' + departmentId)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(program => {
-                            var option = document.createElement('option');
-                            option.value = program.id;
-                            option.text = program.study_program_name;
-                            programStudiSelect.appendChild(option);
-                        });
-                    });
-            }
-        });
-    </script>
 @endsection

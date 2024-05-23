@@ -105,7 +105,7 @@ class FormSubmission extends Model
     public function getLabelStatusAdmin()
     {
         switch ($this->form_status) {
-            case 'Sent':
+            case 'Not Processed':
                 return 'dark';
             case 'Cancel':
                 return 'secondary';

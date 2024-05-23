@@ -19,7 +19,7 @@ class DiplomaRetrievalRequest extends Model
         'processed_date',
         'user_note',
         'comment',
-        'approved_by',
+        'processed_by',
         'created_by',
         'updated_by',
     ];
@@ -31,5 +31,68 @@ class DiplomaRetrievalRequest extends Model
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });
+    }
+
+    public function getLabelStatus()
+    {
+        switch ($this->form_status) {
+            case 'Sent':
+                return 'info';
+            case 'Not Processed':
+                return 'dark';
+            case 'Draft':
+                return 'dark';
+            case 'Reviewed':
+                return 'warning';
+            case 'Revisi':
+                return 'danger';
+            case 'Reject':
+                return 'danger';
+            case 'Finished':
+                return 'success';
+            default:
+                return '';
+        }
+    }
+
+    public function getLabelStatusAdmin()
+    {
+        switch ($this->form_status) {
+            case 'Sent':
+                return 'primary';
+            case 'Not Processed':
+                return 'dark';
+            case 'Draft':
+                return 'dark';
+            case 'Reviewed':
+                return 'warning';
+            case 'Revisi':
+                return 'info';
+            case 'Reject':
+                return 'danger';
+            case 'Finished':
+                return 'success';
+            default:
+                return '';
+        }
+    }
+
+    public function getUpdatedByUserFirstName()
+    {
+        $user = User::find($this->updated_by);
+        if ($user) {
+            $first_name_parts = explode(' ', $user->first_name);
+            return $first_name_parts[0];
+        }
+        return '';
+    }
+
+    public function getFormStatusAdmin()
+    {
+        if ($this->form_status == 'Sent') {
+            return "Not Processed";
+        } else {
+            return $this->form_status;
+        }
     }
 }
