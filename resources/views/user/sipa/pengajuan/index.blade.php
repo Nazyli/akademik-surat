@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                             <img src="{{ $user->imgUrl() }}" alt="user-avatar" class="d-block rounded" height="100"
-                                width="100" id="uploadedAvatar" />
+                                width="100" />
                             <div class="button-wrapper">
                                 <p class="text-primary mb-0"><strong>{{ $user->first_name }} {{ $user->last_name }}</strong>
                                 </p>

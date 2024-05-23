@@ -158,9 +158,4 @@
 @include('partials/dropdown_department_programstudi')
 
 @section('js')
-    <script>
-        function submitForm() {
-            document.getElementById('updateImgForm').submit();
-        }
-    </script>
 @endsection

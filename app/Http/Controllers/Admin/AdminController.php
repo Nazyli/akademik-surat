@@ -12,6 +12,10 @@ use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class AdminController extends Controller
 {
+    public function adminGate()
+    {
+        return view('layouts.gate');
+    }
     public function adminHome()
     {
         $departments = Department::where('status', 'Active')->orderBy('department_name')->get();

@@ -414,10 +414,6 @@
 
 @section('js')
     <script>
-        function submitForm(id) {
-            document.getElementById(`uploadForm-7fe4a061-e036-446c-8f11-167b6d6b0991`).submit();
-        }
-
         $(document).ready(function() {
             $('input[type="file"]').on('change', function(e) {
                 var fileInput = $(this);

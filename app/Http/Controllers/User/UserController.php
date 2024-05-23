@@ -12,6 +12,10 @@ use stdClass;
 
 class UserController extends Controller
 {
+    public function userGate()
+    {
+        return view('layouts.gate');
+    }
     public function userHome()
     {
         $dataHome = new stdClass();

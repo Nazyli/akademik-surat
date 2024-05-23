@@ -71,6 +71,8 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('open/getProgramStudi/{departmentId}', [PengajuanController::class, 'getProgramStudi'])->name('openGetProgramStudi');
 
 Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 'is_admin']], function () {
+    Route::get('gate', [AdminController::class, 'adminGate'])->name('admin.home');
+
     Route::get('home', [AdminController::class, 'adminHome'])->name('admin.sipa.home');
     Route::resource('master/department', DepartmentController::class);
     Route::resource('master/program-studi', ProgramStudiController::class);
@@ -102,6 +104,8 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
+    Route::get('gate', [UserController::class, 'userGate'])->name('user.home');
+
     Route::get('home', [UserController::class, 'userHome'])->name('user.sipa.home');
 
     Route::get('pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');

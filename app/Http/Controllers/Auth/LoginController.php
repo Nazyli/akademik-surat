@@ -44,9 +44,9 @@ class LoginController extends Controller
         $user = auth()->user();
         if ($user != null) {
             if ($user->role_id == 1) {
-                return redirect()->route('admin.sipa.home')->with('success', 'Selamat Datang Administrator');
+                return redirect()->route('admin.home')->with('success', 'Selamat Datang Administrator');
             } else if ($user->role_id == 2) {
-                return redirect()->route('user.sipa.home')->with('success', 'Selamat Datang ' . $user->first_name . ' ' . $user->last_name);
+                return redirect()->route('user.home')->with('success', 'Selamat Datang ' . $user->first_name . ' ' . $user->last_name);
             } else {
                 return redirect()->route('welcome');
             }
@@ -73,9 +73,9 @@ class LoginController extends Controller
             }
 
             if ($user->role_id == 1) {
-                return redirect()->route('admin.sipa.home')->with('success', 'Selamat Datang Administrator');
+                return redirect()->route('admin.home')->with('success', 'Selamat Datang Administrator');
             } else if ($user->role_id == 2) {
-                return redirect()->route('user.sipa.home')->with('success', 'Selamat Datang ' . $user->first_name . ' ' . $user->last_name);
+                return redirect()->route('user.home')->with('success', 'Selamat Datang ' . $user->first_name . ' ' . $user->last_name);
             } else {
                 return redirect()->route('welcome');
             }

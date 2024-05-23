@@ -1,5 +1,8 @@
 @section('js')
     <script>
+        function submitForm() {
+            document.getElementById('updateImgForm').submit();
+        }
         document.addEventListener('DOMContentLoaded', function() {
             var departmentSelect = document.getElementById('departmentName');
             var programStudiSelect = document.querySelector('.program-studi-select');
