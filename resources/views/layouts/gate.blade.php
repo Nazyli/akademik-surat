@@ -1,6 +1,6 @@
 @extends('layouts.app_without_menu')
 @section('content')
-    <div class="card mb-4 mt-2">
+    <div class="card">
         <!-- Account -->
         <div class="card-body">
             <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -21,7 +21,7 @@
             </div>
             <hr class="my-0 mt-4 text-secondary" />
             <h5 class="py-3 mb-1"><span class="badge bg-secondary">
-                    Daftar Modul</span>
+                    {{ __('Module List') }}</span>
             </h5>
             <div class="row mt-3 mb-3">
                 <div class="col-md card-gate">

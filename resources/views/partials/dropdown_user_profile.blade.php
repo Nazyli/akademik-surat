@@ -24,6 +24,16 @@
             <div class="dropdown-divider"></div>
         </li>
         <li>
+            <a class="dropdown-item"
+                href="{{ auth()->user()->role_id == 1 ? route('admin.home') : route('user.home') }}">
+                <span class="d-flex align-items-center align-middle">
+                    <i class="flex-shrink-0 bx bx-layer me-2"></i>
+                    <span class="flex-grow-1 align-middle ms-1">{{ __('Module List') }}</span>
+                </span>
+            </a>
+        </li>
+
+        <li>
             <a class="dropdown-item" href="{{ route('pengaturan-akun.index') }}">
                 <i class="bx bx-user me-2"></i>
                 <span class="align-middle">{{ __('My Profile') }}</span>

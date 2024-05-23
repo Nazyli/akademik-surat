@@ -70,7 +70,7 @@
                             <div class="container-xxl flex-grow-1 container-p-y">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                                        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme mb-2"
                                             id="layout-navbar" style="width:100%;">
                                             <div class="navbar-nav-right d-flex align-items-center"
                                                 id="navbar-collapse">
@@ -116,7 +116,7 @@
                                 </div>
 
                                 <!-- Footer -->
-                                <footer class="content-footer footer bg-footer-theme">
+                                <footer class="content-footer footer bg-footer-theme mt-3">
                                     <div
                                         class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                                         <div class="mb-2 mb-md-0">
