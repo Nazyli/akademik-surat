@@ -71,20 +71,6 @@
                 </a>
             </li>
 
-            <li class="menu-item {{ is_current_route('diploma-requirement-type.index') }}">
-                <a href="{{ route('diploma-requirement-type.index') }}" class="menu-link">
-                    <i class="menu-icon bx bx-menu"></i>
-                    <div data-i18n="file/menu-lain">{{ __('Requirement Type') }}</div>
-                </a>
-            </li>
-
-            <li class="menu-item {{ is_current_route('skpi.pengajuanadmin.index') }}">
-                <a href="{{ route('skpi.pengajuanadmin.index') }}" class="menu-link">
-                    <i class="menu-icon bx bx-menu"></i>
-                    <div data-i18n="file/menu-lain">{{ __('Pengajuan SKPI') }}</div>
-                </a>
-            </li>
-
             <!-- Misc -->
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">{{ __('Administrator') }}</span>
@@ -125,12 +111,6 @@
                 </a>
             </li>
 
-            <li class="menu-item {{ is_current_route('skpi.pengajuan.index') }}">
-                <a href="{{ route('skpi.pengajuan.index') }}" class="menu-link">
-                    <i class="menu-icon bx bx-file"></i>
-                    <div data-i18n="pengajuan">{{ __('Applications SKPI') }}</div>
-                </a>
-            </li>
 
             <li class="menu-item {{ is_current_route('pengajuan.riwayat') }}">
                 <a href="{{ route('pengajuan.riwayat') }}" class="menu-link">
@@ -150,7 +130,7 @@
                     <ul class="menu-sub">
                         @foreach ($otherMenus as $menu)
                             <li class="menu-item">
-                                <a href="{{ $menu->route }}" target="_blank" class="menu-link">
+                                <a href="{{ $menu->url }}" target="_blank" class="menu-link">
                                     <div>{{ $menu->menu_name }}</div>
                                 </a>
                             </li>

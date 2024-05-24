@@ -105,17 +105,11 @@
                 </a>
             </li>
 
-            <li class="menu-item menu-item-warning {{ is_current_route('pengajuan.riwayat') }}">
-                <a href="{{ route('pengajuan.riwayat') }}" class="menu-link">
-                    <i class="menu-icon bx bx-history"></i>
-                    <div data-i18n="riwayat">{{ __('Application History') }}</div>
-                </a>
-            </li>
             @php
                 $otherMenus = App\Models\OtherMenu::where('status', 'Active')->orderBy('sort_order')->get();
             @endphp
             @if (count($otherMenus) > 0)
-                <li class="menu-item menu-item-warning">
+                <li class="menu-item menu-item-warning open">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon bx bx-info-circle"></i>
                         <div data-i18n="Misc">{{ __('Other Menu') }}</div>
@@ -123,7 +117,7 @@
                     <ul class="menu-sub">
                         @foreach ($otherMenus as $menu)
                             <li class="menu-item menu-item-warning">
-                                <a href="{{ $menu->route }}" target="_blank" class="menu-link">
+                                <a href="{{ $menu->url }}" target="_blank" class="menu-link">
                                     <div>{{ $menu->menu_name }}</div>
                                 </a>
                             </li>
