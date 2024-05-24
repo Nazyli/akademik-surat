@@ -10,12 +10,14 @@ use App\Http\Controllers\Admin\MasterUsersController;
 use App\Http\Controllers\Admin\OtherMenuController;
 use App\Http\Controllers\Admin\PengajuanAdminController;
 use App\Http\Controllers\Admin\ProgramStudiController;
+use App\Http\Controllers\Admin\Skpi\AdminSkpiController;
 use App\Http\Controllers\Admin\Skpi\DiplomaRequirementTypeController;
 use App\Http\Controllers\Admin\Skpi\DiplomaRetrievalRequestController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AkunController;
 use App\Http\Controllers\User\PengajuanController;
 use App\Http\Controllers\User\Skpi\PengajuanSKPIController;
+use App\Http\Controllers\User\Skpi\UserSkpiController;
 use App\Http\Controllers\User\UserController;
 use App\Models\DiplomaRequirementType;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +98,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::put('backup', [BackupController::class, 'downloadDB'])->name('backup.downloadDB');
 
     // SKPI
+    Route::get('skpi/home', [AdminSkpiController::class, 'adminHome'])->name('admin.skpi.home');
     Route::get('skpi/pengajuan-surat', [DiplomaRetrievalRequestController::class, 'index'])->name('skpi.pengajuanadmin.index');
     Route::get('skpi/pengajuan-surat/{id}', [DiplomaRetrievalRequestController::class, 'edit'])->name('skpi.pengajuanadmin.preview');
     Route::put('skp/pengajuan-surat/{id}', [DiplomaRetrievalRequestController::class, 'update'])->name('skpi.pengajuanadmin.update');
@@ -120,7 +123,9 @@ Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', '
     Route::get('riwayat/cancel/{id}', [PengajuanController::class, 'cancel'])->name('pengajuan.cancel');
 
     Route::get('template-surat/{id}', [PengajuanController::class, 'templateSurat'])->name('templateSurat');
+
     // SKPI
+    Route::get('skpi/home', [UserSkpiController::class, 'userHome'])->name('user.skpi.home');
     Route::get('skpi/pengajuan', [PengajuanSKPIController::class, 'index'])->name('skpi.pengajuan.index');
     Route::post('skpi/pengajuan', [PengajuanSKPIController::class, 'store'])->name('skpi.pengajuan.store');
     Route::put('skpi-upload-file/{id}', [PengajuanSKPIController::class, 'uploadFile'])->name('skpi.uploadFile');

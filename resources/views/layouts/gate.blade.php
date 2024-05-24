@@ -50,7 +50,7 @@
                     </a>
                 </div>
                 <div class="col-md card-gate">
-                    <a href="{{ auth()->user()->role_id == 1 ? route('admin.sipa.home') : route('user.sipa.home') }}">
+                    <a href="{{ auth()->user()->role_id == 1 ? route('admin.skpi.home') : route('user.skpi.home') }}">
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-sm-10">
