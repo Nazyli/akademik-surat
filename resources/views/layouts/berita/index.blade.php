@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @php
-    $appType = $request['app-type'];
+    $appType = request()->query('app-type');
     $queryParam = '?app-type=' . $appType;
 @endphp
 @if ($appType == 'SKPI')

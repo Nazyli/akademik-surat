@@ -22,7 +22,7 @@ class ProgramStudiController extends Controller
         $departments = Department::where('status', 'Active')
             ->orderBy('department_name')
             ->get();
-        return view('admin.sipa.programstudi.index')->with(compact('studyPrograms'))->with(compact('departments'));
+        return view('layouts.programstudi.index')->with(compact('studyPrograms'))->with(compact('departments'));
     }
 
     /**
@@ -44,6 +44,7 @@ class ProgramStudiController extends Controller
     public function store(Request $request)
     {
         //
+        $appType = $request['app-type'];
         $request->validate([
             'study_program_code' => [
                 'required',
@@ -58,7 +59,7 @@ class ProgramStudiController extends Controller
         $data['created_by'] = auth()->user()->id;
         StudyProgram::create($data);
 
-        return redirect()->route('program-studi.index')->with('success', 'Program Studi created successfully.');
+        return redirect()->route('program-studi.index', ['app-type' => $appType])->with('success', 'Program Studi created successfully.');
     }
 
     /**
@@ -84,7 +85,7 @@ class ProgramStudiController extends Controller
         $studyProgram = StudyProgram::find($id);
         $studyPrograms = StudyProgram::orderBy('status')->orderBy('study_program_name')->get();
         $departments = Department::where('status', 'Active')->orderBy('department_name')->get();
-        return view('admin.sipa.programstudi.index')
+        return view('layouts.programstudi.index')
             ->with(compact('studyProgram'))
             ->with(compact('studyPrograms'))
             ->with(compact('departments'));
@@ -100,6 +101,7 @@ class ProgramStudiController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $appType = $request['app-type'];
         $request->validate([
             'study_program_code' => [
                 'required',
@@ -114,7 +116,7 @@ class ProgramStudiController extends Controller
         $data['updated_by'] = auth()->user()->id;
         StudyProgram::find($id)->update($data);
 
-        return redirect()->route('program-studi.index')->with('success', 'Program studi updated successfully.');
+        return redirect()->route('program-studi.index', ['app-type' => $appType])->with('success', 'Program studi updated successfully.');
     }
 
     /**
@@ -123,13 +125,14 @@ class ProgramStudiController extends Controller
      * @param  \App\Models\StudyProgram  $StudyProgram
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $appType = $request['app-type'];
         StudyProgram::find($id)->update([
             'status' => 'InActive',
             'updated_by' => auth()->user()->id,
         ]);
-        return redirect()->route('program-studi.index')->with('success', 'Program Studi InActive successfully.');
+        return redirect()->route('program-studi.index', ['app-type' => $appType])->with('success', 'Program Studi InActive successfully.');
     }
 }
