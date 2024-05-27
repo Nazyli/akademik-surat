@@ -104,12 +104,21 @@ class User extends Authenticatable
     }
     public function department()
     {
-        return Department::find($this->department_id);
+        $departement = Department::find($this->department_id);
+        if ($departement == null) {
+            return new Department();
+        }
+
+        return $departement;
     }
 
     public function studyProgram()
     {
-        return StudyProgram::find($this->study_program_id);
+        $studyProgram = StudyProgram::find($this->study_program_id);
+        if ($studyProgram == null) {
+            return new StudyProgram;
+        }
+        return;
     }
 
     public function getDegree()

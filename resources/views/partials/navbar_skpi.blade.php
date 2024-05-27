@@ -51,8 +51,8 @@
                     <div data-i18n="file/menu-lain">{{ __('Requirement Type') }}</div>
                 </a>
             </li>
-            <li class="menu-item menu-item-warning {{ is_current_route('berita-dashboard.index') }}">
-                <a href="{{ route('berita-dashboard.index') }}" class="menu-link">
+            <li class="menu-item menu-item-warning {{ is_current_route('skpi.berita-dashboard.index') }}">
+                <a href="{{ route('skpi.berita-dashboard.index') }}" class="menu-link">
                     <i class="menu-icon bx bx-news"></i>
                     <div data-i18n="file/berita-dashboard">{{ __('Dashboard News') }}</div>
                 </a>

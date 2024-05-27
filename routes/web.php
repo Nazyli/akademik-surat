@@ -98,12 +98,15 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::put('backup', [BackupController::class, 'downloadDB'])->name('backup.downloadDB');
 
     // SKPI
-    Route::get('skpi/home', [AdminSkpiController::class, 'adminHome'])->name('admin.skpi.home');
-    Route::get('skpi/pengajuan-surat', [DiplomaRetrievalRequestController::class, 'index'])->name('skpi.pengajuanadmin.index');
-    Route::get('skpi/pengajuan-surat/{id}', [DiplomaRetrievalRequestController::class, 'edit'])->name('skpi.pengajuanadmin.preview');
-    Route::put('skp/pengajuan-surat/{id}', [DiplomaRetrievalRequestController::class, 'update'])->name('skpi.pengajuanadmin.update');
-    Route::get('skpi/getList', [DiplomaRetrievalRequestController::class, 'getByDepartmentId'])->name('skpi.getPengajuanByDepartmentId');
-    Route::resource('skpi/diploma-requirement-type', DiplomaRequirementTypeController::class);
+    Route::prefix('skpi')->group(function () {
+        Route::get('home', [AdminSkpiController::class, 'adminHome'])->name('admin.skpi.home');
+        Route::get('pengajuan-surat', [DiplomaRetrievalRequestController::class, 'index'])->name('skpi.pengajuanadmin.index');
+        Route::get('pengajuan-surat/{id}', [DiplomaRetrievalRequestController::class, 'edit'])->name('skpi.pengajuanadmin.preview');
+        Route::put('pengajuan-surat/{id}', [DiplomaRetrievalRequestController::class, 'update'])->name('skpi.pengajuanadmin.update');
+        Route::get('getList', [DiplomaRetrievalRequestController::class, 'getByDepartmentId'])->name('skpi.getPengajuanByDepartmentId');
+        Route::resource('diploma-requirement-type', DiplomaRequirementTypeController::class);
+        Route::resource('master/berita-dashboard', DashboardNewsController::class)->names('skpi.berita-dashboard');
+    });
 });
 
 Route::group(['namespace' => '', 'prefix' => 'user',  'middleware' => ['auth', 'is_user']], function () {
