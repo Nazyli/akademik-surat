@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@php
+    $appType = request()->query('app-type');
+    $queryParam = '?app-type=' . $appType;
+@endphp
+@if ($appType == 'SKPI')
+    @section('menu')
+        @include('partials.navbar_skpi')
+    @endsection
+@endif
+
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
@@ -15,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ isset($department) ? route('department.update', $department->id) : route('department.store') }}"
+                            action="{{ (isset($department) ? route('department.update', $department->id) : route('department.store')) . $queryParam }}"
                             method="POST">
                             @csrf
                             @method(isset($department) ? 'PUT' : 'POST')
@@ -47,7 +57,7 @@
                             </div>
                             <button class="btn btn-primary btn-block"><b>{{ __('Save') }}</b></button>
                             @isset($department)
-                                <a href="{{ route('department.index') }}"
+                                <a href="{{ route('department.index') . $queryParam }}"
                                     class="btn btn-secondary btn-block"><b>{{ __('Cancel') }}</b></a>
                             @endisset
                         </form>
@@ -87,11 +97,12 @@
                                             <td class="text-center">
                                                 <div class="btn-group">
 
-                                                    <form action="{{ route('department.destroy', $value->id) }}"
+                                                    <form
+                                                        action="{{ route('department.destroy', $value->id) . $queryParam }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="{{ route('department.edit', $value->id) }}"
+                                                        <a href="{{ route('department.edit', $value->id) . $queryParam }}"
                                                             class="btn btn-icon btn-outline-primary btn-sm">
                                                             <span class="tf-icons bx bx-edit-alt"></span>
                                                         </a>

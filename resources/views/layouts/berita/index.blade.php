@@ -3,7 +3,7 @@
     $appType = $request['app-type'];
     $queryParam = '?app-type=' . $appType;
 @endphp
-@if ($request['app-type'] == 'SKPI')
+@if ($appType == 'SKPI')
     @section('menu')
         @include('partials.navbar_skpi')
     @endsection

@@ -20,7 +20,7 @@ class DepartmentController extends Controller
     {
         //
         $departments = Department::orderBy('status')->orderBy('department_name')->get();
-        return view('admin.sipa.department.index', compact('departments'));
+        return view('layouts.department.index', compact('departments'));
     }
 
     /**
@@ -42,6 +42,7 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         //
+        $appType = $request['app-type'];
         $request->validate([
             'department_code' => [
                 'required',
@@ -55,7 +56,7 @@ class DepartmentController extends Controller
         $data['created_by'] = auth()->user()->id;
         Department::create($data);
 
-        return redirect()->route('department.index')->with('success', 'Department created successfully.');
+        return redirect()->route('department.index',  ['app-type' => $appType])->with('success', 'Department created successfully.');
     }
 
     /**
@@ -79,7 +80,7 @@ class DepartmentController extends Controller
     {
         //
         $departments = Department::orderBy('status')->orderBy('department_name')->get();
-        return view('admin.sipa.department.index')->with(compact('department'))->with(compact('departments'));
+        return view('layouts.department.index')->with(compact('department'))->with(compact('departments'));
     }
 
     /**
@@ -92,6 +93,7 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $appType = $request['app-type'];
         $request->validate([
             'department_code' => [
                 'required',
@@ -105,7 +107,7 @@ class DepartmentController extends Controller
         $data['updated_by'] = auth()->user()->id;
         Department::find($id)->update($data);
 
-        return redirect()->route('department.index')->with('success', 'Department updated successfully.');
+        return redirect()->route('department.index',  ['app-type' => $appType])->with('success', 'Department updated successfully.');
     }
 
     /**
@@ -114,13 +116,14 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $appType = $request['app-type'];
         Department::find($id)->update([
             'status' => 'InActive',
             'updated_by' => auth()->user()->id,
         ]);
-        return redirect()->route('department.index')->with('success', 'Department InActive successfully.');
+        return redirect()->route('department.index', ['app-type' => $appType])->with('success', 'Department InActive successfully.');
     }
 }
