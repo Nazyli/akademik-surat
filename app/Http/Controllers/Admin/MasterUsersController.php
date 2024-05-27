@@ -19,12 +19,14 @@ class MasterUsersController extends Controller
     public function index()
     {
         $departments = Department::where('status', 'Active')->orderBy('department_name')->get();
-        return view('admin.sipa.users.index')
+        return view('layouts.users.index')
             ->with(compact('departments'));
     }
 
-    public function getByDepartmentId(Request $request, $departmentId)
+    public function getByDepartmentId(Request $request)
     {
+        $departmentId = $request->input('departmentId');
+        $appType = $request['app-type'];
         if ($request->ajax()) {
             $data = DB::table('users as u')
                 ->leftJoin('role_memberships as rm', 'rm.id', '=', 'u.role_id')
@@ -50,7 +52,6 @@ class MasterUsersController extends Controller
             }
 
             $data = $data->get();
-
             return FacadesDataTables::of($data)->addIndexColumn()
                 ->addColumn('role_name', function ($row) {
                     return $row->role_name;
@@ -75,13 +76,13 @@ class MasterUsersController extends Controller
                     <li>' . $row->full_name . '</li>
                   </ul>';
                 })
-                ->addColumn('action', function ($row) {
+                ->addColumn('action', function ($row) use ($appType) {
                     if ($row->id == auth()->user()->id) {
                         return null;
                     }
                     if (auth()->user()->role_id == 1 && auth()->user()->id == 'administrator') {
-                        $url = route('masteruser.changeRole', ['id' => $row->id, 'roleId' => ($row->role_id == 1 ? 2 : 1)]);
-                        $urlDelete = route('masteruser.destroy', $row->id);
+                        $url = route('masteruser.changeRole', ['id' => $row->id, 'roleId' => ($row->role_id == 1 ? 2 : 1)]) . '?app-type=' . $appType;
+                        $urlDelete = route('masteruser.destroy', $row->id) . '?app-type=' . $appType;
                         $changeRole = $row->role_id == 1 ? 'User' : 'Admin';
 
                         $dropdown = '<div class="dropdown">
@@ -127,23 +128,26 @@ class MasterUsersController extends Controller
                 ->make(true);
         }
 
-        return view('admin.sipa.users.index');
+        return view('layouts.users.index');
     }
 
 
     public function changeRole(Request $request, $id, $role_id)
     {
+        $appType = $request['app-type'];
         RoleMembership::find($role_id);
         $user = User::find($id);
         $user->update([
             'role_id' => $role_id,
             'updated_by' => auth()->user()->id,
         ]);
-        return redirect()->route('masteruser.index')->with('success', 'Change role successfully.');
+        return redirect()->route('masteruser.index', ['app-type' => $appType])->with('success', 'Change role successfully.');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        $appType = $request['app-type'];
+
         try {
             $periodes = DB::table('form_submissions as fs')
                 ->select(DB::raw("DATE_FORMAT(fs.created_at, '%Y-%m') AS periode"))
@@ -169,9 +173,9 @@ class MasterUsersController extends Controller
             }
             $user->delete();
 
-            return redirect()->route('masteruser.index')->with('success', 'Delete all data ' . $user->first_name . ' successfully.');
+            return redirect()->route('masteruser.index', ['app-type' => $appType])->with('success', 'Delete all data ' . $user->first_name . ' successfully.');
         } catch (Exception $e) {
-            return redirect()->route('masteruser.index')->with('error', $e->getMessage());
+            return redirect()->route('masteruser.index', ['app-type' => $appType])->with('error', $e->getMessage());
         }
     }
 }

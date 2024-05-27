@@ -1,9 +1,18 @@
 @extends('layouts.app')
-
+@php
+    $appType = request()->query('app-type');
+    $queryParam = '?app-type=' . $appType;
+@endphp
+@if ($appType == 'SKPI')
+    @section('menu')
+        @include('partials.navbar_skpi')
+    @endsection
+@endif
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ route('admin.sipa.home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            <a href="{{ route('admin.' . Str::lower($appType) . '.home') }}"><span
+                    class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
             {{ __('Master User') }}
         </h4>
 
@@ -87,13 +96,22 @@
                 table = $('.user_datatable').DataTable({
                     processing: true,
                     serverSide: true,
+                    // ajax: {
+                    //     url: "{{ route('masteruser.getByDepartementId', ':departmentId') }}"
+                    //         .replace(':departmentId', departmentId),
+                    //     data: function(d) {
+                    //         d.searchInput = $('#searchInput').val();
+                    //     }
+                    // },
                     ajax: {
-                        url: "{{ route('masteruser.getByDepartementId', ':departmentId') }}"
-                            .replace(':departmentId', departmentId),
+                        url: "{{ route('masteruser.getByDepartementId') }}",
                         data: function(d) {
+                            d.departmentId = departmentId;
+                            d['app-type'] = "{{ $appType }}";
                             d.searchInput = $('#searchInput').val();
                         }
                     },
+
                     "order": [],
                     "paging": true,
                     "lengthChange": true,
