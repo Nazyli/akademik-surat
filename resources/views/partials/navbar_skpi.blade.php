@@ -58,7 +58,7 @@
                 </a>
             </li>
             <li class="menu-item menu-item-warning {{ is_current_route('menu-lain.index') }}">
-                <a href="{{ route('menu-lain.index') }}" class="menu-link">
+                <a href="{{ route('menu-lain.index') }}?app-type=SKPI" class="menu-link">
                     <i class="menu-icon bx bx-menu"></i>
                     <div data-i18n="file/menu-lain">{{ __('Set Menu') }}</div>
                 </a>

@@ -1,9 +1,19 @@
 @extends('layouts.app')
+@php
+    $appType = request()->query('app-type');
+    $queryParam = '?app-type=' . $appType;
+@endphp
+@if ($appType == 'SKPI')
+    @section('menu')
+        @include('partials.navbar_skpi')
+    @endsection
+@endif
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ route('admin.sipa.home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            <a href="{{ route('admin.' . Str::lower($appType) . '.home') }}"><span
+                    class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
             {{ __('Set Menu') }}
         </h4>
 
@@ -15,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <form enctype="multipart/form-data"
-                            action="{{ isset($otherMenu) ? route('menu-lain.update', $otherMenu->id) : route('menu-lain.store') }}"
+                            action="{{ (isset($otherMenu) ? route('menu-lain.update', $otherMenu->id) : route('menu-lain.store')) . $queryParam }}"
                             method="POST">
                             @csrf
                             @method(isset($otherMenu) ? 'PUT' : 'POST')
@@ -56,7 +66,7 @@
                             </div>
                             <button class="btn btn-primary btn-block"><b>{{ __('Save') }}</b></button>
                             @isset($otherMenu)
-                                <a href="{{ route('menu-lain') }}"
+                                <a href="{{ route('menu-lain.index') . $queryParam }}"
                                     class="btn btn-secondary btn-block"><b>{{ __('Cancel') }}</b></a>
                             @endisset
                         </form>
@@ -100,11 +110,12 @@
                                             <td class="text-center">
                                                 <div class="btn-group">
 
-                                                    <form action="{{ route('menu-lain.destroy', $value->id) }}"
+                                                    <form
+                                                        action="{{ route('menu-lain.destroy', $value->id) . $queryParam }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="{{ route('menu-lain.edit', $value->id) }}"
+                                                        <a href="{{ route('menu-lain.edit', $value->id) . $queryParam }}"
                                                             class="btn btn-icon btn-outline-primary btn-sm">
                                                             <span class="tf-icons bx bx-edit-alt"></span>
                                                         </a>

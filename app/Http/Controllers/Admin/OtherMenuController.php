@@ -18,7 +18,7 @@ class OtherMenuController extends Controller
     {
         //
         $otherMenus = OtherMenu::orderBy('status')->orderBy('sort_order')->get();
-        return view('admin.sipa.menu.index', compact('otherMenus'));
+        return view('layouts.menu.index', compact('otherMenus'));
     }
 
     /**
@@ -41,6 +41,8 @@ class OtherMenuController extends Controller
     {
         //
         //
+        $appType = $request['app-type'];
+
         $request->validate([
             'menu_name' => 'required',
             'url' => 'required',
@@ -51,9 +53,9 @@ class OtherMenuController extends Controller
             $data['status'] = 'Active';
             $data['created_by'] = auth()->user()->id;
             OtherMenu::create($data);
-            return redirect()->route('menu-lain.index')->with('success', 'Other Menu created successfully.');
+            return redirect()->route('menu-lain.index', ['app-type' => $appType])->with('success', 'Other Menu created successfully.');
         } catch (Exception $e) {
-            return redirect()->route('menu-lain.index')->with('error', $e->errorInfo[2]);
+            return redirect()->route('menu-lain.index', ['app-type' => $appType])->with('error', $e->errorInfo[2]);
         }
     }
 
@@ -79,7 +81,7 @@ class OtherMenuController extends Controller
         //
         $otherMenu = OtherMenu::find($id);
         $otherMenus = OtherMenu::orderBy('status')->orderBy('sort_order')->get();
-        return view('admin.sipa.menu.index')
+        return view('layouts.menu.index')
             ->with(compact('otherMenu'))
             ->with(compact('otherMenus'));
     }
@@ -94,6 +96,8 @@ class OtherMenuController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $appType = $request['app-type'];
+
         $request->validate([
             'menu_name' => 'required',
             'url' => 'required',
@@ -106,9 +110,9 @@ class OtherMenuController extends Controller
             $data['updated_by'] = auth()->user()->id;
             $formTemplate->update($data);
 
-            return redirect()->route('menu-lain.index')->with('success', 'Other menu updated successfully.');
+            return redirect()->route('menu-lain.index', ['app-type' => $appType])->with('success', 'Other menu updated successfully.');
         } catch (Exception $e) {
-            return redirect()->route('menu-lain.index')->with('error', $e->errorInfo[2]);
+            return redirect()->route('menu-lain.index', ['app-type' => $appType])->with('error', $e->errorInfo[2]);
         }
     }
 
@@ -118,13 +122,15 @@ class OtherMenuController extends Controller
      * @param  \App\Models\OtherMenu  $otherMenu
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $appType = $request['app-type'];
+
         OtherMenu::find($id)->update([
             'status' => 'InActive',
             'updated_by' => auth()->user()->id,
         ]);
-        return redirect()->route('menu-lain.index')->with('success', 'Other Menu InActive successfully.');
+        return redirect()->route('menu-lain.index', ['app-type' => $appType])->with('success', 'Other Menu InActive successfully.');
     }
 }
