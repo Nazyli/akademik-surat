@@ -118,7 +118,7 @@ class User extends Authenticatable
         if ($studyProgram == null) {
             return new StudyProgram;
         }
-        return;
+        return $studyProgram;
     }
 
     public function getDegree()

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Request;
 
 if (!function_exists('is_current_route')) {
@@ -17,10 +18,13 @@ if (!function_exists('is_current_route')) {
             $fullUrlFromRoute = $parameter ? route($routeName, $parameter) : route($routeName);
 
             // Get the current full URL
-            $currentFullUrl = Request::fullUrl();
+            // $currentFullUrl = Request::fullUrl();
+            $currentFullUrl = Request::Url();
 
             // Compare the URLs and return the result
-            return $currentFullUrl === $fullUrlFromRoute ? "active" : null;
+            // return $currentFullUrl === $fullUrlFromRoute ? "active" : null;
+
+            return  Str::startsWith($currentFullUrl, $fullUrlFromRoute) ? "active" : null;
         } catch (\Exception $e) {
             // Return false if there is any error (e.g., the route name does not exist)
             return false;

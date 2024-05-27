@@ -34,13 +34,13 @@
                 <span class="menu-header-text">{{ __('Master Data') }}</span>
             </li>
             <li class="menu-item menu-item-warning {{ is_current_route('department.index') }}">
-                <a href="{{ route('department.index') }}" class="menu-link">
+                <a href="{{ route('department.index') }}?app-type=SKPI" class="menu-link">
                     <i class="menu-icon bx bx-building"></i>
                     <div data-i18n="Department">{{ __('Department') }}</div>
                 </a>
             </li>
             <li class="menu-item menu-item-warning {{ is_current_route('program-studi.index') }}">
-                <a href="{{ route('program-studi.index') }}" class="menu-link">
+                <a href="{{ route('program-studi.index') }}?app-type=SKPI" class="menu-link">
                     <i class="menu-icon bx bx-book-alt"></i>
                     <div data-i18n="program-studi">{{ __('Study Program') }}</div>
                 </a>
@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li class="menu-item menu-item-warning {{ is_current_route('skpi.berita-dashboard.index') }}">
-                <a href="{{ route('skpi.berita-dashboard.index') }}" class="menu-link">
+                <a href="{{ route('skpi.berita-dashboard.index') }}?app-type=SKPI" class="menu-link">
                     <i class="menu-icon bx bx-news"></i>
                     <div data-i18n="file/berita-dashboard">{{ __('Dashboard News') }}</div>
                 </a>
@@ -69,7 +69,7 @@
                 <span class="menu-header-text">{{ __('Administrator') }}</span>
             </li>
             <li class="menu-item menu-item-warning {{ is_current_route('masteruser.index') }}">
-                <a href="{{ route('masteruser.index') }}" class="menu-link">
+                <a href="{{ route('masteruser.index') }}?app-type=SKPI" class="menu-link">
                     <i class="menu-icon bx bx-user"></i>
                     <div data-i18n="Support">{{ __('Master User') }}</div>
                 </a>
@@ -82,12 +82,21 @@
             </li>
             @if (auth()->user()->id == 'administrator')
                 <li class="menu-item menu-item-warning {{ is_current_route('backup.index') }}">
-                    <a href="{{ route('backup.index') }}" class="menu-link">
+                    <a href="{{ route('backup.index') }}?app-type=SKPI" class="menu-link">
                         <i class="menu-icon bx bx-box"></i>
                         <div data-i18n="Support">{{ __('Backup') }}</div>
                     </a>
                 </li>
             @endif
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">{{ __('Application') }}</span>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('admin.sipa.home') }}" class="menu-link">
+                    <i class="menu-icon bx bx-layer"></i>
+                    <div data-i18n="Support">{{ __('Academic Administration') }}</div>
+                </a>
+            </li>
         </ul>
     @else
         <ul class="menu-inner py-1">
@@ -134,6 +143,15 @@
                 <a href="{{ route('pengaturan-akun.index') }}" class="menu-link">
                     <i class="menu-icon bx bx-user"></i>
                     <div data-i18n="Support">{{ __('Account/Profile') }}</div>
+                </a>
+            </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">{{ __('Application') }}</span>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('user.sipa.home') }}" class="menu-link">
+                    <i class="menu-icon bx bx-layer"></i>
+                    <div data-i18n="Support">{{ __('Academic Administration') }}</div>
                 </a>
             </li>
         </ul>

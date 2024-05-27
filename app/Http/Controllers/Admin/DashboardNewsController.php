@@ -17,11 +17,14 @@ class DashboardNewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $dashboardNews = DashboardNews::orderBy('status')->orderBy('sort_order')->get();
-        return view('admin.sipa.berita.index', compact('dashboardNews'));
+        $appType = $request['app-type'];
+        $dashboardNews = DashboardNews::where('category', $appType)->orderBy('status')->orderBy('sort_order')->get();
+        return view('layouts.berita.index')
+            ->with(compact('request'))
+            ->with(compact('dashboardNews'));
     }
 
     /**
@@ -46,17 +49,19 @@ class DashboardNewsController extends Controller
             'upload_file' => ['required', 'mimes:png,jpg,jpeg'],
             'sort_order' => 'required',
         ]);
+        $appType = $request['app-type'];
 
         try {
             $data = $request->all();
             $data['img_url'] = FileUploadService::uploadFileBerita($request, null);
             $data['status'] = 'Active';
+            $data['category'] = $request['app-type'];
             $data['created_by'] = auth()->user()->id;
             DashboardNews::create($data);
 
-            return redirect()->route('berita-dashboard.index')->with('success', 'Berita Dashboard created successfully.');
+            return redirect()->route('berita-dashboard.index', ['app-type' => $appType])->with('success', 'Berita Dashboard created successfully.');
         } catch (Exception $e) {
-            return redirect()->route('berita-dashboard.index')->with('error', $e->getMessage());
+            return redirect()->route('berita-dashboard.index', ['app-type' => $appType])->with('error', $e->getMessage());
         }
     }
 
@@ -77,12 +82,14 @@ class DashboardNewsController extends Controller
      * @param  \App\Models\DashboardNews  $dashboardNews
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //
+        $appType = $request['app-type'];
         $dashboardNew = DashboardNews::find($id);
-        $dashboardNews = DashboardNews::orderBy('status')->orderBy('sort_order')->get();
-        return view('admin.sipa.berita.index')
+        $dashboardNews = DashboardNews::where('category', $appType)->orderBy('status')->orderBy('sort_order')->get();
+        return view('layouts.berita.index')
+            ->with(compact('request'))
             ->with(compact('dashboardNew'))
             ->with(compact('dashboardNews'));
     }
@@ -101,6 +108,8 @@ class DashboardNewsController extends Controller
             'sort_order' => 'required',
         ]);
 
+        $appType = $request['app-type'];
+
         try {
             $dashboardNews = DashboardNews::find($id);
             $data = $request->all();
@@ -109,12 +118,13 @@ class DashboardNewsController extends Controller
             }
 
             $data['status'] = 'Active';
+            $data['category'] = $request['app-type'];
             $data['updated_by'] = auth()->user()->id;
             $dashboardNews->update($data);
 
-            return redirect()->route('berita-dashboard.index')->with('success', 'Berita Dashboard updated successfully.');
+            return redirect()->route('berita-dashboard.index', ['app-type' => $appType])->with('success', 'Berita Dashboard created successfully.');
         } catch (Exception $e) {
-            return redirect()->route('berita-dashboard.index')->with('error', $e->getMessage());
+            return redirect()->route('berita-dashboard.index', ['app-type' => $appType])->with('error', $e->getMessage());
         }
     }
 
@@ -124,13 +134,14 @@ class DashboardNewsController extends Controller
      * @param  \App\Models\DashboardNews  $dashboardNews
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $appType = $request['app-type'];
         DashboardNews::find($id)->update([
             'status' => 'InActive',
             'updated_by' => auth()->user()->id,
         ]);
-        return redirect()->route('berita-dashboard.index')->with('success', 'Jenis Form InActive successfully.');
+        return redirect()->route('berita-dashboard.index', ['app-type' => $appType])->with('success', 'Jenis Form InActive successfully.');
     }
 }

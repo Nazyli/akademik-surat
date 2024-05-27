@@ -1,9 +1,20 @@
 @extends('layouts.app')
+@php
+    $appType = $request['app-type'];
+    $queryParam = '?app-type=' . $appType;
+@endphp
+@if ($request['app-type'] == 'SKPI')
+    @section('menu')
+        @include('partials.navbar_skpi')
+    @endsection
+@endif
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <a href="{{ route('admin.sipa.home') }}"><span class="text-muted fw-light">{{ __('Dashboards') }} /</span></a>
+            <a href="{{ route('admin.' . Str::lower($appType) . '.home') }}"><span
+                    class="text-muted fw-light">{{ __('Dashboards') }}
+                    /</span></a>
             Berita Dashboard
         </h4>
 
@@ -15,7 +26,7 @@
                     </div>
                     <div class="card-body">
                         <form enctype="multipart/form-data"
-                            action="{{ isset($dashboardNew) ? route('berita-dashboard.update', $dashboardNew->id) : route('berita-dashboard.store') }}"
+                            action="{{ (isset($dashboardNew) ? route('berita-dashboard.update', $dashboardNew->id) : route('berita-dashboard.store')) . $queryParam }}"
                             method="POST">
                             @csrf
                             @method(isset($dashboardNew) ? 'PUT' : 'POST')
@@ -68,7 +79,7 @@
                             </div>
                             <button class="btn btn-primary btn-block"><b>{{ __('Save') }}</b></button>
                             @isset($dashboardNew)
-                                <a href="{{ route('berita-dashboard.index') }}"
+                                <a href="{{ route('berita-dashboard.index') . $queryParam }}"
                                     class="btn btn-secondary btn-block"><b>{{ __('Cancel') }}</b></a>
                             @endisset
                         </form>
@@ -129,11 +140,12 @@
                                             <td class="text-center">
                                                 <div class="btn-group">
 
-                                                    <form action="{{ route('berita-dashboard.destroy', $value->id) }}"
+                                                    <form
+                                                        action="{{ route('berita-dashboard.destroy', $value->id) . $queryParam }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="{{ route('berita-dashboard.edit', $value->id) }}"
+                                                        <a href="{{ route('berita-dashboard.edit', $value->id) . $queryParam }}"
                                                             class="btn btn-icon btn-outline-primary btn-sm">
                                                             <span class="tf-icons bx bx-edit-alt"></span>
                                                         </a>

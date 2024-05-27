@@ -14,6 +14,4 @@ yarn-error.log
 /.idea
 *.DS_Store
 /.vscode
-/public/file/pengajuan-surat
-/public/file/avatars
-/public/file/skpi
+/public/file/*
