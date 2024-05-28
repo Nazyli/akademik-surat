@@ -14,7 +14,9 @@ class DiplomaRequirementType extends Model
     protected $fillable = [
         'id',
         'requirement',
+        'requirement_en',
         'description',
+        'description_en',
         'degree',
         'status',
         'sort_order',

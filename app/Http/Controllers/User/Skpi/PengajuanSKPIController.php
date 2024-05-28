@@ -64,7 +64,7 @@ class PengajuanSKPIController extends Controller
                 foreach ($data['requirement_id'] as $index => $requirement_id) {
                     $requirementType =  DiplomaRequirementType::find($requirement_id);
                     $requestDetail = $this->getOrCreateDiplomaRetrievalRequestsDetail($user, $req, $requirementType, $data, $index);
-                    if ($request->action != 'Draft' || $request->action != 'Finished') {
+                    if ($request->action != 'Draft' && $request->action != 'Finished') {
                         $requestDetail->form_status = 'Sent';
                         $requestDetail->submission_date = new DateTime();
                         $requestDetail->processed_date = null;

@@ -16,7 +16,9 @@ class CreateDiplomaRequirementTypesTable extends Migration
         Schema::create('diploma_requirement_types', function (Blueprint $table) {
             $table->string("id")->primary();
             $table->string('requirement')->nullable();
+            $table->string('requirement_en')->nullable();
             $table->longText('description')->nullable();
+            $table->longText('description_en')->nullable();
             $table->string('degree')->nullable();
             $table->string('status')->nullable();
             $table->integer("sort_order")->nullable();

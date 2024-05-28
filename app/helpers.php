@@ -30,4 +30,20 @@ if (!function_exists('is_current_route')) {
             return false;
         }
     }
+
+    function getLocalizedKey($value, string $requirement, $isId = null)
+    {
+        $locale = app()->getLocale();
+        if (isset($isId)) {
+            $key = $requirement . '_' . $locale;
+            return $value[$key] ?? $value[$requirement];
+        } else {
+            if ($locale != 'id') {
+                $key = $requirement . '_' . $locale;
+                return $value[$key] ?? $value[$requirement];
+            } else {
+                return $value[$requirement];
+            }
+        }
+    }
 }

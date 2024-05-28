@@ -63,7 +63,7 @@ class DiplomaRetrievalRequestController extends Controller
                 ->addColumn('status', function ($row) {
                     $badge = '<span class="badge bg-label-' . $row->getLabelStatusAdmin() . '">'
                         . $row->form_status . '</span>
-                        </br><span>' . $row->getUpdatedByUserFirstName() . '</span>';
+                        </br><span style="font-size:85%"; class="text-muted">' . $row->getUpdatedByUserFirstName() . '</span>';
                     return $badge;
                 })
                 ->addColumn('updated_by', function ($row) {
@@ -124,7 +124,7 @@ class DiplomaRetrievalRequestController extends Controller
         //
         $diplomaRetrievalRequest = DiplomaRetrievalRequest::find($id);
         $user = User::find($diplomaRetrievalRequest->user_id);
-        $diplomaRequestDetail = DiplomaRetrievalRequestsDetail::select('diploma_retrieval_requests_details.*', 'requirement', 'required')
+        $diplomaRequestDetail = DiplomaRetrievalRequestsDetail::select('diploma_retrieval_requests_details.*', 'requirement', 'requirement_en', 'description', 'description_en', 'required')
             ->join('diploma_requirement_types', 'diploma_requirement_types.id', '=', 'diploma_retrieval_requests_details.requirement_id')
             ->where('diploma_retrieval_requests_details.user_id', $user->id)
             ->where('diploma_retrieval_requests_details.request_id', $diplomaRetrievalRequest->id)

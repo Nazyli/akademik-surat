@@ -64,7 +64,7 @@ class PengajuanAdminController extends Controller
                 ->addColumn('status', function ($row) {
                     $badge = '<span class="badge bg-label-' . $row->getLabelStatusAdmin() . '">'
                         . $row->form_status . '</span>
-                        </br><span>' . $row->getUpdatedByUserFirstName() . '</span>';
+                        </br><span style="font-size:85%"; class="text-muted">' . $row->getUpdatedByUserFirstName() . '</span>';
                     return $badge;
                 })
                 ->addColumn('updated_by', function ($row) {

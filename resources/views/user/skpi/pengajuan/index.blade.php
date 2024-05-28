@@ -290,9 +290,19 @@
                                                     @endphp
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td style="font-size: 85%">{{ $value->requirement }} @if ($value->required == '1')
+                                                        <td style="font-size: 85%">
+                                                            {{ getLocalizedKey($value, 'requirement') }} @if ($value->required == '1')
                                                                 <span style="color: red;">*</span>
                                                             @endif
+                                                            @isset($value->description)
+                                                                <small>
+                                                                    <p style="line-height:15px; font-size:90%;"
+                                                                        class="mb-0 text-muted">
+                                                                        <label class="text-primary">*</label>
+                                                                        {{ getLocalizedKey($value, 'description') }}
+                                                                    </p>
+                                                                </small>
+                                                            @endisset
                                                         </td>
                                                         <td>
                                                             @if (!$isOpen)

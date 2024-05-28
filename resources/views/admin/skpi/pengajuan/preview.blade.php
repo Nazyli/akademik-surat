@@ -131,9 +131,19 @@
                                                 @foreach ($diplomaRequestDetail as $key => $value)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td style="font-size: 85%">{{ $value->requirement }} @if ($value->required == '1')
+                                                        <td style="font-size: 85%">
+                                                            {{ getLocalizedKey($value, 'requirement') }} @if ($value->required == '1')
                                                                 <span style="color: red;">*</span>
                                                             @endif
+                                                            @isset($value->description)
+                                                                <small>
+                                                                    <p style="line-height:15px; font-size:90%;"
+                                                                        class="mb-0 text-muted">
+                                                                        <label class="text-primary">*</label>
+                                                                        {{ getLocalizedKey($value, 'description') }}
+                                                                    </p>
+                                                                </small>
+                                                            @endisset
                                                         </td>
                                                         <td>
                                                             <small>
@@ -195,7 +205,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if (!$diplomaRetrievalRequest->form_status != 'Draft')
+                            @if ($diplomaRetrievalRequest->form_status != 'Draft')
                                 <div class="mt-2">
                                     <button type="submit" value="Sent" name="action"
                                         class="btn btn-primary me-2 swalConfirmation">{{ __('Send') }}</button>
