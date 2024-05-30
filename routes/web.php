@@ -100,6 +100,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     // SKPI
     Route::prefix('skpi')->group(function () {
         Route::get('home', [AdminSkpiController::class, 'adminHome'])->name('admin.skpi.home');
+        Route::get('api/getDataHome', [AdminSkpiController::class, 'getDataHome'])->name('skpi.getDataHome');
         Route::get('pengajuan-surat', [DiplomaRetrievalRequestController::class, 'index'])->name('skpi.pengajuanadmin.index');
         Route::get('pengajuan-surat/{id}', [DiplomaRetrievalRequestController::class, 'edit'])->name('skpi.pengajuanadmin.preview');
         Route::put('pengajuan-surat/{id}', [DiplomaRetrievalRequestController::class, 'update'])->name('skpi.pengajuanadmin.update');

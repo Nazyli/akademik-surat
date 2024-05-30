@@ -2,11 +2,6 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
         <div class="row mb-3">
             <div class="col-12">
                 <div class="card alert alert-primary">
@@ -38,8 +33,7 @@
                             <div class="me-3 d-flex align-items-center">
                                 <i class="bx bx-hourglass" style="font-size: 3rem"></i>
                             </div>
-                            <div
-                                class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-center gap-2 text-center">
                                 <div class="me-2">
                                     <h6 class="d-block mb-2 text-white">{{ __('NOT PROCESSED') }}</h6>
                                     <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
@@ -58,8 +52,7 @@
                             <div class="me-3 d-flex align-items-center">
                                 <i class="bx bx-time-five" style="font-size: 3rem"></i>
                             </div>
-                            <div
-                                class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-center gap-2 text-center">
                                 <div class="me-2">
                                     <h6 class="d-block mb-2 text-white">{{ __('REVIEWED') }}</h6>
                                     <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
@@ -80,8 +73,7 @@
                             <div class="me-3 d-flex align-items-center">
                                 <i class="bx bx-x-circle" style="font-size: 3rem"></i>
                             </div>
-                            <div
-                                class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-center gap-2 text-center">
                                 <div class="me-2">
                                     <h6 class="d-block mb-2 text-white">{{ __('REJECTED') }}</h6>
                                     <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
@@ -100,8 +92,7 @@
                             <div class="me-3 d-flex align-items-center">
                                 <i class="bx bx-check-circle" style="font-size: 3rem"></i>
                             </div>
-                            <div
-                                class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-center gap-2 text-center">
                                 <div class="me-2">
                                     <h6 class="d-block mb-2 text-white">{{ __('FINISHED') }}</h6>
                                     <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
@@ -133,8 +124,8 @@
                             </div>
                         </div>
                         <div class="col-md-5 text-center text-sm-left">
-                            <div class="card-body pb-0 px-0 px-md-4">
-                                <img src="{{ asset('/img/undraw_road_to_knowledge_m8s0.svg') }}" height="140"
+                            <div class="card-body pb-0 px-0 px-md-4 mb-2">
+                                <img src="{{ asset('/img/logo/dashboard_sipa.svg') }}" height="140"
                                     alt="View Badge User" />
                             </div>
                         </div>
@@ -218,8 +209,7 @@
                                     </div>
                                     <span class="fw-medium d-block mb-1"><b>{{ __('File') }}</b></span>
                                     <h3 class="card-title mb-2 text-info"> <span
-                                            id="totalFile">{{ isset($totalFile) ? $totalFile : 0 }}</span>
-                                        {{ __('File') }}</h3>
+                                            id="totalFile">{{ isset($totalFile) ? $totalFile : 0 }}</span></h3>
                                 </div>
                             </div>
                         </div>

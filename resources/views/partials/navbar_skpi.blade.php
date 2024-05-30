@@ -26,7 +26,7 @@
             <li class="menu-item menu-item-warning {{ is_current_route('skpi.pengajuanadmin.index') }}">
                 <a href="{{ route('skpi.pengajuanadmin.index') }}" class="menu-link">
                     <i class="menu-icon bx bx-menu"></i>
-                    <div data-i18n="file/menu-lain">{{ __('Pengajuan SKPI') }}</div>
+                    <div data-i18n="file/menu-lain">{{ __('Applications') }}</div>
                 </a>
             </li>
 
@@ -110,7 +110,7 @@
             <li class="menu-item menu-item-warning {{ is_current_route('skpi.pengajuan.index') }}">
                 <a href="{{ route('skpi.pengajuan.index') }}" class="menu-link">
                     <i class="menu-icon bx bx-file"></i>
-                    <div data-i18n="pengajuan">{{ __('Applications SKPI') }}</div>
+                    <div data-i18n="pengajuan">{{ __('Applications') }}</div>
                 </a>
             </li>
 
