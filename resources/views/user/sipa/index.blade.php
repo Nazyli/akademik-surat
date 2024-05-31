@@ -58,8 +58,8 @@
                          </div>
                          <div class="col-md-5 text-center text-sm-right ">
                              <div class="card-body">
-                                 <img src="{{ asset('/img/undraw_road_to_knowledge_m8s0.svg') }}" class="pull-right"
-                                     height="140" alt="View Badge User" />
+                                 <img src="{{ asset('/img/logo/dashboard_sipa.svg') }}" class="pull-right" height="140"
+                                     alt="View Badge User" />
                              </div>
                          </div>
                      </div>
