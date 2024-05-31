@@ -81,8 +81,8 @@
                 </a>
             </li>
             @if (auth()->user()->id == 'administrator')
-                <li class="menu-item menu-item-warning {{ is_current_route('backup.index') }}">
-                    <a href="{{ route('backup.index') }}?app-type=SKPI" class="menu-link">
+                <li class="menu-item menu-item-warning {{ is_current_route('skpi.backup.index') }}">
+                    <a href="{{ route('skpi.backup.index') }}?app-type=SKPI" class="menu-link">
                         <i class="menu-icon bx bx-box"></i>
                         <div data-i18n="Support">{{ __('Backup') }}</div>
                     </a>

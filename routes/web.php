@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\OtherMenuController;
 use App\Http\Controllers\Admin\PengajuanAdminController;
 use App\Http\Controllers\Admin\ProgramStudiController;
 use App\Http\Controllers\Admin\Skpi\AdminSkpiController;
+use App\Http\Controllers\Admin\Skpi\BackupSkpiController;
 use App\Http\Controllers\Admin\Skpi\DiplomaRequirementTypeController;
 use App\Http\Controllers\Admin\Skpi\DiplomaRetrievalRequestController;
 use App\Http\Controllers\Auth\LoginController;
@@ -107,6 +108,8 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
         Route::get('getList', [DiplomaRetrievalRequestController::class, 'getByDepartmentId'])->name('skpi.getPengajuanByDepartmentId');
         Route::resource('diploma-requirement-type', DiplomaRequirementTypeController::class);
         Route::resource('master/berita-dashboard', DashboardNewsController::class)->names('skpi.berita-dashboard');
+        Route::resource('backup', BackupSkpiController::class)->names('skpi.backup');
+        Route::put('backup', [BackupSkpiController::class, 'downloadDB'])->name('skpi.backup.downloadDB');
     });
 });
 
