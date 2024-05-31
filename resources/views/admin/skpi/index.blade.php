@@ -243,7 +243,7 @@
                         url: "{{ route('skpi.getPengajuanByDepartmentId') }}",
                         data: function(d) {
                             d.departmentId = departmentId;
-                            d.status = 'Sent';
+                            d.status = 'in process';
                             d.searchInput = $('#searchInput').val();
                         }
                     },

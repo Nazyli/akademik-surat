@@ -32,6 +32,9 @@ class DiplomaRetrievalRequestController extends Controller
     public function getByDepartmentId(Request $request)
     {
         $departmentId = $request->input('departmentId');
+        $programStudi = $request->input('studyProgramId');
+        $submissionStartDate = $request->input('submissionStartDate');
+        $submissionEndDate = $request->input('submissionEndDate');
         $status = $request->input('status');
         if ($request->ajax()) {
             $data = DiplomaRetrievalRequest::join('users', 'diploma_retrieval_requests.user_id', '=', 'users.id')
@@ -54,8 +57,19 @@ class DiplomaRetrievalRequestController extends Controller
             if ($departmentId != 0) {
                 $data->where('users.department_id', $departmentId);
             }
-            if ($status != 'all') {
+            if ($programStudi != 0) {
+                $data->where('users.study_program_id', $programStudi);
+            }
+            if ($submissionStartDate != 0) {
+                $data->whereDate('submission_date', '>=',  $submissionStartDate);
+            }
+            if ($submissionEndDate != 0) {
+                $data->whereDate('submission_date', '<=', $submissionEndDate);
+            }
+            if ($status == 'in process') {
                 $data->whereIn('form_status', ['Sent']);
+            } else if ($status != 'all') {
+                $data->where('form_status', $status);
             }
             $data = $data->get();
 

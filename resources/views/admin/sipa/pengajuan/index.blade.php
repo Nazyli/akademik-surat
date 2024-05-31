@@ -14,7 +14,7 @@
                         <h5 class="mb-0">{{ __('Application Status Data') }}</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row mb-3 alert alert-info">
+                        <div class="row alert alert-info">
                             <div class="col-md-6 mb-2">
                                 <div class="row">
                                     <label class="col-md-3 col-form-label text-info">{{ __('Department') }}</label>
@@ -55,7 +55,7 @@
                             <div class="col-md-6 mb-2">
                                 <div class="row">
                                     <label class="col-md-3 col-form-label text-info">{{ __('Status') }}</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <select class="form-select" id="status" name="status">
                                             <option value="all"></option>
                                             <option value="Sent">{{ __('Not Processed') }}</option>
