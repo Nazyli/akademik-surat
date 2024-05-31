@@ -30,25 +30,34 @@ class MasterUsersController extends Controller
         if ($request->ajax()) {
             $data = DB::table('users as u')
                 ->leftJoin('role_memberships as rm', 'rm.id', '=', 'u.role_id')
-                ->leftJoin(DB::raw('(SELECT SUBSTRING_INDEX(GROUP_CONCAT(id ORDER BY created_at DESC), \',\', 1) AS id, user_id FROM form_submissions GROUP BY user_id) fss'), 'u.id', '=', 'fss.user_id')
-                ->leftJoin('form_submissions as fs', 'fss.id', '=', 'fs.id')
-                ->leftJoin('departments as d', 'u.department_id', '=', 'd.id')
                 ->leftJoin('study_programs as sp', 'u.study_program_id', '=', 'sp.id')
                 ->select(
                     'u.id',
                     'u.img_url',
                     DB::raw('CONCAT(u.first_name, " ", u.last_name) AS full_name'),
+                    DB::raw('(select COUNT(*) from form_submissions fs where fs.user_id = u.id) AS total_submissions'),
+                    DB::raw('(select CONCAT(
+                    (select COUNT(*)
+                        from diploma_retrieval_requests_details t1
+                        where t1.user_id = u.id and t1.form_status ="Finished"
+                    ),
+                    "/",
+                    (select COUNT(*)
+                        from diploma_retrieval_requests_details t2
+                        where t2.user_id = u.id
+                    )
+                )) as finished_total'),
                     'u.npm as npm',
                     'u.email',
                     'u.gender',
-                    'd.department_name',
                     'sp.study_program_name',
                     'rm.name as role_name',
                     'u.role_id'
-                )->orderBy('full_name', 'asc');
+                )
+                ->orderBy('full_name', 'asc');
 
             if ($departmentId != 0) {
-                $data->where('d.id', $departmentId);
+                $data->where('u.department_id', $departmentId);
             }
 
             $data = $data->get();
@@ -163,7 +172,28 @@ class MasterUsersController extends Controller
                 }
             }
 
+            $periodesDiploma = DB::table('diploma_retrieval_requests_details as fs')
+                ->select(DB::raw("DATE_FORMAT(fs.created_at, '%Y-%m') AS periode"))
+                ->where('fs.user_id', '=', $id)
+                ->groupBy(DB::raw("DATE_FORMAT(fs.created_at, '%Y-%m')"))
+                ->get();
+            foreach ($periodesDiploma as $p) {
+                $folderName = str_replace('-', '', $p->periode);
+                $publicPath = 'file/skpi/' . $folderName . '/' . $id;
+                if (File::exists($publicPath)) {
+                    File::deleteDirectory($publicPath);
+                }
+            }
+
             DB::table('form_submissions')
+                ->whereRaw("user_id = ?", $id)
+                ->delete();
+
+            DB::table('diploma_retrieval_requests_details')
+                ->whereRaw("user_id = ?", $id)
+                ->delete();
+
+            DB::table('diploma_retrieval_requests')
                 ->whereRaw("user_id = ?", $id)
                 ->delete();
 

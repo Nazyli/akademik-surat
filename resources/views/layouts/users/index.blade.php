@@ -39,18 +39,19 @@
                         </div>
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="table table-bordered user_datatable">
+                                <table class="table table-bordered user_datatable" style="font-size: 80%">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('No') }}</th>
-                                            <th>{{ __('Name') }}</th>
-                                            <th>{{ __('NPM') }}</th>
-                                            <th>{{ __('Email') }}</th>
-                                            <th>{{ __('Gender') }}</th>
-                                            <th>{{ __('Department') }}</th>
-                                            <th>{{ __('Study Program') }}</th>
-                                            <th>{{ __('Role') }}</th>
-                                            <th>#</th>
+                                            <th style="font-size: 85%">{{ __('No') }}</th>
+                                            <th style="font-size: 85%">{{ __('Name') }}</th>
+                                            <th style="font-size: 85%">NPM</th>
+                                            <th style="font-size: 85%">{{ __('SIPA') }}</th>
+                                            <th style="font-size: 85%">{{ __('SKPI') }}</th>
+                                            <th style="font-size: 85%">{{ __('Email') }}</th>
+                                            <th style="font-size: 85%">{{ __('Gender') }}</th>
+                                            <th style="font-size: 85%">{{ __('Study Program') }}</th>
+                                            <th style="font-size: 85%">{{ __('Role') }}</th>
+                                            <th style="font-size: 85%">#</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -151,12 +152,20 @@
                             orderable: true,
                             searchable: false,
                             orderData: [
-                                9
+                                10
                             ]
                         },
                         {
                             data: 'npm',
                             name: 'npm'
+                        },
+                        {
+                            data: 'total_submissions',
+                            name: 'total_submissions'
+                        },
+                        {
+                            data: 'finished_total',
+                            name: 'finished_total'
                         },
                         {
                             data: 'email',
@@ -165,10 +174,6 @@
                         {
                             data: 'gender',
                             name: 'gender'
-                        },
-                        {
-                            data: 'department_name',
-                            name: 'department_name'
                         },
                         {
                             data: 'study_program_name',
@@ -180,7 +185,7 @@
                             orderable: true,
                             searchable: false,
                             orderData: [
-                                10
+                                11
                             ] // Mengatur pengurutan berdasarkan kolom role_name (indeks 5 dalam array kolom)
                         },
                         {
