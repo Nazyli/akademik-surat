@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">{{ __('Requirements Form for Retrieval of Diplomas and Transcripts') }}</h5>
+                    <h5 class="card-header">{{ __('Retrieval of Diploma and Transcript') }}</h5>
                     <!-- Account -->
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -120,11 +120,11 @@
                                             <thead class="table-info">
                                                 <tr>
                                                     <th style="width: 25px;">No</th>
-                                                    <th>Requirement</th>
-                                                    <th style="width: 200px;">File Upload</th>
-                                                    <th>User Notes</th>
+                                                    <th>{{ __('Requirement') }}</th>
+                                                    <th style="width: 200px;">{{ __('File Upload') }}</th>
+                                                    <th>{{ __('User Notes') }}</th>
                                                     <th style="width: 300px;">{{ __('Leave a Comment') }}</th>
-                                                    <th style="width: 150px;">Status</th>
+                                                    <th style="width: 150px;">{{ __('Status') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-border-bottom-0">

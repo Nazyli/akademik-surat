@@ -32,7 +32,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center border-top border-3 border-{{ $labelStatus }}"
                         style="border-bottom: none">
                         <h5 class="mb-0 badge bg-label-{{ $labelStatus }}">
-                            {{ __('Requirements Form for Retrieval of Diplomas and Transcripts') }}
+                            {{ __('Retrieval of Diploma and Transcript') }}
                         </h5>
                         @if ($formStatus)
                             <span class="float-end badge bg-label-{{ $labelStatus }}">
@@ -251,10 +251,10 @@
                                             <thead class="table-info">
                                                 <tr>
                                                     <th style="width: 25px;">No</th>
-                                                    <th>Requirement</th>
-                                                    <th style="width: 220px;">File Upload</th>
-                                                    <th style="width: 200px;">Catatan</th>
-                                                    <th style="width: 200px;">Tgl. Validasi</th>
+                                                    <th>{{ __('Requirement') }}</th>
+                                                    <th style="width: 220px;">{{ __('File Upload') }}</th>
+                                                    <th style="width: 200px;">{{ __('User Notes') }}</th>
+                                                    <th style="width: 200px;">{{ __('Date Validation') }}</th>
                                                     <th style="width: 10px;">#</th>
                                                 </tr>
                                             </thead>
@@ -411,7 +411,7 @@
                                     </div>
                                     <div class=" text-secondary">
                                         <span class="text-warning">*</span>
-                                        {{ __('Apabila ada pertanyaan, bisa menghubungi bagian Administrasi') }}
+                                        {{ __('If you have questions, you can contact the Administration department') }}
                                     </div>
                                 </div>
                             </div>

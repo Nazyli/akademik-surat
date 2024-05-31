@@ -135,7 +135,8 @@
                                         <input class="form-check-input @error('required') is-invalid @enderror"
                                             name="required" type="checkbox" id="flexSwitchCheckDefault"
                                             {{ isset($diplomaRequirementType) ? ($diplomaRequirementType->required == 1 ? 'checked' : '') : (old('required') == 'on' ? 'checked' : '') }} />
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Required</label>
+                                        <label class="form-check-label"
+                                            for="flexSwitchCheckDefault">{{ __('Required') }}</label>
                                         @error('required')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

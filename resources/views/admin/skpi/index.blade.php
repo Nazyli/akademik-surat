@@ -66,7 +66,7 @@
                                     <div
                                         class="d-flex w-100 flex-wrap adivgn-items-center justify-content-center gap-2 text-center">
                                         <div class="me-2">
-                                            <h6 class="d-block mb-2 text-white">{{ __('Revisi') }}</h6>
+                                            <h6 class="d-block mb-2 text-white">{{ __('REVISI') }}</h6>
                                             <h3 class="card-title mb-0 text-white" style="font-weight: bolder;">
                                                 <span id="revisi">{{ isset($revisi) ? $revisi : 0 }}</span>
                                             </h3>
@@ -108,8 +108,8 @@
                                     <h5 class="card-title text-warning">Hi, {{ $user->fullName() }} 🎉</h5>
                                     <p class="mb-4">
                                         {{ __('Welcome Administrator') }} <br>
-                                        Aplikasi <span class="fw-medium">Form for Retrieval of Diplomas and
-                                            Transcripts</span>
+                                        {{ __('Application') }} <span
+                                            class="fw-medium">{{ __('Form for Retrieval of Diplomas and Transcripts') }}</span>
                                     </p>
                                     <a href="{{ route('skpi.pengajuanadmin.index') }}"
                                         class="btn btn-sm btn-outline-warning">{{ __('List of Application') }}</a>

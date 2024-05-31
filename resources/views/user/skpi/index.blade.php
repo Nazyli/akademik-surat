@@ -36,19 +36,23 @@
             @endif
             @php
                 $imgLogo = 'img/logo/dashboard_skpi.svg';
-                $textInfo = '<p>Silakan Melakukan Pengajuan Surat SKPI</p>';
+                $text = __('Please fill out the Diploma and Transcript Collection Form');
+                $textInfo = '<p>' . $text . '</p>';
+
                 if (isset($dataHome->diplomaRetrievalRequest)) {
                     $status = $dataHome->diplomaRetrievalRequest->form_status;
                     if ($status == 'Revisi') {
                         $imgLogo = 'img/logo/cancel.svg';
-                        $textInfo = '<p class="text-danger">Ada beberapa surat yang perlu revisi, segera perbaiki!</p>';
+                        $text = __('There are several letters that need revision, correct them immediately!');
+                        $textInfo = '<p class="text-danger">' . $text . '</p>';
                     } elseif ($status == 'Sent') {
                         $imgLogo = 'img/logo/in process.svg';
-                        $textInfo =
-                            '<p class="text-warning">Pengajuan Anda telah terkirim. Pantau prosesnya di website ini.</p>';
+                        $text = __('Your application has been sent. Monitor the process on this website');
+                        $textInfo = '<p class="text-warning">' . $text . '</p>';
                     } elseif ($status == 'Finished') {
                         $imgLogo = 'img/logo/finished.svg';
-                        $textInfo = '<p class="text-success">Selamat pengajuan anda telah selesai diproses</p>';
+                        $text = __('Congratulations, your application has been processed');
+                        $textInfo = '<p class="text-success">' . $text . '</p>';
                     }
                 }
             @endphp
@@ -126,9 +130,9 @@
                             <thead class="table-info">
                                 <tr>
                                     <th style="width: 25px;">No</th>
-                                    <th>Requirement</th>
-                                    <th style="width: 200px;">File Upload</th>
-                                    <th>User Notes</th>
+                                    <th>{{ __('Requirement') }}</th>
+                                    <th style="width: 200px;">{{ __('File Upload') }}</th>
+                                    <th>{{ __('User Notes') }}</th>
                                     <th>{{ __('Comment') }}</th>
                                     <th style="width: 150px;">#</th>
                                 </tr>

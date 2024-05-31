@@ -35,13 +35,10 @@
                                 <div class="col-sm-10">
                                     <div class="card-body">
                                         <h5 class="card-title text-primary">
-                                            {{ __(' Application System of Academic Administration') }}
+                                            {{ __('System of Academic Administration') }}
                                         </h5>
                                         <p class="card-text">
-                                            Platform digital untuk manajemen dan
-                                            penyimpanan
-                                            dokumen
-                                            akademik FMIPA UI.
+                                            {{ __('Digital platform for management and storage of FMIPA UI academic documents') }}
                                         </p>
                                     </div>
                                 </div>
@@ -59,10 +56,7 @@
                                             {{ __('Form for Retrieval of Diplomas and Transcripts') }}
                                         </h5>
                                         <p class="card-text">
-                                            Proses administratif untuk mendapatkan
-                                            dokumen
-                                            akademik
-                                            Lulusan FMIPA UI
+                                            {{ __('Administrative process for obtaining academic documents for FMIPA UI graduates') }}
                                         </p>
                                     </div>
                                 </div>

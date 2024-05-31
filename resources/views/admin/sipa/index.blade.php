@@ -115,9 +115,8 @@
                                 <h5 class="card-title text-primary">Hi, {{ $user->fullName() }} 🎉</h5>
                                 <p class="mb-4">
                                     {{ __('Welcome Administrator') }} <br>
-                                    Aplikasi <span class="fw-medium">Sistem Informasi
-                                        Persuratan
-                                        Akademik</span>
+                                    {{ __('Application') }} <span
+                                        class="fw-medium">{{ __('System of Academic Administration') }}</span>
                                 </p>
                                 <a href="{{ route('pengajuanadmin.index') }}"
                                     class="btn btn-sm btn-outline-primary">{{ __('List of Application') }}</a>
