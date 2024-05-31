@@ -86,7 +86,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::get('pengajuan-surat', [PengajuanAdminController::class, 'index'])->name('pengajuanadmin.index');
     Route::get('pengajuan-surat/{id}', [PengajuanAdminController::class, 'edit'])->name('pengajuanadmin.preview');
     Route::put('pengajuan-surat/{id}', [PengajuanAdminController::class, 'update'])->name('pengajuanadmin.update');
-    Route::get('/get-data-by-department/{departmentId}/{status}', [PengajuanAdminController::class, 'getByDepartmentId'])->name('getPengajuanByDepartmentId');
+    Route::get('/get-data-by-department', [PengajuanAdminController::class, 'getByDepartmentId'])->name('getPengajuanByDepartmentId');
     Route::get('/api/getDataHome/{departmentId}', [AdminController::class, 'getDataHome'])->name('getDataHome');
 
     Route::get('users', [MasterUsersController::class, 'index'])->name('masteruser.index');

@@ -15,17 +15,57 @@
                     </div>
                     <div class="card-body">
                         <div class="row mb-3 alert alert-info">
-                            <label class="col-sm-2 col-form-label text-info" for="basic-default-department"
-                                style="font-weight: bold;">{{ __('Select Department') }}</label>
-                            <div class="col-sm-10">
-                                <select id="departmentSelect" class="form-select">
-                                    <option value="">{{ __('All Departments') }}</option>
-                                    @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}">
-                                            {{ $department->department_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                            <div class="col-md-6 mb-2">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label text-info">{{ __('Department') }}</label>
+                                    <div class="col-md-9">
+                                        <select id="departmentName" class="form-select">
+                                            <option value="0">{{ __('All Departments') }}</option>
+                                            @foreach ($departments as $department)
+                                                <option value="{{ $department->id }}">
+                                                    {{ $department->department_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label text-info">{{ __('Study Program') }}</label>
+                                    <div class="col-md-9">
+                                        <select class="form-select program-studi-select" id="programStudi"
+                                            aria-label="Default select example" name="study_program_id">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label text-info">{{ __('Date of Application') }}</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="date" value="" id="startDate" />
+                                    </div>
+                                    <div class="col-sm-1"> s/d </div>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="date" value="" id="endDate" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label text-info">{{ __('Status') }}</label>
+                                    <div class="col-md-8">
+                                        <select class="form-select" id="status" name="status">
+                                            <option value="all"></option>
+                                            <option value="Sent">{{ __('Not Processed') }}</option>
+                                            <option value="Reviewed">{{ __('Reviewed') }}</option>
+                                            <option value="Revisi">{{ __('Revisi') }}</option>
+                                            <option value="Reject">{{ __('Reject') }}</option>
+                                            <option value="Finished">{{ __('Finished') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -57,21 +97,40 @@
     </div>
 @endsection
 
-
 @section('js')
     <script>
         $(function() {
             var table;
+            var programStudiSelect = document.querySelector('.program-studi-select');
+            var departmentId = 0;
+            var programStudi = 0;
+            var startDate = 0;
+            var endDate = 0;
+            var status = "all";
 
-            function initDataTable(departmentId) {
+            function initDataTable(departmentId, studyProgramId, startDate, endDate, status) {
+                if (table) {
+                    table.destroy();
+                }
                 table = $('.user_datatable').DataTable({
                     processing: true,
                     serverSide: true,
+                    // ajax: {
+                    //     url: "{{ route('getPengajuanByDepartmentId', ['departmentId' => ':departmentId', 'status' => ':status']) }}"
+                    //         .replace(':departmentId', departmentId)
+                    //         .replace(':status', 'all'),
+                    //     data: function(d) {
+                    //         d.searchInput = $('#searchInput').val();
+                    //     }
+                    // },
                     ajax: {
-                        url: "{{ route('getPengajuanByDepartmentId', ['departmentId' => ':departmentId', 'status' => ':status']) }}"
-                            .replace(':departmentId', departmentId)
-                            .replace(':status', 'all'),
+                        url: "{{ route('getPengajuanByDepartmentId') }}",
                         data: function(d) {
+                            d.departmentId = departmentId;
+                            d.studyProgramId = studyProgramId;
+                            d.submissionStartDate = startDate;
+                            d.submissionEndDate = endDate;
+                            d.status = status;
                             d.searchInput = $('#searchInput').val();
                         }
                     },
@@ -163,15 +222,68 @@
                 });
             }
 
-            // Initial load with departmentId = 0
-            initDataTable(0);
+            function fillProgramStudi(departmentId) {
+                programStudiSelect.innerHTML = '<option value="0"></option>';
 
-            // Handle change event on departmentSelect dropdown
-            $('#departmentSelect').on('change', function() {
-                var departmentId = $(this).val() || 0; // If no value selected, default to 0
-                table.destroy(); // Destroy existing DataTable
-                initDataTable(departmentId); // Initialize DataTable with new departmentId
+                var link = "{{ route('openGetProgramStudi', ':departmentId') }}";
+                link = link.replace(':departmentId', departmentId);
+
+                fetch(link)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(program => {
+                            var option = document.createElement('option');
+                            option.value = program.id;
+                            option.text = program.study_program_name;
+
+                            programStudiSelect.appendChild(option);
+                        });
+                    });
+            }
+
+            initDataTable(departmentId, programStudi, startDate, endDate, status);
+            $('#departmentName').on('change', function() {
+                departmentId = $(this).val();
+                initDataTable(departmentId, programStudi, startDate, endDate, status);
+                if (departmentId) {
+                    fillProgramStudi(departmentId);
+                }
             });
+
+            $('#programStudi').on('change', function() {
+                programStudi = $(this).val();
+                if (programStudi) {
+                    initDataTable(departmentId, programStudi, startDate, endDate, status);
+
+                }
+            });
+
+            $('#startDate').on('change', function() {
+                startDate = $(this).val();
+                if (startDate) {
+                    initDataTable(departmentId, programStudi, startDate, endDate, status);
+                } else {
+                    initDataTable(departmentId, programStudi, 0, endDate, status);
+                }
+            });
+
+            $('#endDate').on('change', function() {
+                endDate = $(this).val();
+                if (endDate) {
+                    initDataTable(departmentId, programStudi, startDate, endDate, status);
+                } else {
+                    initDataTable(departmentId, programStudi, startDate, 0, status);
+                }
+            });
+
+            $('#status').on('change', function() {
+                status = $(this).val();
+                if (status) {
+                    initDataTable(departmentId, programStudi, startDate, endDate, status);
+                }
+            });
+
+
         });
     </script>
 @endsection

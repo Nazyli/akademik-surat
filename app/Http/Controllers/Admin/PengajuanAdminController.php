@@ -31,8 +31,13 @@ class PengajuanAdminController extends Controller
             ->with(compact('formSubmission'));
     }
 
-    public function getByDepartmentId(Request $request, $departmentId, $status)
+    public function getByDepartmentId(Request $request)
     {
+        $departmentId = $request->input('departmentId');
+        $programStudi = $request->input('studyProgramId');
+        $submissionStartDate = $request->input('submissionStartDate');
+        $submissionEndDate = $request->input('submissionEndDate');
+        $status = $request->input('status');
         if ($request->ajax()) {
             $data = FormSubmission::join('departments', 'form_submissions.department_id', '=', 'departments.id')
                 ->join('users', 'form_submissions.user_id', '=', 'users.id')
@@ -55,9 +60,21 @@ class PengajuanAdminController extends Controller
             if ($departmentId != 0) {
                 $data->where('users.department_id', $departmentId);
             }
-            if ($status != 'all') {
-                $data->whereIn('form_status', ['Sent', 'Reviewed']);
+            if ($programStudi != 0) {
+                $data->where('users.study_program_id', $programStudi);
             }
+            if ($submissionStartDate != 0) {
+                $data->whereDate('submission_date', '>=',  $submissionStartDate);
+            }
+            if ($submissionEndDate != 0) {
+                $data->whereDate('submission_date', '<=', $submissionEndDate);
+            }
+            if ($status == 'in process') {
+                $data->whereIn('form_status', ['Sent', 'Reviewed']);
+            } else if ($status != 'all') {
+                $data->where('form_status', $status);
+            }
+
             $data = $data->get();
 
             return FacadesDataTables::of($data)->addIndexColumn()

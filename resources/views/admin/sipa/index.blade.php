@@ -273,11 +273,19 @@
                 table = $('.user_datatable').DataTable({
                     processing: true,
                     serverSide: true,
+                    // ajax: {
+                    //     url: "{{ route('getPengajuanByDepartmentId', ['departmentId' => ':departmentId', 'status' => ':status']) }}"
+                    //         .replace(':departmentId', departmentId)
+                    //         .replace(':status', 'Sent'),
+                    //     data: function(d) {
+                    //         d.searchInput = $('#searchInput').val();
+                    //     }
+                    // },
                     ajax: {
-                        url: "{{ route('getPengajuanByDepartmentId', ['departmentId' => ':departmentId', 'status' => ':status']) }}"
-                            .replace(':departmentId', departmentId)
-                            .replace(':status', 'Sent'),
+                        url: "{{ route('getPengajuanByDepartmentId') }}",
                         data: function(d) {
+                            d.departmentId = departmentId;
+                            d.status = 'in process';
                             d.searchInput = $('#searchInput').val();
                         }
                     },
