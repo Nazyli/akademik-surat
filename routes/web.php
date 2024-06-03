@@ -91,6 +91,7 @@ Route::group(['namespace' => '', 'prefix' => 'admin',  'middleware' => ['auth', 
     Route::get('/api/getDataHome/{departmentId}', [AdminController::class, 'getDataHome'])->name('getDataHome');
 
     Route::get('users', [MasterUsersController::class, 'index'])->name('masteruser.index');
+    Route::get('users-detail/{id}', [MasterUsersController::class, 'detail'])->name('masteruser.detail');
     Route::put('users/{id}/{roleId}', [MasterUsersController::class, 'changeRole'])->name('masteruser.changeRole');
     Route::get('users/getByDepartementId', [MasterUsersController::class, 'getByDepartmentId'])->name('masteruser.getByDepartementId');
     Route::delete('users/{id}', [MasterUsersController::class, 'destroy'])->name('masteruser.destroy');

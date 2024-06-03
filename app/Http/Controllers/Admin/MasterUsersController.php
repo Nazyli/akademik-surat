@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DiplomaRetrievalRequest;
+use App\Models\DiplomaRetrievalRequestsDetail;
 use App\Models\FormSubmission;
 use App\Models\RoleMembership;
 use App\Models\User;
@@ -71,7 +73,7 @@ class MasterUsersController extends Controller
                         . $row->role_name . '</span>';
                     return $badge;
                 })
-                ->addColumn('avatar', function ($row) {
+                ->addColumn('avatar', function ($row) use ($appType) {
                     $image =  isset($row->img_url) ? asset($row->img_url) : asset("file/avatars/blank-profile.png");
                     return '<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                     <li
@@ -82,7 +84,7 @@ class MasterUsersController extends Controller
                       title="' . $row->full_name . '">
                       <img src="' . $image . '" alt="Avatar" onerror="handleImageError(this)" class="rounded-circle" />
                     </li>
-                    <li>' . $row->full_name . '</li>
+                    <li> <a  style="font-size: 85%" href="' . route('masteruser.detail', $row->id) . '?app-type=' . $appType . '"> ' . $row->full_name . '</a></li>
                   </ul>';
                 })
                 ->addColumn('action', function ($row) use ($appType) {
@@ -99,9 +101,15 @@ class MasterUsersController extends Controller
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
+
+                                                                </form>
+
                                         <form method="POST" action="' . $url . '" class="dropdown-item">
                                             ' . csrf_field() . '
                                             ' . method_field('PUT') . '
+                                            <a class="dropdown-item text-info mb-3" href="' . route('masteruser.detail', $row->id) . '?app-type=' . $appType . '">
+            <i class="bx bx-detail me-1"></i> Detail
+         </a>
                                             <button type="submit" class="btn btn-link">
                                                 <i class="bx bxs-show me-1"></i> Change Role to ' . $changeRole . '
                                             </button>
@@ -117,6 +125,12 @@ class MasterUsersController extends Controller
                                 </div>';
 
                         return $dropdown;
+                    } else {
+                        $data = '<a class="btn btn-icon btn-outline-primary btn-xs border-none" href="' . route('masteruser.detail', $row->id) . '?app-type=' . $appType . '">
+                                    <span class="tf-icons bx bx-detail"></span>
+                                     </a>';
+
+                        return $data;
                     };
                 })
 
@@ -138,6 +152,17 @@ class MasterUsersController extends Controller
         }
 
         return view('layouts.users.index');
+    }
+
+    public function detail(Request $request, $id)
+    {
+        $user = User::find($id);
+        $formSubmission = FormSubmission::where('user_id', $user->id)->get();
+        $diplomaRetrievalRequest = DiplomaRetrievalRequest::where('user_id', $user->id)->get();
+        return view('layouts.users.detail')
+            ->with(compact('user'))
+            ->with(compact('formSubmission'))
+            ->with(compact('diplomaRetrievalRequest'));
     }
 
 

@@ -39,16 +39,16 @@
                         </div>
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="table table-bordered user_datatable" style="font-size: 80%">
+                                <table class="table table-bordered user_datatable table-sm" style="font-size: 80%">
                                     <thead>
                                         <tr>
-                                            <th style="font-size: 85%">{{ __('No') }}</th>
+                                            <th style="font-size: 85%; width:25px !important">{{ __('No') }}</th>
                                             <th style="font-size: 85%">{{ __('Name') }}</th>
                                             <th style="font-size: 85%">NPM</th>
                                             <th style="font-size: 85%">{{ __('SIPA') }}</th>
                                             <th style="font-size: 85%">{{ __('SKPI') }}</th>
                                             <th style="font-size: 85%">{{ __('Email') }}</th>
-                                            <th style="font-size: 85%">{{ __('Gender') }}</th>
+                                            <th style="font-size: 85%">{{ __('Sex') }}</th>
                                             <th style="font-size: 85%">{{ __('Study Program') }}</th>
                                             <th style="font-size: 85%">{{ __('Role') }}</th>
                                             <th style="font-size: 85%">#</th>

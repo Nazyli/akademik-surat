@@ -250,7 +250,7 @@
                                         <table class="table table-bordered table-hover table-sm">
                                             <thead class="table-info">
                                                 <tr>
-                                                    <th style="width: 25px;">No</th>
+                                                    <th style="width: 21px;">No</th>
                                                     <th>{{ __('Requirement') }}</th>
                                                     <th style="width: 220px;">{{ __('File Upload') }}</th>
                                                     <th style="width: 200px;">{{ __('User Notes') }}</th>
