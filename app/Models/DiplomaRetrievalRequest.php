@@ -14,6 +14,9 @@ class DiplomaRetrievalRequest extends Model
     protected $fillable = [
         'id',
         'user_id',
+        'request_skl',
+        'file_skl',
+        'size_skl',
         'form_status',
         'submission_date',
         'processed_date',
@@ -77,6 +80,11 @@ class DiplomaRetrievalRequest extends Model
         }
     }
 
+    public function user()
+    {
+        return User::find($this->user_id);
+    }
+
     public function getUpdatedByUserFirstName()
     {
         $user = User::find($this->updated_by);
@@ -94,5 +102,14 @@ class DiplomaRetrievalRequest extends Model
         } else {
             return $this->form_status;
         }
+    }
+
+    public function pathUrlSKL()
+    {
+        return isset($this->file_skl) ? asset($this->file_skl) : null;
+    }
+    public function baseNameUrlSKL()
+    {
+        return isset($this->file_skl) ? basename($this->file_skl) : null;
     }
 }

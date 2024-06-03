@@ -30,6 +30,7 @@
                                         <th>Periode</th>
                                         <th>Sent/Revisi</th>
                                         <th>Approve</th>
+                                        <th>SKL</th>
                                         <th>Processed ZIP</th>
                                         <th>Delete Data</th>
                                     </tr>
@@ -41,6 +42,7 @@
                                             <td>{{ $value->created_at_month }}</td>
                                             <td>{{ $value->file_berkas }}</td>
                                             <td>{{ $value->file_approve }}</td>
+                                            <td>{{ $value->total_skl }}</td>
                                             <td><a href="{{ route('skpi.backup.edit', $value->created_at_month) }}"
                                                     class="badge bg-label-primary">
                                                     Download

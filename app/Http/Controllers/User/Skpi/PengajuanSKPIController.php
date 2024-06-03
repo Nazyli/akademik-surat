@@ -40,6 +40,7 @@ class PengajuanSKPIController extends Controller
             'semester' => 'required',
             'academic_year' => 'required',
             'whatsapp' => 'required',
+            'request_skl' => 'required',
         ]);
         try {
 

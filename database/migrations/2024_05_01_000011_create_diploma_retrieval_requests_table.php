@@ -17,6 +17,9 @@ class CreateDiplomaRetrievalRequestsTable extends Migration
             $table->string('id')->primary();
             $table->string('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->boolean('request_skl');
+            $table->string('file_skl', 500)->nullable();
+            $table->string('size_skl')->nullable();
             $table->string('form_status')->nullable();
             $table->timestamp('submission_date')->nullable();
             $table->timestamp('processed_date')->nullable();

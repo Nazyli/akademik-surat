@@ -158,6 +158,10 @@
     "Required":"Wajib",
     "Requirement ID" :"Persyaratan ID",
     "Requirement EN":"Persyaratan EN",
-    "Data of Requirement Type":"Data Jenis Persyaratan"
-
+    "Data of Requirement Type":"Data Jenis Persyaratan",
+    "Yes":"Ya",
+    "Nope":"Tidak",
+    "Request a Graduation Certificate" : "Minta Surat Keterangan Lulus",
+    "Upload Graduation Certificate":"Unggah Sertifikat Kelulusan",
+    "Temporary Graduation Certificate":"Surat Keterangan Lulus Sementara"
 }

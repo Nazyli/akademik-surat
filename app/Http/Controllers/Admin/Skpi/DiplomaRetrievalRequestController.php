@@ -9,6 +9,7 @@ use App\Models\DiplomaRetrievalRequest;
 use App\Models\DiplomaRetrievalRequestsDetail;
 use App\Models\FormSubmission;
 use App\Models\User;
+use App\Services\FileUploadService;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -161,8 +162,19 @@ class DiplomaRetrievalRequestController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $req = DiplomaRetrievalRequest::find($id);
+        if ($req->request_skl == 1 && $req->file_skl == null) {
+            $request->validate([
+                'upload_file' => ['required', 'mimes:pdf', 'max:3000'],
+            ]);
+        }
         $dateNow = new DateTime();
         $data = $request->all();
+        [$url, $size] = FileUploadService::uploadPengajuanApproveSKPI($request, $req, $req->created_at);
+        if ($url != null) {
+            $data['file_skl'] = $url;
+            $data['size_skl'] = $size;
+        }
         if (isset($data['request_detail_id'])) {
             foreach ($data['request_detail_id'] as $index => $idReq) {
                 $requestDetail = DiplomaRetrievalRequestsDetail::find($idReq);
@@ -178,7 +190,6 @@ class DiplomaRetrievalRequestController extends Controller
                 $requestDetail->save();
             }
         }
-        $req = DiplomaRetrievalRequest::find($id);
         $totalRevisi = DiplomaRetrievalRequestsDetail::where("request_id", $id)->whereIn('form_status', ['Sent', 'Revisi'])->count();
         if ($totalRevisi == 0) {
             $data['form_status'] = "Finished";

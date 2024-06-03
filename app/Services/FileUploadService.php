@@ -119,4 +119,29 @@ class FileUploadService
         }
         return [null, null];
     }
+
+    public static function uploadPengajuanApproveSKPI($request, $diplomaRetrievalRequest, $dateNow)
+    {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $dateNow);
+        $formattedDate = $date->format('Ym');
+        if ($file = $request->file('upload_file')) {
+            $path = $diplomaRetrievalRequest->file_skl;
+            if ($path) {
+                $publicPath = dirname($path);
+                $filenameWithoutExtension = pathinfo($path, PATHINFO_FILENAME);
+                $fileName = $filenameWithoutExtension . "." . $file->extension();
+                $url = $publicPath . "/" . $fileName;
+            } else {
+                $publicPath = "file/skpi/" . $formattedDate . "/"  . $diplomaRetrievalRequest->user()->id;
+                $concatName = ($diplomaRetrievalRequest->user()->first_name . '-' . $diplomaRetrievalRequest->user()->last_name);
+                $template_name = str_replace(' ', '-', $concatName);
+                $fileName = $template_name . '-' . $date->timestamp . '-Graduation_Certificate.' . $file->extension();
+                $url = $publicPath . "/" . $fileName;
+            }
+            $size = $file->getSize();
+            $file->move($publicPath, $fileName);
+            return [$url, $size];
+        }
+        return [null, null];
+    }
 }

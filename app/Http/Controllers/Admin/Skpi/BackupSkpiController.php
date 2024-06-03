@@ -32,6 +32,12 @@ class BackupSkpiController extends Controller
                 DB::raw('COUNT(CASE WHEN url_file IS NOT NULL THEN 1 END) AS file_berkas'),
                 DB::raw('COUNT(CASE WHEN url_file IS NOT NULL AND form_status = "Finished" THEN 1 END) AS file_approve'),
             )
+            ->selectSub(function ($query) {
+                $query->from('diploma_retrieval_requests')
+                    ->selectRaw('COUNT(*)')
+                    ->whereNotNull('file_skl')
+                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = created_at_month');
+            }, 'total_skl')
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
             ->orderBy('created_at_month', 'asc')
             ->get();

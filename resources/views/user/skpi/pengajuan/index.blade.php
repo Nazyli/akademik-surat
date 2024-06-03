@@ -370,7 +370,7 @@
                                     </div>
 
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('Description') }}</label>
                                     <textarea class="form-control  @error('user_note') is-invalid @enderror" rows="3" name="user_note"
                                         {{ $notOpen ? 'disabled' : '' }}>{{ isset($diplomaRetrievalRequest) ? $diplomaRetrievalRequest->user_note : old('user_note') }}</textarea>
@@ -379,8 +379,33 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-
                                 </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <small
+                                        class="fw-medium d-block form-label mb-1 mt-1">{{ __('Request a Graduation Certificate') }}</small>
+                                    <div
+                                        class="form-check form-check-inline mt-3 @error('request_skl') is-invalid @enderror">
+                                        <input class="form-check-input" type="radio" name="request_skl" value="1"
+                                            {{ isset($diplomaRetrievalRequest) && $diplomaRetrievalRequest->request_skl == '1' ? 'Checked' : '' }}
+                                            @if (old('request_skl') == '1') checked @endif
+                                            {{ $notOpen ? 'disabled' : '' }} />
+                                        <label class="form-check-label" for="inlineRadio1">{{ __('Yes') }}</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="request_skl" value="0"
+                                            {{ isset($diplomaRetrievalRequest) && $diplomaRetrievalRequest->request_skl == '0' ? 'Checked' : '' }}
+                                            @if (old('request_skl') == '0') checked @endif
+                                            {{ $notOpen ? 'disabled' : '' }} />
+                                        <label class="form-check-label" for="inlineRadio2">{{ __('Nope') }}</label>
+                                    </div>
+                                    @error('request_skl')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
                             </div>
                             @if (!$notOpen)
                                 <div class="mt-2">
@@ -402,13 +427,29 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="mb-3 col-12 mb-0">
-                                        <div class="alert alert-warning">
-                                            <p class="mb-0">
-                                                {{ $comment ? $comment : '-' }}
-                                            </p>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6 mb-0">
+                                            <div class="alert alert-warning">
+                                                <p class="mb-0">
+                                                    {{ $comment ? $comment : '-' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-md-6 mb-0">
+                                            <div class="alert alert-info">
+                                                <b class="text-primary">{{ __('Temporary Graduation Certificate') }} :
+                                                    </br></b>
+                                                @if ($diplomaRetrievalRequest->pathUrlSKL())
+                                                    <a href="{{ $diplomaRetrievalRequest->pathUrlSKL() }}"
+                                                        target="_blank">{{ $diplomaRetrievalRequest->baseNameUrlSKL() }}</a>
+                                                @else
+                                                    -
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
+
+
                                     <div class=" text-secondary">
                                         <span class="text-warning">*</span>
                                         {{ __('If you have questions, you can contact the Administration department') }}

@@ -190,12 +190,27 @@
 
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('User Note') }}</label>
                                     <textarea class="form-control" rows="3" name="user_note" disabled>{{ $diplomaRetrievalRequest->user_note }}</textarea>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-3 col-md-6">
+                                    <small
+                                        class="fw-medium d-block form-label mb-1 mt-1">{{ __('Request a Graduation Certificate') }}</small>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="request_skl" value="1"
+                                            {{ $diplomaRetrievalRequest->request_skl == '1' ? 'Checked' : '' }} disabled />
+                                        <label class="form-check-label" for="inlineRadio1">{{ __('Yes') }}</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="request_skl" value="0"
+                                            {{ $diplomaRetrievalRequest->request_skl == '0' ? 'Checked' : '' }} disabled />
+                                        <label class="form-check-label" for="inlineRadio2">{{ __('Nope') }}</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('Leave a Comment') }}</label>
                                     <textarea class="form-control  @error('comment') is-invalid @enderror" rows="3" name="comment">{{ isset($diplomaRetrievalRequest) ? $diplomaRetrievalRequest->comment : old('comment') }}</textarea>
                                     @error('comment')
@@ -203,6 +218,21 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="upload_file"
+                                        class="form-label">{{ __('Upload Graduation Certificate ') }}</label>
+                                    <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
+                                        id="upload_file" name="upload_file" value="{{ old('upload_file') }}" />
+                                    @error('upload_file')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    @if ($diplomaRetrievalRequest->pathUrlSKL())
+                                        <a href="{{ $diplomaRetrievalRequest->pathUrlSKL() }}"
+                                            target="_blank">{{ $diplomaRetrievalRequest->baseNameUrlSKL() }}</a>
+                                    @endif
                                 </div>
                             </div>
                             @if ($diplomaRetrievalRequest->form_status != 'Draft')
