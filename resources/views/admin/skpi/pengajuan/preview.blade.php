@@ -197,7 +197,7 @@
 
                                 <div class="mb-3 col-md-6">
                                     <small
-                                        class="fw-medium d-block form-label mb-1 mt-1">{{ __('Request a Graduation Certificate') }}</small>
+                                        class="fw-medium d-block form-label mb-1 mt-1">{{ __('Do you need a Temporary Graduate Certificate?') }}</small>
                                     <div class="form-check form-check-inline mt-3">
                                         <input class="form-check-input" type="radio" name="request_skl" value="1"
                                             {{ $diplomaRetrievalRequest->request_skl == '1' ? 'Checked' : '' }} disabled />
@@ -209,7 +209,11 @@
                                         <label class="form-check-label" for="inlineRadio2">{{ __('Nope') }}</label>
                                     </div>
                                 </div>
-
+                            </div>
+                        </div>
+                        <hr class="my-0" />
+                        <div class="card-body">
+                            <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('Leave a Comment') }}</label>
                                     <textarea class="form-control  @error('comment') is-invalid @enderror" rows="3" name="comment">{{ isset($diplomaRetrievalRequest) ? $diplomaRetrievalRequest->comment : old('comment') }}</textarea>
@@ -221,7 +225,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="upload_file"
-                                        class="form-label">{{ __('Upload Graduation Certificate ') }}</label>
+                                        class="form-label">{{ __('Upload the Temporary Graduation Certificate') }}</label>
                                     <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
                                         id="upload_file" name="upload_file" value="{{ old('upload_file') }}" />
                                     @error('upload_file')

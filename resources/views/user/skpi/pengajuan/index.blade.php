@@ -383,7 +383,7 @@
 
                                 <div class="mb-3 col-md-6">
                                     <small
-                                        class="fw-medium d-block form-label mb-1 mt-1">{{ __('Request a Graduation Certificate') }}</small>
+                                        class="fw-medium d-block form-label mb-1 mt-1">{{ __('Do you need a Temporary Graduate Certificate?') }}</small>
                                     <div
                                         class="form-check form-check-inline mt-3 @error('request_skl') is-invalid @enderror">
                                         <input class="form-check-input" type="radio" name="request_skl" value="1"

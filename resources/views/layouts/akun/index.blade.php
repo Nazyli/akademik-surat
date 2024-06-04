@@ -107,7 +107,7 @@
                             <div class="mb-3 col-md-6">
                                 <label for="departmentName" class="form-label">{{ __('Department') }}</label>
                                 <select class="form-select department-select @error('department_id') is-invalid @enderror"
-                                    id="departmentName" aria-label="Default select example" name="department_id">
+                                    id="departmentName" aria-label="Default select example" name="department_id" disabled>
                                     <option></option>
                                     @foreach ($departments as $key => $value)
                                         <option value="{{ $value->id }}"
@@ -125,7 +125,8 @@
                                 <label for="programStudi" class="form-label">{{ __('Study Program') }}</label>
                                 <select
                                     class="form-select program-studi-select @error('study_program_id') is-invalid @enderror"
-                                    id="programStudi" aria-label="Default select example" name="study_program_id">
+                                    id="programStudi" aria-label="Default select example" name="study_program_id"
+                                    disabled>
                                 </select>
                                 @error('study_program_id')
                                     <span class="invalid-feedback" role="alert">
@@ -139,7 +140,9 @@
 
                         <div class="mt-2">
                             <button type="submit" class="btn btn-primary me-2">{{ __('Save Changes') }}</button>
-                            <button type="reset" class="btn btn-outline-secondary">{{ __('Cancel') }}</button>
+                            <a type="submit"
+                                href="{{ auth()->user()->role_id == 1 ? route('admin.home') : route('user.home') }}"
+                                class="btn btn-outline-secondary">{{ __('Cancel') }}</a>
                         </div>
                     </form>
                 </div>

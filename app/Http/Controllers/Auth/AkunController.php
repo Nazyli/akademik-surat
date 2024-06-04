@@ -42,8 +42,8 @@ class AkunController extends Controller
             // 'npm' => 'required',
             'npm' => ['string', 'regex:/^(' . $allowedYearString . ')06\d{6}$/'],
             'phone' => 'required',
-            'department_id' => 'required',
-            'study_program_id' => 'required',
+            // 'department_id' => 'required',
+            // 'study_program_id' => 'required',
         ]);
 
         $data = $request->all();
