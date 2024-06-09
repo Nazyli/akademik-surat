@@ -113,8 +113,13 @@
                                     Persuratan
                                     Akademik</i>
                                 <i style="font-style: normal; font-weight: bold; font-size:12px " class="mobile">
-                                    <img src="{{ asset('/img/logo/logo-app.png') }}" width="60" alt="Logo" />
-
+                                    @if (View::hasSection('menu'))
+                                        <img src="{{ asset('/img/logo/logo-skpi.png') }}" width="60"
+                                            alt="Logo" />
+                                    @else
+                                        <img src="{{ asset('/img/logo/logo-app.png') }}" width="60"
+                                            alt="Logo" />
+                                    @endif
                                 </i>
                             </div>
                         </div>

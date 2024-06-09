@@ -49,6 +49,24 @@
         .card-gate .card:hover {
             background-color: #00468019 !important;
         }
+
+        .desktop {
+            display: block;
+        }
+
+        .mobile {
+            display: none;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .desktop {
+                display: none;
+            }
+
+            .mobile {
+                display: block;
+            }
+        }
     </style>
 </head>
 
@@ -71,7 +89,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme mb-2"
-                                            id="layout-navbar" style="width:100%;">
+                                            id="layout-navbar" style="width:100% !important;">
                                             <div class="navbar-nav-right d-flex align-items-center"
                                                 id="navbar-collapse">
                                                 <!-- Search -->
@@ -81,6 +99,10 @@
                                                             class="desktop"><a class="text-dark" href="#">FMIPA UI
                                                                 - Innovative, Smart, and
                                                                 Competitive</a></i>
+                                                        <li style="font-style: normal; font-weight: bold;"
+                                                            class="mobile">
+                                                            <a class="text-dark" href="#">FMIPA UI</a>
+                                                        </li>
                                                     </div>
                                                 </div>
                                                 <!-- /Search -->
