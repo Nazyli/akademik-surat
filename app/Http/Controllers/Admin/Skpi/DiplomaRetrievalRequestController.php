@@ -163,18 +163,8 @@ class DiplomaRetrievalRequestController extends Controller
     {
         //
         $req = DiplomaRetrievalRequest::find($id);
-        if ($req->request_skl == 1 && $req->file_skl == null) {
-            $request->validate([
-                'upload_file' => ['required', 'mimes:pdf', 'max:3000'],
-            ]);
-        }
         $dateNow = new DateTime();
         $data = $request->all();
-        [$url, $size] = FileUploadService::uploadPengajuanApproveSKPI($request, $req, $req->created_at);
-        if ($url != null) {
-            $data['file_skl'] = $url;
-            $data['size_skl'] = $size;
-        }
         if (isset($data['request_detail_id'])) {
             foreach ($data['request_detail_id'] as $index => $idReq) {
                 $requestDetail = DiplomaRetrievalRequestsDetail::find($idReq);
@@ -195,6 +185,16 @@ class DiplomaRetrievalRequestController extends Controller
             $data['form_status'] = "Finished";
         } else {
             $data['form_status'] = "Revisi";
+        }
+        if ($req->request_skl == 1 && $req->file_skl == null && $data['form_status'] == "Finished") {
+            $request->validate([
+                'upload_file' => ['required', 'mimes:pdf', 'max:3000'],
+            ]);
+            [$url, $size] = FileUploadService::uploadPengajuanApproveSKPI($request, $req, $req->created_at);
+            if ($url != null) {
+                $data['file_skl'] = $url;
+                $data['size_skl'] = $size;
+            }
         }
         $data['processed_date'] = $dateNow;
         $data['processed_by'] = auth()->user()->id;

@@ -87,7 +87,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('Class Year') }}</label>
                                     <input type="text" class="form-control" name="class_year"
-                                        alue="{{ $user->class_year }}" disabled>
+                                        value="{{ $user->class_year }}" disabled>
                                 </div>
 
                                 <div class="mb-3 col-md-6">
@@ -95,11 +95,11 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <input type="text" class="form-control" name="semester"
-                                                alue="{{ $user->semester }}" disabled>
+                                                value="{{ $user->getSemester() }}" disabled>
                                         </div>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" name="academic_year"
-                                                alue="{{ $user->academic_year }}" disabled>
+                                                value="{{ $user->getAcademicYear() }}" disabled>
                                         </div>
                                     </div>
 
@@ -239,7 +239,7 @@
                                     @endif
                                 </div>
                             </div>
-                            @if ($diplomaRetrievalRequest->form_status != 'Draft')
+                            @if ($diplomaRetrievalRequest->form_status != 'Draft' && $diplomaRetrievalRequest->submission_date != null)
                                 <div class="mt-2">
                                     <button type="submit" value="Sent" name="action"
                                         class="btn btn-primary me-2 swalConfirmation">{{ __('Send') }}</button>
