@@ -13,14 +13,23 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">{{ __('Retrieval of Diploma and Transcript') }}</h5>
+                    <div class="card-header d-flex justify-content-between align-items-center border-top border-3 border-{{ $diplomaRetrievalRequest->getLabelStatusAdmin() }}"
+                        style="border-bottom: none">
+                        <h5 class="mb-0 badge bg-label-{{ $diplomaRetrievalRequest->getLabelStatusAdmin() }}">
+                            {{ __('Retrieval of Diploma and Transcript') }}
+                        </h5>
+                        <span class="float-end badge bg-label-{{ $diplomaRetrievalRequest->getLabelStatusAdmin() }}">
+                            {{ $diplomaRetrievalRequest->getFormStatusAdmin() }}
+                        </span>
+                    </div>
                     <!-- Account -->
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                             <img src="{{ $user->imgUrl() }}" alt="user-avatar" class="d-block rounded" height="100"
                                 width="100" id="uploadedAvatar" />
                             <div class="button-wrapper">
-                                <p class="text-primary mb-0"><strong>{{ $user->first_name }} {{ $user->last_name }}</strong>
+                                <p class="text-primary mb-0"><strong>{{ $user->first_name }}
+                                        {{ $user->last_name }}</strong>
                                 </p>
                                 <p class="text-primary mb-0">{{ $user->npm }}</p>
                             </div>
@@ -212,39 +221,43 @@
                             </div>
                         </div>
                         <hr class="my-0" />
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label">{{ __('Leave a Comment') }}</label>
-                                    <textarea class="form-control  @error('comment') is-invalid @enderror" rows="3" name="comment">{{ isset($diplomaRetrievalRequest) ? $diplomaRetrievalRequest->comment : old('comment') }}</textarea>
-                                    @error('comment')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                        <div class="card border-bottom border-3 border-{{ $diplomaRetrievalRequest->getLabelStatusAdmin() }}"
+                            style="border-top:none; border-right:none; border-left:none;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">{{ __('Leave a Comment') }}</label>
+                                        <textarea class="form-control  @error('comment') is-invalid @enderror" rows="3" name="comment">{{ isset($diplomaRetrievalRequest) ? $diplomaRetrievalRequest->comment : old('comment') }}</textarea>
+                                        @error('comment')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="upload_file"
+                                            class="form-label">{{ __('Upload the Temporary Graduation Certificate') }}</label>
+                                        <input class="form-control @error('upload_file') is-invalid @enderror"
+                                            type="file" id="upload_file" name="upload_file"
+                                            value="{{ old('upload_file') }}" />
+                                        @error('upload_file')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        @if ($diplomaRetrievalRequest->pathUrlSKL())
+                                            <a href="{{ $diplomaRetrievalRequest->pathUrlSKL() }}"
+                                                target="_blank">{{ $diplomaRetrievalRequest->baseNameUrlSKL() }}</a>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="upload_file"
-                                        class="form-label">{{ __('Upload the Temporary Graduation Certificate') }}</label>
-                                    <input class="form-control @error('upload_file') is-invalid @enderror" type="file"
-                                        id="upload_file" name="upload_file" value="{{ old('upload_file') }}" />
-                                    @error('upload_file')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                    @if ($diplomaRetrievalRequest->pathUrlSKL())
-                                        <a href="{{ $diplomaRetrievalRequest->pathUrlSKL() }}"
-                                            target="_blank">{{ $diplomaRetrievalRequest->baseNameUrlSKL() }}</a>
-                                    @endif
-                                </div>
+                                @if ($diplomaRetrievalRequest->form_status != 'Draft' && $diplomaRetrievalRequest->submission_date != null)
+                                    <div class="mt-2">
+                                        <button type="submit" value="Sent" name="action"
+                                            class="btn btn-primary me-2 swalConfirmation">{{ __('Send') }}</button>
+                                    </div>
+                                @endif
                             </div>
-                            @if ($diplomaRetrievalRequest->form_status != 'Draft' && $diplomaRetrievalRequest->submission_date != null)
-                                <div class="mt-2">
-                                    <button type="submit" value="Sent" name="action"
-                                        class="btn btn-primary me-2 swalConfirmation">{{ __('Send') }}</button>
-                                </div>
-                            @endif
                         </div>
                     </form>
                 </div>

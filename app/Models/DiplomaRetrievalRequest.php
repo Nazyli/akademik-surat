@@ -76,7 +76,7 @@ class DiplomaRetrievalRequest extends Model
             case 'Finished':
                 return 'success';
             default:
-                return '';
+                return 'dark';
         }
     }
 
@@ -97,7 +97,9 @@ class DiplomaRetrievalRequest extends Model
 
     public function getFormStatusAdmin()
     {
-        if ($this->form_status == 'Sent') {
+        if ($this->form_status == null) {
+            return "Draft";
+        } else if ($this->form_status == 'Sent') {
             return "Not Processed";
         } else {
             return $this->form_status;
