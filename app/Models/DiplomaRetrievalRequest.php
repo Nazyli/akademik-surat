@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -20,6 +21,7 @@ class DiplomaRetrievalRequest extends Model
         'form_status',
         'submission_date',
         'processed_date',
+        'diploma_collection_date',
         'user_note',
         'comment',
         'processed_by',
@@ -113,5 +115,10 @@ class DiplomaRetrievalRequest extends Model
     public function baseNameUrlSKL()
     {
         return isset($this->file_skl) ? basename($this->file_skl) : null;
+    }
+
+    public function diplomaCollectionOnlyDate()
+    {
+        return isset($this->diploma_collection_date) ?  Carbon::parse($this->diploma_collection_date)->format('Y-m-d') : null;
     }
 }

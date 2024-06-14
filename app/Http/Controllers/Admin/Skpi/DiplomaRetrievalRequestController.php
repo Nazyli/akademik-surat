@@ -49,10 +49,11 @@ class DiplomaRetrievalRequestController extends Controller
                     'submission_date',
                     'departments.department_name as department_name',
                     'study_programs.study_program_name as study_program_name',
-                    'diploma_retrieval_requests.processed_date',
+                    'diploma_retrieval_requests.diploma_collection_date',
                     'diploma_retrieval_requests.updated_by',
                     DB::raw("(select COUNT(*) from diploma_retrieval_requests_details t where t.user_id = diploma_retrieval_requests.user_id and diploma_retrieval_requests.id  = t.request_id) as total"),
-                    DB::raw("(select COUNT(*) from diploma_retrieval_requests_details t where t.user_id = diploma_retrieval_requests.user_id and diploma_retrieval_requests.id  = t.request_id and form_status  ='Finished') as finished")
+                    DB::raw("(select COUNT(*) from diploma_retrieval_requests_details t where t.user_id = diploma_retrieval_requests.user_id and diploma_retrieval_requests.id  = t.request_id and form_status  ='Finished') as finished"),
+                    DB::raw('CASE WHEN request_skl = "1" THEN "Yes" ELSE "No" END AS request_skl')
                 );
 
             if ($departmentId != 0) {
@@ -81,6 +82,10 @@ class DiplomaRetrievalRequestController extends Controller
                         </br><span style="font-size:85%"; class="text-muted">' . $row->getUpdatedByUserFirstName() . '</span>';
                     return $badge;
                 })
+                ->addColumn('skl', function ($row) {
+                    $badge = ($row->request_skl == "Yes") ? "warning" : "danger";
+                    return '<span class="badge bg-label-' . $badge . '">' . $row->request_skl . '</span>';
+                })
                 ->addColumn('updated_by', function ($row) {
                     return $row->getUpdatedByUserFirstName();
                 })
@@ -90,7 +95,7 @@ class DiplomaRetrievalRequestController extends Controller
                     return $btn;
                 })->addColumn('total', function ($row) {
                     return $row->finished . "/" . $row->total;
-                })->rawColumns(['status', 'action'])
+                })->rawColumns(['status', 'skl', 'action'])
                 ->make(true);
         }
 

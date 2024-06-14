@@ -24,3 +24,6 @@ ALTER TABLE `users` ADD `class` VARCHAR(191) NULL DEFAULT NULL AFTER `phone`, AD
  alter table `diploma_retrieval_requests_details` add constraint `diploma_retrieval_requests_details_requirement_foreign` foreign key (`requirement`) references `diploma_requirement_types` (`id`);
  
  alter table `diploma_retrieval_requests_details` add primary key (`id`);
+
+ALTER TABLE diploma_retrieval_requests ADD diploma_collection_date TIMESTAMP NULL;
+ALTER TABLE diploma_retrieval_requests CHANGE diploma_collection_date diploma_collection_date TIMESTAMP NULL AFTER processed_date;

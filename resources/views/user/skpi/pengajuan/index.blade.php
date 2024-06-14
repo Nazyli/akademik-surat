@@ -445,6 +445,15 @@
                                                 @else
                                                     -
                                                 @endif
+                                                @if ($diplomaRetrievalRequest->diplomaCollectionOnlyDate())
+                                                    </br>
+                                                    </br>
+                                                    <b class="text-primary">{{ __('Diploma has been taken') }} :
+                                                    </b>
+                                                    <p class="text-primary">
+                                                        {{ $diplomaRetrievalRequest->diplomaCollectionOnlyDate() }}
+                                                    </p>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

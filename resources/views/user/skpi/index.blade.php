@@ -126,64 +126,66 @@
                         <h5 class="mb-0">{{ __('Applications') }}</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-hover table-sm">
-                            <thead class="table-info">
-                                <tr>
-                                    <th style="width: 25px;">No</th>
-                                    <th>{{ __('Requirement') }}</th>
-                                    <th style="width: 200px;">{{ __('File Upload') }}</th>
-                                    <th>{{ __('User Notes') }}</th>
-                                    <th>{{ __('Comment') }}</th>
-                                    <th style="width: 150px;">#</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                                @foreach ($dataHome->diplomaRequestDetail as $key => $value)
+                        <div class="col-12 table-responsive">
+                            <table class="table table-bordered table-hover table-sm">
+                                <thead class="table-info">
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td style="font-size: 85%">
-                                            {{ getLocalizedKey($value, 'requirement') }} @if ($value->required == '1')
-                                                <span style="color: red;">*</span>
-                                            @endif
-                                            @isset($value->description)
-                                                <small>
-                                                    <p style="line-height:15px; font-size:90%;" class="mb-0 text-muted">
-                                                        <label class="text-primary">*</label>
-                                                        {{ getLocalizedKey($value, 'description') }}
-                                                    </p>
-                                                </small>
-                                            @endisset
-                                        </td>
-                                        <td>
-                                            <small>
-                                                <a target="_blank" href="{{ $value->pathUrl() }}">
-                                                    <p
-                                                        style="line-height:15px; font-size:85%;"class="mb-0 text-{{ $value->getLabelStatus() }}">
-                                                        {{ $value->basenameUrl() }}</p>
-                                                </a>
-                                            </small>
-                                        </td>
-                                        <td style="0.25rem 6px !important; font-size: 85%">
-                                            <p style="font-size: 85%; line-height:15px;">
-                                                {{ $value->user_notes }}</p>
-                                        </td>
-                                        <td style="0.25rem 6px !important; font-size: 85%">
-                                            <p style="font-size: 85%; line-height:15px;">
-                                                {{ $value->comment }}</p>
-                                        </td>
-                                        <td>
-                                            @if ($value->form_status == 'Finished')
-                                                <i class="bx bx-check bx-sm text-success"></i>
-                                            @elseif($value->form_status == 'Revisi')
-                                                <i class="bx bx-x bx-sm text-danger"></i>
-                                            @elseif ($value->form_status == 'Sent')
-                                                <i class="bx bx-loader bx-spin bx-sm text-warning"></i>
-                                            @endif
-                                        </td>
+                                        <th style="width: 25px;">No</th>
+                                        <th>{{ __('Requirement') }}</th>
+                                        <th style="width: 200px;">{{ __('File Upload') }}</th>
+                                        <th>{{ __('User Notes') }}</th>
+                                        <th>{{ __('Comment') }}</th>
+                                        <th style="width: 150px;">#</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                    @foreach ($dataHome->diplomaRequestDetail as $key => $value)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td style="font-size: 85%">
+                                                {{ getLocalizedKey($value, 'requirement') }} @if ($value->required == '1')
+                                                    <span style="color: red;">*</span>
+                                                @endif
+                                                @isset($value->description)
+                                                    <small>
+                                                        <p style="line-height:15px; font-size:90%;" class="mb-0 text-muted">
+                                                            <label class="text-primary">*</label>
+                                                            {{ getLocalizedKey($value, 'description') }}
+                                                        </p>
+                                                    </small>
+                                                @endisset
+                                            </td>
+                                            <td>
+                                                <small>
+                                                    <a target="_blank" href="{{ $value->pathUrl() }}">
+                                                        <p
+                                                            style="line-height:15px; font-size:85%;"class="mb-0 text-{{ $value->getLabelStatus() }}">
+                                                            {{ $value->basenameUrl() }}</p>
+                                                    </a>
+                                                </small>
+                                            </td>
+                                            <td style="0.25rem 6px !important; font-size: 85%">
+                                                <p style="font-size: 85%; line-height:15px;">
+                                                    {{ $value->user_notes }}</p>
+                                            </td>
+                                            <td style="0.25rem 6px !important; font-size: 85%">
+                                                <p style="font-size: 85%; line-height:15px;">
+                                                    {{ $value->comment }}</p>
+                                            </td>
+                                            <td>
+                                                @if ($value->form_status == 'Finished')
+                                                    <i class="bx bx-check bx-sm text-success"></i>
+                                                @elseif($value->form_status == 'Revisi')
+                                                    <i class="bx bx-x bx-sm text-danger"></i>
+                                                @elseif ($value->form_status == 'Sent')
+                                                    <i class="bx bx-loader bx-spin bx-sm text-warning"></i>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>

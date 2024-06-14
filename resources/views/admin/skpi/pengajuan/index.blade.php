@@ -73,15 +73,16 @@
                         </div>
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="table table-bordered user_datatable">
+                                <table class="table table-bordered user_datatable table-sm" style="font-size: 90%">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>{{ __('Name') }}</th>
                                             <th>{{ __('Department') }}</th>
                                             <th>{{ __('Study Program') }}</th>
-                                            <th>{{ __('Date of Application') }}</th>
-                                            <th>{{ __('Date of Process') }}</th>
+                                            <th>{{ __('App. Date') }}</th>
+                                            <th>{{ __('Letter Coll. Date') }}</th>
+                                            <th>{{ __('SKL') }}</th>
                                             <th>{{ __('Processed') }}</th>
                                             <th>{{ __('Status') }}</th>
                                             <th>{{ __('Action') }}</th>
@@ -187,8 +188,17 @@
                             name: 'submission_date'
                         },
                         {
-                            data: 'processed_date',
-                            name: 'processed_date'
+                            data: 'diploma_collection_date',
+                            name: 'diploma_collection_date'
+                        },
+                        {
+                            data: 'skl',
+                            name: 'skl',
+                            orderable: true,
+                            searchable: false,
+                            orderData: [
+                                10
+                            ]
                         },
                         {
                             data: 'total',
@@ -201,7 +211,7 @@
                             orderable: true,
                             searchable: false,
                             orderData: [
-                                9
+                                11
                             ]
                         },
                         {
@@ -209,6 +219,13 @@
                             name: 'action',
                             orderable: false,
                             searchable: false
+                        },
+
+                        {
+                            data: 'request_skl',
+                            name: 'request_skl',
+                            visible: false,
+                            orderable: true,
                         },
                         {
                             data: 'form_status',

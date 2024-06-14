@@ -70,7 +70,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="table table-bordered user_datatable">
+                                <table class="table table-bordered user_datatable table-sm" style="font-size: 90%">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -78,8 +78,8 @@
                                             <th>{{ __('Department') }}</th>
                                             <th>{{ __('Study Program') }}</th>
                                             <th>{{ __('Form Type') }}</th>
-                                            <th>{{ __('Date of Application') }}</th>
-                                            <th>{{ __('Date of Process') }}</th>
+                                            <th>{{ __('App. Date') }}</th>
+                                            <th>{{ __('Proc. Date') }}</th>
                                             <th>{{ __('Status') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>

@@ -40,6 +40,9 @@
     "Form Type": "Jenis Form",
     "Date of Application": "Tanggal Pengajuan",
     "Date of Process": "Tanggal Pemrosesan",
+    "App. Date": "Tgl. Pengajuan",
+    "Proc. Date": "Tgl. Pemrosesan",
+    "Letter Coll. Date":"Tgl. Pengambilan Ijazah",
     "Status": "Status",
     "Name": "Nama",
     "Action": "Aksi",
@@ -165,5 +168,8 @@
     "Upload the Temporary Graduation Certificate":"Unggah Surat Keterangan Lulus Sementara",
     "Temporary Graduation Certificate":"Surat Keterangan Lulus Sementara",
     "Sex":"L/P",
-    "Updated By" : "Diperbarui oleh"
+    "Updated By" : "Diperbarui oleh",
+    "Diploma Collection Date" : "Tanggal Pengambilan Ijazah",
+    "Temp. Grad. Cert":"SKL Smt",
+    "Diploma has been taken":"Ijazah telah diambil"
 }

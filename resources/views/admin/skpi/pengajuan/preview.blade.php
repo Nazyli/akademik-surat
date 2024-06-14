@@ -227,7 +227,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label">{{ __('Leave a Comment') }}</label>
-                                        <textarea class="form-control  @error('comment') is-invalid @enderror" rows="3" name="comment">{{ isset($diplomaRetrievalRequest) ? $diplomaRetrievalRequest->comment : old('comment') }}</textarea>
+                                        <textarea class="form-control  @error('comment') is-invalid @enderror" rows="4" name="comment">{{ old('comment', $diplomaRetrievalRequest->comment) }}</textarea>
                                         @error('comment')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -235,20 +235,30 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="upload_file"
-                                            class="form-label">{{ __('Upload the Temporary Graduation Certificate') }}</label>
-                                        <input class="form-control @error('upload_file') is-invalid @enderror"
-                                            type="file" id="upload_file" name="upload_file"
-                                            value="{{ old('upload_file') }}" />
-                                        @error('upload_file')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        @if ($diplomaRetrievalRequest->pathUrlSKL())
-                                            <a href="{{ $diplomaRetrievalRequest->pathUrlSKL() }}"
-                                                target="_blank">{{ $diplomaRetrievalRequest->baseNameUrlSKL() }}</a>
-                                        @endif
+                                        <div class="row">
+                                            <div class="mb-3 col-12">
+                                                <label for="upload_file"
+                                                    class="form-label">{{ __('Upload the Temporary Graduation Certificate') }}</label>
+                                                <input class="form-control @error('upload_file') is-invalid @enderror"
+                                                    type="file" id="upload_file" name="upload_file"
+                                                    value="{{ old('upload_file') }}" />
+                                                @error('upload_file')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                @if ($diplomaRetrievalRequest->pathUrlSKL())
+                                                    <a href="{{ $diplomaRetrievalRequest->pathUrlSKL() }}"
+                                                        target="_blank">{{ $diplomaRetrievalRequest->baseNameUrlSKL() }}</a>
+                                                @endif
+                                            </div>
+                                            <div class="mb-3 col-12">
+                                                <label class="form-label">{{ __('Diploma Collection Date') }}</label>
+                                                <input type="datetime-local" class="form-control"
+                                                    name="diploma_collection_date"
+                                                    value="{{ $diplomaRetrievalRequest->diploma_collection_date }}" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 @if ($diplomaRetrievalRequest->form_status != 'Draft' && $diplomaRetrievalRequest->submission_date != null)
